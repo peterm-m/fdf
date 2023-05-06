@@ -25,11 +25,15 @@ int	ft_read_key(int key, void *param)
 	exit(EXIT_SUCCESS);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_win	win;
 	t_img	img;
+	t_list	*map;
 
+	if (argc != 2)
+		return (EXIT_FAILURE);
+	ft_parser(argv[1], map);
 	win = ft_program(1920, 1080, "Hello world!");
 	if (!win.mlx)
 		return (EXIT_FAILURE);
