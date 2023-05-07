@@ -1,11 +1,12 @@
 CC = gcc
 SRC = primitives.c\
+	  ft_parser.c\
 	  bitmap_utils.c\
 	  fdf.c
 OBJ = $(SRC:%.c=%.o)
 NAME = fdf
 
-FLAGS =  -lmlx -framework OpenGL -framework AppKit
+FLAGS =  -I../lib_basic -lmlx -lm -framework OpenGL -framework AppKit
 
 all: $(NAME)
 

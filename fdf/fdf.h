@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/06 14:15:23 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:07:07 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 
 # define F_ESC 53
 
+typedef struct s_map 
+{
+	void *map;
+}	t_map;
 /*
 * Basic
 */
@@ -85,4 +89,7 @@ int		ft_rgb_color(int o, int r, int g, int b);
 void	ft_put_pixel(t_img img, int x, int y, int color);
 
 void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1);
+void plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1);
+void	ft_parser(char *path, t_map *map);
+
 #endif

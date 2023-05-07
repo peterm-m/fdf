@@ -1,4 +1,4 @@
-#include "fdf.h" 
+#include "fdf.h"
 
 void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1)
 	{
@@ -24,6 +24,24 @@ void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1)
 			r0.y = r0.y + (r1.y - r0.y)/abs(r1.y - r0.y);
 		}
 	}
+}
+
+void plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1)
+{
+   int dx = abs(r1.x-r0.x), sx = r0.x<r1.x ? 1 : -1;
+   int dy = abs(r1.y-r0.y), sy = r0.y<r1.y ? 1 : -1; 
+   int dc = abs(color1-color0), sc = color0<color1 ? 1 : -1; 
+   int dm = (dx > dy ? (dx > dc ? dx : dc) : (dy > dc ? dy : dc)), i = dm;
+   
+   r1.x = r1.y = color1 = dm/2; /* error offset */
+ 
+   for(;;) {  /* loop */
+      ft_put_pixel(*img ,r0.x,r0.y,color0);
+      if (i-- == 0) break;
+      r1.x -= dx; if (r1.x < 0) { r1.x += dm; r0.x += sx; } 
+      r1.y -= dy; if (r1.y < 0) { r1.y += dm; r0.y += sy; } 
+      color1 -= dc; if (color1 < 0) { color1 += dm; color0 += sc; }
+   }
 }
 
 /*
