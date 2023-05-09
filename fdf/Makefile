@@ -6,13 +6,19 @@ SRC = primitives.c\
 OBJ = $(SRC:%.c=%.o)
 NAME = fdf
 
-FLAGS =  -I../lib_basic -lmlx -lm -framework OpenGL -framework AppKit
+LIB_DIR = -L ../minilibx_macos -L ../lib_basic
+LIBS = -lft -lmlx -lm -framework OpenGL -framework AppKit
+INCLUDES  = -I../lib/include -I../lib_basic
+FLAGS = -Wall -Wextra -Werror  -O3
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -L../minilibx_macos $(FLAGS) $(OBJ)  -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME) $(LIB_DIR) $(LIBS) $(INCLUDES)
+
+parser:
+	gcc -fsanitize=address -g3 ft_parser.c -o parser  $(LIB_DIR) $(LIBS) $(INCLUDES)
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror  -O3 -c $< -o $@
+	$(CC)  -c $< -o $@
 
