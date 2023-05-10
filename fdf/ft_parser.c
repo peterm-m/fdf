@@ -12,30 +12,13 @@
 
 #include "fdf.h"
 
-void	ft_parser(char *path, t_map *map)
-{
-	char	buf[BUFSIZ];
-	int		fd;
-	int		len;
-	int		aux;
+size_t	ft_wc_lines(char *path)
+{}
 
-	fd = open(path, O_RDONLY);
-	len = read(fd, buf, BUFSIZ);
-	aux = len;
-	printf("%d\n", __LINE__);
-	while (aux > 0)
-	{
-		aux = read(fd, buf, BUFSIZ);
-		if (aux > 0)
-			len += aux;
-		else
-			break ;
-	}
-	printf("%d\n", len);
-}
-//	fd = open(path, O_RDONLY);
+size_t	ft_wc_word(char *path)
+{}
 
-size_t	ft_file_len(char *path)
+size_t	ft_wc_bytes(char *path)
 {
 	size_t	len;
 	size_t	aux;
@@ -63,7 +46,7 @@ char	*ft_getfile(char *path)
 	char	*file;
 	int		fd;
 
-	len_file = ft_file_len(path);
+	len_file = ft_wc_bytes(path);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
@@ -77,7 +60,17 @@ char	*ft_getfile(char *path)
 	return (file);
 }
 
-static void	ft_mapline(char *line, int x)
+// test mapas:
+//	- no todos terminan las lineas con space\n
+//	- algunos alternan entre solo z y z,color
+//	- comprobar si hay mapas con lineas desiguales.
+//	- crear mapa test para prueba de estres: concatenar t1.fdf varias veces.
+
+// posible map:
+// map_color
+// map_z
+
+static void	ft_mapline(char *line, t_map *map)
 {
 	char	**points;
 	char	**point;
@@ -89,13 +82,9 @@ static void	ft_mapline(char *line, int x)
 	while (points[y])
 	{
 		point = ft_split(points[y], ',');
-		printf("x = %d, y = %d z = %s ", x, y, point[0]);
 		free(point[0]);
 		if (point[1])
-		{
-			printf("color %s\n", point[1]);
 			free(point[1]);
-		}
 		else
 			printf("\n");
 		free(point);
@@ -104,21 +93,63 @@ static void	ft_mapline(char *line, int x)
 	free(points);
 }
 
-int	main(void)
+t_map	*ft_newmap(void)
+{
+	t_map	*new;
+
+	new = (t_map *) malloc(sizeof(t_map));
+	if (new)
+	{
+		new->max_x = 0;
+		new->max_y = 0;
+		new->arr_z = NULL;
+		new->arr_color = NULL;
+	}
+	return (new);
+}
+
+void	ft_delmap(t_map *map)
+{
+	if (map->arr_z)
+		free(map->arr_z);
+	if (map->arr_color)
+		free(map->arr_color);
+	free(map);
+}
+
+void	ft_fillmap(char **lines, t_map *map)
+{
+	char **points;
+
+	while(lines[++map->max_x])
+		continue ;
+	points = ft_split(lines[0], ' ');
+	while(points[++map->max_y])
+		continue ;
+	map->arr_z = (int *) malloc(map->max_x * map->max_y);
+	if (! map->arr_z)
+		return ;
+	map->arr_color = (int *) malloc(map->max_x * map->max_y);
+	if (! map->arr_color)
+		return ;
+}
+
+int	ft_parser(char *path)
 {
 	char	*file;
 	char	**lines;
 	char	line;
-	int		i;
+	t_map	*map;
 
-	i = -1;
-	file = ft_getfile("../test_maps/t2.fdf");
+	file = ft_getfile(path);
 	if (!file)
+		return (EXIT_FAILURE);
+	map = ft_newmap();
+	if (!map)
 		return (EXIT_FAILURE);
 	lines = ft_split(file, '\n');
 	free(file);
-	while (lines[++i])
-		ft_mapline(lines[i], i);
+	ft_fillmap(lines, map);
 	free(lines);
-	printf("num lines %d\n", i);
+	return(EXIT_SUCCESS);
 }

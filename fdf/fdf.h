@@ -22,10 +22,6 @@
 
 # define F_ESC 53
 
-typedef struct s_map 
-{
-	void *map;
-}	t_map;
 /*
 * Basic
 */
@@ -84,6 +80,14 @@ typedef struct s_vec3 {
 	int	z;
 }	t_vec3;
 
+typedef struct s_map
+{
+	int	max_x;
+	int	max_y;
+	int	*arr_z;
+	int	*arr_color;
+}	t_map;
+
 t_img	ft_image(int w, int h, t_win win);
 int		ft_color_rgb(int color, char type);
 void	ft_put_pixel(t_img img, int x, int y, int color);
@@ -91,7 +95,7 @@ int		ft_rgb_color(int o, int r, int g, int b);
 void	ft_put_pixel(t_img img, int x, int y, int color);
 
 void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1);
-void plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1);
-void	ft_parser(char *path, t_map *map);
+void	plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1);
+int		ft_parser(char *path);
 
 #endif

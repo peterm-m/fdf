@@ -6,9 +6,12 @@ SRC = primitives.c\
 OBJ = $(SRC:%.c=%.o)
 NAME = fdf
 
-LIB_DIR = -L ../minilibx_macos -L ../lib_basic
-LIBS = -lft -lmlx -lm -framework OpenGL -framework AppKit
-INCLUDES  = -I../lib/include -I../lib_basic
+LIB_DIR = -L ../minilibx-linux -L ../lib_basic
+LIBS = -lmlx -lXext -lX11 -lft
+INCLUDES = -I ../minilibx-linux -I../lib_basic/include
+#LIB_DIR = -L ../minilibx_macos -L ../lib_basic
+#LIBS = -lft -lmlx -lm -framework OpenGL -framework AppKit
+#INCLUDES  = -I../lib/include -I../lib_basic/include
 FLAGS = -Wall -Wextra -Werror  -O3
 
 all: $(NAME)
