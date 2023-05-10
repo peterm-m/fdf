@@ -104,21 +104,22 @@ static void	ft_mapline(char *line, int x)
 	free(points);
 }
 
-int	main(void)
-{
-	char	*file;
-	char	**lines;
-	char	line;
-	int		i;
-
-	i = -1;
-	file = ft_getfile("../test_maps/t2.fdf");
-	if (!file)
-		return (EXIT_FAILURE);
-	lines = ft_split(file, '\n');
-	free(file);
-	while (lines[++i])
-		ft_mapline(lines[i], i);
-	free(lines);
-	printf("num lines %d\n", i);
-}
+//int	main(void)
+//{
+//	char	*file;
+//	char	**lines;
+//	char	line;
+//	int		i;
+//
+//	i = -1;
+//	file = ft_getfile("../test_maps/t2.fdf");
+//	if (!file)
+//		return (EXIT_FAILURE);
+//	lines = ft_split(file, '\n');
+//	free(file);
+//	while (lines[++i])
+//		ft_mapline(lines[i], i);
+//	free(lines);
+//	printf("num lines %d\n", i);
+//}
+//

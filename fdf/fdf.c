@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
+/*   Updated: 2023/05/10 20:54:00 by pedromar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 t_win	ft_program(int h, int w, char *str)
@@ -17,12 +29,12 @@ int	ft_end(t_win *win)
 
 int	ft_read_key(int key, void *param)
 {
-	t_img *img;
+	t_img	*img;
 
 	img = (t_img *) param;
-	if(key == F_ESC)
+	if (key == F_ESC)
 		ft_end(&img->win);
-	exit(EXIT_SUCCESS);
+	return(EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -39,11 +51,11 @@ int	main(int argc, char **argv)
 	if (!win.mlx)
 		return (EXIT_FAILURE);
 	img = ft_image(1920, 1080, win);
-	mlx_hook(win.win, 17, 1L<<0, ft_end, &win);
+	mlx_hook(win.win, 17, 1L << 0, ft_end, &win);
 	mlx_key_hook(win.win, ft_read_key, &win);
-	t_vec2 r0; r0.x = 100; r0.y = 100; int color0 = 0x00FF0000;
-	t_vec2 r1; r1.x = 1000; r1.y = 1000; int color1 = 0x000000FF;
-	plotLine3d(img,r0, color0, r1, color1);
+	t_vec2 r0; r0.x = 1; r0.y = 1; int color0 = 0x00AA0000;
+	t_vec2 r1; r1.x = 1000; r1.y = 1000; int color1 = 0x00FF0000;
+	plotLine3d(&img, r0, color0 ,r1, color1);
 	mlx_put_image_to_window(win.mlx, win.win, img.ptr, 0, 0);
 	mlx_loop(win.mlx);
 	exit(EXIT_SUCCESS);

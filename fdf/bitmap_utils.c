@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bitmap_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 21:06:18 by pedromar          #+#    #+#             */
+/*   Updated: 2023/05/10 21:25:16 by pedromar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 t_img	ft_image(int w, int h, t_win win)
@@ -27,11 +39,7 @@ int	ft_color_rgb(int color, char type)
 
 int	ft_rgb_color(int o, int r, int g, int b)
 {
-	(void ) o;
-	(void ) r;
-	(void ) g;
-	(void ) b;
-	return(0);
+	return (r << CL_POS_RED + g << CL_POS_GREEN + b << CL_POS_BLUE + o);
 }
 
 void	ft_put_pixel(t_img img, int x, int y, int color)
