@@ -34,7 +34,13 @@ int	main(int argc, char **argv)
 	map = NULL;
 	if (argc != 2)
 		return (EXIT_FAILURE);
-	ft_parser(argv[1]);
+	ft_parser(argv[1], map);
+	int x = 0, y = 0;
+	while (x < map->max_x)
+	{
+		while (y < map->max_y)
+			printf(map->max_y * x + y);
+	}
 	return(0);
 	win = ft_program(1920, 1080, "fdf");
 	if (!win.mlx)

@@ -96,6 +96,6 @@ void	ft_put_pixel(t_img img, int x, int y, int color);
 
 void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1);
 void	plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1);
-int		ft_parser(char *path);
+void	ft_parser(char *path, t_map *map);
 
 #endif
