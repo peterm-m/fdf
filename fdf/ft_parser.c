@@ -106,6 +106,7 @@ t_map *ft_newmap(int x, int y) {
     return (new);
 }
 
+<<<<<<< HEAD
 void ft_fillmap(char **lines, t_map *map) {
     char **points;
     int x;
@@ -139,3 +140,24 @@ void ft_parser(char *path, t_map *map) {
     free(lines);
     return (EXIT_SUCCESS);
 }
+=======
+//int	main(void)
+//{
+//	char	*file;
+//	char	**lines;
+//	char	line;
+//	int		i;
+//
+//	i = -1;
+//	file = ft_getfile("../test_maps/t2.fdf");
+//	if (!file)
+//		return (EXIT_FAILURE);
+//	lines = ft_split(file, '\n');
+//	free(file);
+//	while (lines[++i])
+//		ft_mapline(lines[i], i);
+//	free(lines);
+//	printf("num lines %d\n", i);
+//}
+//
+>>>>>>> c234bd7ea3a2808b16b4d4add6aeeca11f934111

@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/07 17:07:07 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:00:49 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,21 @@
 # include "libft.h"
 # include <unistd.h>
 # include <stdio.h>
- #include <fcntl.h>
+# include <fcntl.h>
 # include <stdlib.h>
 
 # define F_ESC 53
 
+<<<<<<< HEAD
+=======
+typedef struct s_map
+{
+	int	x_max;
+	int	y_max;
+	int	*arr_z;
+	int	*arr_color;
+}	t_map;
+>>>>>>> c234bd7ea3a2808b16b4d4add6aeeca11f934111
 /*
 * Basic
 */
