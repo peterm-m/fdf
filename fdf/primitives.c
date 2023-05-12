@@ -1,8 +1,8 @@
 #include "fdf.h"
 
-void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1)
+void	ft_plot_line(t_img *img, int color, t_ivec2 r0, t_ivec2 r1)
 	{
-	t_vec2	dr;
+	t_ivec2	dr;
 	int		err;
 
 	dr.x = abs(r0.x - r1.x);
@@ -27,7 +27,7 @@ void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1)
 }
 
 
-void	plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1)
+void	plotLine3d(t_img *img, t_ivec2 r0, int color0, t_ivec2 r1, int color1)
 {
 	int	dx = abs(r1.x - r0.x),	sx = r0.x<r1.x ? 1 : -1;
 	int	dy = abs(r1.y - r0.y),	sy = r0.y<r1.y ? 1 : -1;
@@ -44,9 +44,9 @@ void	plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1)
 }
 
 /*
-void	ft_plot_circle(t_data *data,int color , int rad, t_vec2 r0)
+void	ft_plot_circle(t_data *data,int color , int rad, t_ivec2 r0)
 {
-	t_vec2 r;
+	t_ivec2 r;
 	int err;
 	
 	r.x = -rad;

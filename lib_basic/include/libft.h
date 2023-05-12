@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:40:55 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/08 04:24:12 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/12 18:41:49 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define LIBFT_H
 
 # include <stdint.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
+
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -34,6 +35,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_isspace(int c);
 
 // string
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
@@ -61,6 +63,7 @@ char	**ft_split(char const *s, char c);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int i);
 void	ft_bzero(void *s, size_t n);
+int		ft_atoi_base(char *str, int str_base);
 
 // I/O
 void	ft_putstr_fd(char *str, int filedes);
@@ -68,22 +71,22 @@ void	ft_putnbr_fd(int nb, int filedes);
 void	ft_putendl_fd(char *str, int filedes);
 void	ft_putchar_fd(char c, int fildes);
 char	*gnl(int fd, char sep);
-size_t  ft_wc_lines(char *path);
-size_t  ft_wc_words(char *path);
-size_t  ft_wc_bytes(char *path);
-char    *ft_getfile(char *path);
+size_t	ft_wc_lines(char *path);
+size_t	ft_wc_words(char *path);
+size_t	ft_wc_bytes(char *path);
+char	*ft_getfile(char *path);
 //char  *get_file
 //char  *get_next_line
 // printf
-int     ft_printf(const char *str_f, ...);
-int     ft_vaprintf(const char *str_f, va_list va);
-int     ft_switch_conversion(const char **str_f, va_list va, t_format *fmt);
-int     ft_uint_conversion(t_format *fmt, va_list va);
-int     ft_sint_conversion(t_format *fmt, va_list va);
-int     ft_char_conversion(t_format *fmt, char a);
-int     ft_str_conversion(t_format *fmt, const char *str);
-int     ft_double_conversion(void );
-int     ft_lluitoa(unsigned long long int num, t_format *fmt);
+int		ft_printf(const char *str_f, ...);
+int		ft_vaprintf(const char *str_f, va_list va);
+int		ft_switch_conversion(const char **str_f, va_list va, t_format *fmt);
+int		ft_uint_conversion(t_format *fmt, va_list va);
+int		ft_sint_conversion(t_format *fmt, va_list va);
+int		ft_char_conversion(t_format *fmt, char a);
+int		ft_str_conversion(t_format *fmt, const char *str);
+int		ft_double_conversion(void );
+int		ft_lluitoa(unsigned long long int num, t_format *fmt);
 
 // list
 t_list	*ft_lstnew(void *data); //  creator
@@ -100,10 +103,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_dlist	*ft_dlstnew(void *data); //  creator
 t_dlist	*ft_dlstgeth(t_dlist *lst); //  getters
 t_dlist	*ft_dlstgetb(t_dlist *lst);
-void    ft_dlstaddb(t_dlist **lst, t_dlist *new); //  method: add
-void    ft_dlstaddf(t_dlist **lst, t_dlist *new);
-void    ft_dlstaddib(t_dlist *lst, t_dlist *new);
-void    ft_dlstaddia(t_dlist *lst, t_dlist *new);
+void	ft_dlstaddb(t_dlist **lst, t_dlist *new); //  method: add
+void	ft_dlstaddf(t_dlist **lst, t_dlist *new);
+void	ft_dlstaddib(t_dlist *lst, t_dlist *new);
+void	ft_dlstaddia(t_dlist *lst, t_dlist *new);
 //void  ft_dlstclear //  method: cleners
 //void  ft_dlstdelone
 //void	ft_dlstiter//  method: iterators

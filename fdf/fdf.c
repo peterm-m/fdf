@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/10 20:54:00 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:35:28 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,24 @@ int	ft_read_key(int key, void *param)
 	img = (t_img *) param;
 	if (key == F_ESC)
 		ft_end(&img->win);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
+}
+
+t_map	*ft_parser(char *path)
+{
+	t_map	*map;
+	char	*file;
+	char	**lines;
+	char	line;
+
+	file = ft_getfile(path);
+	if (!file)
+		return (NULL);
+	lines = ft_split(file, '\n');
+	free(file);
+	map = ft_fillmap(lines);
+	free(lines);
+	return (map);
 }
 
 int	main(int argc, char **argv)
@@ -43,32 +60,15 @@ int	main(int argc, char **argv)
 	t_img	img;
 	t_map	*map;
 
-	map = NULL;
 	if (argc != 2)
 		return (EXIT_FAILURE);
-	ft_parser(argv[1], map);
-	int x = 0, y = 0;
-	while (x < map->max_x)
-	{
-		while (y < map->max_y)
-			printf(map->max_y * x + y);
-	}
-	return(0);
+	map = ft_parser(argv[1]);
 	win = ft_program(1920, 1080, "fdf");
 	if (!win.mlx)
 		return (EXIT_FAILURE);
 	img = ft_image(1920, 1080, win);
 	mlx_hook(win.win, 17, 1L << 0, ft_end, &win);
 	mlx_key_hook(win.win, ft_read_key, &win);
-<<<<<<< HEAD
-	t_vec2 r0; r0.x = 100; r0.y = 100; int color0 = 0x00FF0000;
-	t_vec2 r1; r1.x = 1000; r1.y = 1000; int color1 = 0x000000FF;
-	plotLine3d(&img, r0, color0, r1, color1);
-=======
-	t_vec2 r0; r0.x = 1; r0.y = 1; int color0 = 0x00AA0000;
-	t_vec2 r1; r1.x = 1000; r1.y = 1000; int color1 = 0x00FF0000;
-	plotLine3d(&img, r0, color0 ,r1, color1);
->>>>>>> c234bd7ea3a2808b16b4d4add6aeeca11f934111
 	mlx_put_image_to_window(win.mlx, win.win, img.ptr, 0, 0);
 	mlx_loop(win.mlx);
 	exit(EXIT_SUCCESS);

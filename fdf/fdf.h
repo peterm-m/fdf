@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/10 20:00:49 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:27:52 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-# define F_ESC 53
-
-<<<<<<< HEAD
-=======
-typedef struct s_map
-{
-	int	x_max;
-	int	y_max;
-	int	*arr_z;
-	int	*arr_color;
-}	t_map;
->>>>>>> c234bd7ea3a2808b16b4d4add6aeeca11f934111
 /*
 * Basic
 */
@@ -71,32 +59,57 @@ typedef struct s_img {
 # define CL_POS_GREEN 8
 # define CL_POS_BLUE 0
 
-t_img	ft_image(int w, int h, t_win win);
-int		ft_color_rgb(int color, char type);
-int		ft_regb_color(int o, int r, int g, int b);
-void	ft_put_pixel(t_img img, int x, int y, int color);
+# define F_ESC 53
 
 /*
 *	Geometry primitives
 */
-typedef struct s_vec2 {
+typedef struct s_ivec2 {
 	int	x;
 	int	y;
-}	t_vec2;
+}	t_ivec2;
 
-typedef struct s_vec3 {
+typedef struct s_ivec3 {
 	int	x;
 	int	y;
 	int	z;
+}	t_ivec3;
+
+typedef struct s_vec2 {
+	float	x;
+	float	y;
+}	t_vec2;
+
+typedef struct s_vec3 {
+	float	x;
+	float	y;
+	float	z;
 }	t_vec3;
 
-typedef struct s_map
+typedef struct s_plane
 {
+	t_vec3	n;
+	t_vec3	p0;
+}	t_plane;
+
+typedef struct s_map {
 	int	max_x;
 	int	max_y;
 	int	*arr_z;
 	int	*arr_color;
 }	t_map;
+
+typedef struct s_spectator {
+	t_vec3	pos;
+	t_plane	screen;
+	float	scaling;
+	float	theta;
+}	t_spectator;
+
+t_img	ft_image(int w, int h, t_win win);
+int		ft_color_rgb(int color, char type);
+int		ft_regb_color(int o, int r, int g, int b);
+void	ft_put_pixel(t_img img, int x, int y, int color);
 
 t_img	ft_image(int w, int h, t_win win);
 int		ft_color_rgb(int color, char type);
@@ -104,8 +117,17 @@ void	ft_put_pixel(t_img img, int x, int y, int color);
 int		ft_rgb_color(int o, int r, int g, int b);
 void	ft_put_pixel(t_img img, int x, int y, int color);
 
-void	ft_plot_line(t_img *img, int color, t_vec2 r0, t_vec2 r1);
-void	plotLine3d(t_img *img, t_vec2 r0, int color0, t_vec2 r1, int color1);
-void	ft_parser(char *path, t_map *map);
+void	ft_plot_line(t_img *img, int color, t_ivec2 r0, t_ivec2 r1);
+void	plotLine3d(t_img *img, t_ivec2 r0, int color0, t_ivec2 r1, int color1);
+t_map	*ft_parser(char *path);
+size_t	ft_wc_bytes(char *path);
+char	*ft_getfile(char *path);
+void	ft_mapline(char *line, t_map *map, int x);
+t_map	*ft_newmap(int x, int y);
+t_map	*ft_fillmap(char **lines);
+
+// trasformation
+
+
 
 #endif

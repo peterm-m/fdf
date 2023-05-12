@@ -10,6 +10,7 @@ SRCS :=  \
     ftctype/ft_isprint.c\
     ftctype/ft_tolower.c\
     ftctype/ft_toupper.c\
+    ftctype/ft_isspace.c\
 	\
     ftstring/ft_strchr.c\
     ftstring/ft_strdup.c\
@@ -35,6 +36,7 @@ SRCS :=  \
     ftlib/ft_bzero.c\
     ftlib/ft_itoa.c\
     ftlib/ft_split.c\
+    ftlib/ft_atoi_base.c\
 	\
 	ftio/ft_putchar_fd.c\
     ftio/ft_putendl_fd.c\

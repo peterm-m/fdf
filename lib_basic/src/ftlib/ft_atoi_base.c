@@ -1,22 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/12 18:16:42 by pedromar          #+#    #+#             */
+/*   Updated: 2023/05/12 18:42:11 by pedromar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-int		ft_iswhitespace(char const c)
+static int	base(int c, int base)
 {
-	if (c == ' ' || c == '\n' || c == '\t' || c == '\v'
-		|| c == '\r' || c == '\f')
-		return (1);
-	return (0);
-}
+	char	*str;
+	char	*str2;
+	int		i;
 
-int	base(int c, int base)
-{
-	char *str = "0123456789abcdef";
-	char *str2 = "0123456789ABCDEF";
-	int  i = 0;
-
+	i = 0;
+	str = "0123456789abcdef";
+	str2 = "0123456789ABCDEF";
 	while (i < base)
 	{
 		if (c == str[i] || c == str2[i])
@@ -26,12 +30,16 @@ int	base(int c, int base)
 	return (-1);
 }
 
-int ft_atoi_base(const char *str, int str_base)
+int	ft_atoi_base(char *str, int str_base)
 {
-	int nb = 0;
-	int negatif = 0;
-	int	i = 0;
-	while (ft_iswhitespace(str[i]))
+	int	nb;
+	int	negatif;
+	int	i;
+
+	i = 0;
+	negatif = 0;
+	nb = 0;
+	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
