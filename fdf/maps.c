@@ -1,65 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/12 20:21:41 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/13 14:51:32 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-size_t	ft_wc_bytes(char *path)
-{
-	size_t	len;
-	size_t	aux;
-	int		fd;
-	char	buf[BUFSIZ];
-
-	fd = open(path, O_RDONLY);
-	len = read(fd, buf, BUFSIZ);
-	while (1)
-	{
-		aux = read(fd, buf, BUFSIZ);
-		if (aux > 0)
-			len += aux;
-		else
-		{
-			close(fd);
-			return (len);
-		}
-	}
-}
-
-char	*ft_getfile(char *path)
-{
-	size_t	len_file;
-	char	*file;
-	int		fd;
-
-	len_file = ft_wc_bytes(path);
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	file = (char *)malloc(len_file + 1);
-	if (file)
-	{
-		file[len_file] = '\0';
-		read(fd, file, len_file);
-		close(fd);
-	}
-	return (file);
-}
-
-/*
- *	giuardado del mapa
- *	|----------------------------------------------------------|
- *	| (x0,y0), (x0,y1), ... , (x0,ymax), (x1,y0)...(xmax,ymax) |
- *	|----------------------------------------------------------|
- */
 
 void	ft_mapline(char *line, t_map *map, int x)
 {
@@ -114,7 +65,7 @@ t_map	*ft_newmap(int x, int y)
 	return (new);
 }
 
-t_map	*ft_fillmap(char **lines)s
+t_map	*ft_fillmap(char **lines)
 {
 	t_map	*map;
 	char	**points;
@@ -135,3 +86,27 @@ t_map	*ft_fillmap(char **lines)s
 		ft_mapline(lines[x], map, x);
 	return (map);
 }
+
+t_map	*ft_parser(char *path)
+{
+	t_map	*map;
+	char	*file;
+	char	**lines;
+	char	line;
+
+	file = ft_getfile(path);
+	if (!file)
+		return (NULL);
+	lines = ft_split(file, '\n');
+	free(file);
+	map = ft_fillmap(lines);
+	free(lines);
+	return (map);
+}
+
+/*
+ *	giuardado del mapa
+ *	|----------------------------------------------------------|
+ *	| (x0,y0), (x0,y1), ... , (x0,ymax), (x1,y0)...(xmax,ymax) |
+ *	|----------------------------------------------------------|
+ */

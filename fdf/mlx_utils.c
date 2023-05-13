@@ -1,54 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bitmap_utils.c                                     :+:      :+:    :+:   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 21:06:18 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/10 21:25:16 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/13 15:09:40 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_img	ft_image(int w, int h, t_win win)
+t_win	ft_program(int h, int w, char *str)
+{
+	void	*mlx_ptr;
+	void	*win;
+
+	mlx_ptr = mlx_init();
+	if (!mlx_ptr)
+		exit(EXIT_FAILURE);
+	win = mlx_new_window(mlx_ptr, w, h, str);
+	if (!win)
+		exit(EXIT_FAILURE);
+	return ((t_win){mlx_ptr, win, w, h});
+}
+
+int	ft_end(t_win *win)
+{
+	if (win)
+		mlx_destroy_image(win->mlx, win->win);
+	exit(EXIT_SUCCESS);
+}
+
+t_img	ft_image(t_win win, int w, int h)
 {
 	t_img	img;
 
 	img.win = win;
 	img.ptr = mlx_new_image(win.mlx, w, h);
+	if (!img.ptr)
+		exit(EXIT_FAILURE);
 	img.addr = mlx_get_data_addr(img.ptr, &(img.bpp),
 			&(img.size_line), &(img.endian));
 	img.w = w;
 	img.h = h;
 	return (img);
-}
-
-int	ft_color_rgb(int color, char type)
-{
-	if (type == CL_RED)
-		return ((color & CL_MASK_RED) >> CL_POS_RED);
-	else if (type == CL_GREEN)
-		return ((color & CL_MASK_GREEN) >> CL_POS_GREEN);
-	else if (type == CL_BLUE)
-		return ((color & CL_MASK_BLUE) >> CL_POS_BLUE);
-	else
-		return (0);
-}
-
-int	ft_rgb_color(int o, int r, int g, int b)
-{
-	return (r << CL_POS_RED + g << CL_POS_GREEN + b << CL_POS_BLUE + o);
-}
-
-void	ft_put_pixel(t_img img, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x >= 0 && y >= 0 && x <= img.w && y <= img.h)
-	{
-		dst = img.addr + (y * img.size_line + x * (img.bpp / 8));
-		*(unsigned int *) dst = color;
-	}
 }

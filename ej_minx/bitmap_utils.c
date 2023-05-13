@@ -13,18 +13,6 @@ t_img	ft_image(int w, int h, t_win win)
 	return (img);
 }
 
-int	ft_color_rgb(int color, char type)
-{
-	if (type == CL_RED)
-		return ((color & CL_MASK_RED) >> CL_POS_RED);
-	else if (type == CL_GREEN)
-		return ((color & CL_MASK_GREEN) >> CL_POS_GREEN);
-	else if (type == CL_BLUE)
-		return ((color & CL_MASK_BLUE) >> CL_POS_BLUE);
-	else
-		return (0);
-}
-
 int	ft_rgb_color(int o, int r, int g, int b)
 {
 	(void ) o;

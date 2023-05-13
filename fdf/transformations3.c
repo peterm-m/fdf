@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getfile.c                                       :+:      :+:    :+:   */
+/*   transformations3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 12:17:10 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/13 12:18:31 by pedromar         ###   ########.fr       */
+/*   Created: 2023/05/13 15:57:41 by pedromar          #+#    #+#             */
+/*   Updated: 2023/05/13 16:07:29 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-char	*ft_getfile(char *path)
+void	tr_traslation3(t_vec3 *v, t_vec3 traslation)
 {
-	size_t	len_file;
-	char	*file;
-	int		fd;
+	v->x += traslation.x;
+	v->y += traslation.x;
+	v->z += traslation.z;
+}
 
-	len_file = ft_wc_bytes(path);
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	file = (char *)malloc(len_file + 1);
-	if (file)
-	{
-		file[len_file] = '\0';
-		read(fd, file, len_file);
-		close(fd);
-	}
-	return (file);
+void	tr_scaling3(t_vec3 *v, t_vec3 *scaling_factor)
+{
+	v = (void *) v;
+	scaling_factor = (void *) scaling_factor;
+}
+
+void	tr_rotation3(t_vec3 *v, t_vec3 *rotation)
+{
+	v = (void *) v;
+	rotation = (void *) rotation;
 }

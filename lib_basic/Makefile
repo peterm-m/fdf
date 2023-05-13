@@ -93,7 +93,7 @@ clean:
 	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(CLENER) $(NAME)
 
 re:
 	$(MAKE) fclean
