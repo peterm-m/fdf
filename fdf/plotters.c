@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:07:51 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/13 16:09:23 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:28:22 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_put_pixel(t_img img, int x, int y, int color)
 }
 
 void	ft_plot_line(t_img *img, int color, t_ivec2 r0, t_ivec2 r1)
-	{
+{
 	t_ivec2	dr;
 	int		err;
 

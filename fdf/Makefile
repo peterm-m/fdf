@@ -1,11 +1,13 @@
 NAME = fdf
 
 SRC = plotters.c\
+	  vector.c\
+	  camera.c\
 	  maps.c\
 	  mlx_utils.c\
 	  color.c\
-	  transformations3.c\
-	  transformations2.c\
+	  transformations.c\
+	  plot_map.c\
 	  fdf.c
 
 OBJ = $(SRC:%.c=%.o)

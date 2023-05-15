@@ -6,13 +6,13 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/13 14:51:32 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:34:14 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_mapline(char *line, t_map *map, int x)
+static void	ft_mapline(char *line, t_map *map, int x)
 {
 	char	**points;
 	char	**point;
@@ -39,7 +39,7 @@ void	ft_mapline(char *line, t_map *map, int x)
 	free(points);
 }
 
-t_map	*ft_newmap(int x, int y)
+static t_map	*ft_newmap(int x, int y)
 {
 	t_map	*new;
 
@@ -65,7 +65,7 @@ t_map	*ft_newmap(int x, int y)
 	return (new);
 }
 
-t_map	*ft_fillmap(char **lines)
+static t_map	*ft_fillmap(char **lines)
 {
 	t_map	*map;
 	char	**points;
@@ -87,25 +87,37 @@ t_map	*ft_fillmap(char **lines)
 	return (map);
 }
 
-t_map	*ft_parser(char *path)
+void	ft_parser(char *path, t_map **map)
 {
-	t_map	*map;
 	char	*file;
 	char	**lines;
 	char	line;
 
 	file = ft_getfile(path);
 	if (!file)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	lines = ft_split(file, '\n');
 	free(file);
-	map = ft_fillmap(lines);
+	*map = ft_fillmap(lines);
 	free(lines);
-	return (map);
+}
+
+t_point	ft_point(t_map *map, int x, int y)
+{
+	t_point	p;
+
+	if ((x <= map->max_x) && (x >= 0) && (y <= map->max_y) && (y >= 0))
+	{
+		p.r.x = (float)x;
+		p.r.y = (float)y;
+		p.r.z = (float)map->arr_z[map->max_y * x + y];
+		p.color = map->arr_color[map->max_y * x + y];
+	}
+	return (p);
 }
 
 /*
- *	giuardado del mapa
+ *	 save map
  *	|----------------------------------------------------------|
  *	| (x0,y0), (x0,y1), ... , (x0,ymax), (x1,y0)...(xmax,ymax) |
  *	|----------------------------------------------------------|

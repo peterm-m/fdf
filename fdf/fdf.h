@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/13 17:13:43 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:18:31 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 
 # include "mlx.h"
 # include "libft.h"
+
+# include <math.h>
+
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
 
 /*
-* mlx utils
+* mlx datas
 */
 typedef struct s_win {
 	void	*mlx;
@@ -49,23 +52,12 @@ typedef struct s_map {
 }	t_map;
 
 /*
-*	Geometry primitives
+* geometric data
 */
 typedef struct s_ivec2 {
 	int	x;
 	int	y;
 }	t_ivec2;
-
-typedef struct s_ivec3 {
-	int	x;
-	int	y;
-	int	z;
-}	t_ivec3;
-
-typedef struct s_vec2 {
-	float	x;
-	float	y;
-}	t_vec2;
 
 typedef struct s_vec3 {
 	float	x;
@@ -73,27 +65,70 @@ typedef struct s_vec3 {
 	float	z;
 }	t_vec3;
 
-typedef struct s_plane {
-	t_vec3	n;
-	t_vec3	p0;
-}	t_plane;
+/*     vectoril basis
+*         +z          
+*          |          
+*          |          
+*          |          
+*          -------- +x
+*           \         
+*            \        
+*             \ y+    
+*/
 
-typedef struct s_spectator {
+typedef struct s_base3 {
+	t_vec3	e1;
+	t_vec3	e2;
+	t_vec3	e3;
+}	t_base3;
+
+/*  Camera
+* cam in e1 direction
+*   e2 x screen
+*   e3 y screen
+*/
+
+typedef struct s_cam {
 	t_vec3	pos;
-	t_plane	screen;
-	float	scaling;
-	float	theta;
-}	t_spectator;
+	t_base3	base;
+}	t_cam;
+
+typedef struct s_point {
+	t_vec3	r;
+	int		color;
+}	t_point;
+
+# define F_ESC 53
 
 /*
-* BitMap O-RGB
+* mlx utils
+*/
+# define DEFAULT_WINX 1920
+# define DEFAULT_WINY 1080
+# define DEFAULT_IMGSIZX DEFAULT_WINX
+# define DEFAULT_IMGSIZY DEFAULT_WINY
+
+t_win	ft_program(int h, int w, char *str);
+t_img	ft_image(t_win win, int w, int h);
+int		ft_end(t_win *win);
+
+// vector utils
+float	ft_dot_product(t_vec3 a, t_vec3 b);
+t_vec3	ft_vector_product(t_vec3 *a, t_vec3 *b);
+t_vec3	ft_normalize(t_vec3 a);
+t_vec3	ft_matmul(t_vec3 *a, float **mat);
+t_vec3	ft_sum(t_vec3 v, t_vec3 traslation);
+t_vec3	ft_scaling(t_vec3 v, t_vec3 factors);
+t_vec3	ft_byscalar(t_vec3 v, float a);
+/*
+* ARGB utils
 */
 # define CL_RED 8
 # define CL_GREEN 4
 # define CL_BLUE 2
 # define CL_ALPHA 1
 
-# define CL_MASK_ALPHA    0xFF000000
+# define CL_MASK_ALPHA 0xFF000000
 # define CL_MASK_RED   0x00FF0000
 # define CL_MASK_GREEN 0x0000FF00
 # define CL_MASK_BLUE  0x000000FF
@@ -103,49 +138,45 @@ typedef struct s_spectator {
 # define CL_POS_GREEN 8
 # define CL_POS_BLUE 0
 
-# define F_ESC 53
-
-# define DEFAULT_WINSIZX 1920
-# define DEFAULT_WINSIZY 1080
-# define DEFAULT_IMGSIZX DEFAULT_WINSIZX
-# define DEFAULT_IMGSIZY DEFAULT_WINSIZY
-
-// mlx util
-t_win	ft_program(int h, int w, char *str);
-t_img	ft_image(t_win win, int w, int h);
-int		ft_end(t_win *win);
-
-// color utils
 int		ft_r_color(int color);
 int		ft_g_color(int color);
 int		ft_b_color(int color);
 int		ft_a_color(int color);
 int		ft_color_rgba(int a, int r, int g, int b);
 
-// geometric primitives
+/*
+* Maps
+*/
+void	ft_parser(char *path, t_map **map);
+t_point	ft_point(t_map *map, int x, int y);
+/*
+* Camera
+*/
+// defeault position
+# define DEFAULT_CAM_XPOS 10
+# define DEFAULT_CAM_YPOS 10
+# define DEFAULT_CAM_ZPOS 10
+
+# define DEFAULT_CAM_PHI 0.785398F
+# define DEFAULT_CAM_THETA 0
+
+t_cam	ft_newcam(void );
+void	ft_rotation(t_cam *cam, t_vec3 rotation); // no
+
+/*
+* Primitive plots
+*/
 void	ft_put_pixel(t_img img, int x, int y, int color);
 void	ft_plot_line(t_img *img, int color, t_ivec2 r0, t_ivec2 r1);
 void	ft_plot_circle(t_img *img, int color, int rad, t_ivec2 r0);
 
-// maps
-t_map	*ft_parser(char *path);
-void	ft_mapline(char *line, t_map *map, int x);
-t_map	*ft_newmap(int x, int y);
-t_map	*ft_fillmap(char **lines);
-
-//Transformations 3d
-void	tr_traslation3(t_vec3 *v, t_vec3 traslation);
-void	tr_scaling3(t_vec3 *a, t_vec3 scaling_factor);
-void	tr_rotation3(t_vec3 *a, t_vec3 rotation);
-
-//Transformations 2d
-void	tr_traslation2(void *a, t_vec2 traslation);
-void	tr_scaling2(void *a, t_vec2 factors);
-void	tr_rotation2(void *a, t_vec2 rotation);
-
-// viwing
-// windowing
+/*
+*  plot map
+*/
+void	ft_plot_map(t_img img, t_map *map, t_cam cam);
 // zoom
 // Clipping
 // Positioning
 // Projection
+
+#endif
