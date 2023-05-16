@@ -21,17 +21,15 @@ static void	projection(t_img img, t_cam cam, t_point p0, t_point p1)
 	float	pscalar;
 
 	v0 = ft_sum(p0.r, ft_byscalar(cam.pos, -1.0));
-	pscalar = ft_dot_product((cam.base).e1, v0);
-	v0 = ft_sum(v0, ft_byscalar((cam.base).e1, -pscalar));
-	iv0 = (t_ivec2){(int)ft_dot_product((cam.base).e2, v0) + DEFAULT_WINY / 2,
-		(int)ft_dot_product((cam.base).e3, v0) * 100 + DEFAULT_WINX / 2};
+	pscalar = ft_dot_product((cam.base).e3, v0);
+	v0 = ft_sum(v0, ft_byscalar((cam.base).e3, -pscalar));
+	iv0 = (t_ivec2){((int)ft_dot_product((cam.base).e1, v0)*10 + DEFAULT_WINX / 2),
+		((int)ft_dot_product((cam.base).e2, v0)*10 + DEFAULT_WINY / 2)};
 	v1 = ft_sum(p1.r, ft_byscalar(cam.pos, -1.0));
-	pscalar = ft_dot_product((cam.base).e1, v1);
-	v1 = ft_sum(v1, ft_byscalar((cam.base).e1, -pscalar));
-	iv1 = (t_ivec2){(int)ft_dot_product((cam.base).e2, v0) + DEFAULT_WINY / 2,
-		(int)ft_dot_product((cam.base).e3, v1) * 100 + DEFAULT_WINX / 2};
-	printf("iv0 x %d y %d \n", iv0.x, iv0.y);
-	printf("iv1 x %d y %d \n", iv1.x, iv1.y);
+	pscalar = ft_dot_product((cam.base).e3, v1);
+	v1 = ft_sum(v1, ft_byscalar((cam.base).e3, -pscalar));
+	iv1 = (t_ivec2){((int)ft_dot_product((cam.base).e1, v1)*10 + DEFAULT_WINX / 2),
+		((int)ft_dot_product((cam.base).e2, v1))*10 + DEFAULT_WINY / 2};
 	ft_plot_line(&img, 0x00FF0000, iv0, iv1);
 }
 

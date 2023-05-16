@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 	win = ft_program(DEFAULT_WINX, DEFAULT_WINY, "fdf");
 	img = ft_image(win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
 	cam = ft_newcam();
+	print_cam("initial camera", cam);
 	ft_parser(argv[1], &map);
 	mlx_hook(win.win, 17, 1L << 0, ft_end, &win);
 	mlx_key_hook(win.win, key_manager, &win);

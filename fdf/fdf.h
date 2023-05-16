@@ -65,32 +65,56 @@ typedef struct s_vec3 {
 	float	z;
 }	t_vec3;
 
-/*     vectoril basis
-*         +z          
+/*    right-handed coordinate system
+*         +e2          
 *          |          
 *          |          
 *          |          
-*          -------- +x
+*   +e3------
 *           \         
 *            \        
-*             \ y+    
+*             \ +e1    
 */
-
+// Euler angles
 typedef struct s_base3 {
 	t_vec3	e1;
 	t_vec3	e2;
 	t_vec3	e3;
+	/// new implementation ///
+	float	scalex;
+	float	scaley;
+	float	scalez;
+	float	eu1;
+	float	eu2;
+	float	eu3;
+	float	x0;
+	float	y0;
+	float	z0;
 }	t_base3;
 
+typedef struct s_projector {
+	float	shearx;
+	float	sheary;
+	float	shearz;
+	float	persx;
+	float	persy;
+	float	persz;
+	float	offsetx;
+	float	offsety;
+} t_projector;
+
 /*  Camera
-* cam in e1 direction
-*   e2 x screen
-*   e3 y screen
+* cam in e3 direction
+*   e1 x screen
+*   e2 y screen
 */
 
 typedef struct s_cam {
+	float	focal;
 	t_vec3	pos;
+	/// new implementation ///
 	t_base3	base;
+	t_projector pro;
 }	t_cam;
 
 typedef struct s_point {
@@ -103,8 +127,8 @@ typedef struct s_point {
 /*
 * mlx utils
 */
-# define DEFAULT_WINX 1920
-# define DEFAULT_WINY 1080
+# define DEFAULT_WINX 512
+# define DEFAULT_WINY 512
 # define DEFAULT_IMGSIZX DEFAULT_WINX
 # define DEFAULT_IMGSIZY DEFAULT_WINY
 
@@ -153,15 +177,17 @@ t_point	ft_point(t_map *map, int x, int y);
 * Camera
 */
 // defeault position
-# define DEFAULT_CAM_XPOS 10
-# define DEFAULT_CAM_YPOS 10
+# define DEFAULT_CAM_XPOS 0
+# define DEFAULT_CAM_YPOS 0
 # define DEFAULT_CAM_ZPOS 10
 
-# define DEFAULT_CAM_PHI 0.785398F
-# define DEFAULT_CAM_THETA 0
+# define DEFAULT_CAM_PHI 0.0F
+# define DEFAULT_CAM_THETA 0.0F
 
 t_cam	ft_newcam(void );
-void	ft_rotation(t_cam *cam, t_vec3 rotation); // no
+void	ft_traslation(t_cam *cam, t_vec3 t);
+void	ft_rotation(t_cam *cam, t_vec3 r);
+void	ft_scala(t_cam *cam);
 
 /*
 * Primitive plots
@@ -178,5 +204,14 @@ void	ft_plot_map(t_img img, t_map *map, t_cam cam);
 // Clipping
 // Positioning
 // Projection
+
+
+
+/////////////// DEBUG ////////////////////////
+void	print_vec3(char *name, t_vec3 v);
+void	print_ivec2(char *name, t_ivec2 v);
+void	print_base(char *name, t_base3 base);
+void	print_map(char *name, t_map map);
+void	print_cam(char *name, t_cam cam);
 
 #endif

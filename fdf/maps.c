@@ -102,9 +102,8 @@ void	ft_parser(char *path, t_map **map)
 	free(lines);
 }
 
-t_point	ft_point(t_map *map, int x, int y)
-{
-	t_point	p;
+t_point ft_point(t_map *map, int x, int y) {
+        t_point	p;
 
 	if ((x <= map->max_x) && (x >= 0) && (y <= map->max_y) && (y >= 0))
 	{
