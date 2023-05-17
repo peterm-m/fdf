@@ -39,7 +39,7 @@ t_vec3	ft_normalize(t_vec3 a)
 	return (norm_a);
 }
 
-t_vec3	ft_matmul(t_vec3 *a, float **mat)
+t_vec3	ft_bymat(t_vec3 *a, t_matrix mat)
 {
 	t_vec3	b;
 
@@ -47,4 +47,17 @@ t_vec3	ft_matmul(t_vec3 *a, float **mat)
 	b.y = a->x * mat[1][0] + a->y * mat[1][1] + a->z * mat[1][2];
 	b.z = a->x * mat[2][0] + a->y * mat[2][1] + a->z * mat[2][2];
 	return (b);
+}
+
+void	ft_matmul(t_matrix res, t_matrix a, t_matrix b)
+{
+	res[0][0] = a[0][0] * b[0][0] + a[0][1] * b[1][0] + a[0][2] * b[2][0];
+	res[0][1] = a[0][0] * b[0][1] + a[0][1] * b[1][1] + a[0][2] * b[2][1];
+	res[0][2] = a[0][0] * b[0][2] + a[0][1] * b[1][2] + a[0][2] * b[2][2];
+	res[1][0] = a[1][0] * b[0][0] + a[1][1] * b[1][0] + a[1][2] * b[2][0];
+	res[1][1] = a[1][0] * b[0][1] + a[1][1] * b[1][1] + a[1][2] * b[2][1];
+	res[1][2] = a[1][0] * b[0][2] + a[1][1] * b[1][2] + a[1][2] * b[2][2];
+	res[2][0] = a[2][0] * b[0][0] + a[2][1] * b[1][0] + a[2][2] * b[2][0];
+	res[2][1] = a[2][0] * b[0][1] + a[2][1] * b[1][1] + a[2][2] * b[2][1];
+	res[2][2] = a[2][0] * b[0][2] + a[2][1] * b[1][2] + a[2][2] * b[2][2];
 }

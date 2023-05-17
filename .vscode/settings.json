@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "*.tcc": "c",
-        "fdf.h": "c"
+        "fdf.h": "c",
+        "random": "c",
+        "controls.h": "c"
     }
 }

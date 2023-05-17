@@ -12,13 +12,13 @@
 
 #include "fdf.h"
 
-t_vec3	ft_sum(t_vec3 v, t_vec3 traslation)
+t_vec3	ft_traslation(t_vec3 v, t_vec3 traslation)
 {
 	t_vec3	sum;
 
-	sum.x = v.x + traslation.x;
-	sum.y = v.y + traslation.y;
-	sum.z = v.z + traslation.z;
+	sum.x = v.x - traslation.x;
+	sum.y = v.y - traslation.y;
+	sum.z = v.z - traslation.z;
 	return (sum);
 }
 
@@ -41,9 +41,3 @@ t_vec3	ft_scaling(t_vec3 v, t_vec3 factors)
 	new.z = v.z * factors.z;
 	return (new);
 }
-
-//void	ft_rotation3(t_vec3 *v, t_vec3 *rotation)
-//{
-//	v = (void *) v;
-//	rotation = (void *) rotation;
-//}

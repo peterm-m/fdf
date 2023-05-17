@@ -12,25 +12,22 @@
 
 #include "fdf.h"
 
-static void	projection(t_img img, t_cam cam, t_point p0, t_point p1)
+void	projection(t_img img, t_matrix look, t_vec3 t, t_point p0, t_point p1)
 {
 	t_vec3	v0;
 	t_vec3	v1;
-	t_ivec2	iv0;
-	t_ivec2	iv1;
-	float	pscalar;
-
-	v0 = ft_sum(p0.r, ft_byscalar(cam.pos, -1.0));
-	pscalar = ft_dot_product((cam.base).e3, v0);
-	v0 = ft_sum(v0, ft_byscalar((cam.base).e3, -pscalar));
-	iv0 = (t_ivec2){((int)ft_dot_product((cam.base).e1, v0)*10 + DEFAULT_WINX / 2),
-		((int)ft_dot_product((cam.base).e2, v0)*10 + DEFAULT_WINY / 2)};
-	v1 = ft_sum(p1.r, ft_byscalar(cam.pos, -1.0));
-	pscalar = ft_dot_product((cam.base).e3, v1);
-	v1 = ft_sum(v1, ft_byscalar((cam.base).e3, -pscalar));
-	iv1 = (t_ivec2){((int)ft_dot_product((cam.base).e1, v1)*10 + DEFAULT_WINX / 2),
-		((int)ft_dot_product((cam.base).e2, v1))*10 + DEFAULT_WINY / 2};
-	ft_plot_line(&img, 0x00FF0000, iv0, iv1);
+	t_pixel	pix0;
+	t_pixel	pix1;
+	
+	v0 = ft_traslation(p0.r, t);
+	v0 = ft_bymat(&v0, look);
+	pix0.r = (t_ivec2){(int)v0.x +DEFAULT_WINX/2, (int)v0.y+DEFAULT_WINY/2};
+	pix0.color = p0.color;
+	v1 = ft_traslation(p1.r, t);
+	v1 = ft_bymat(&v1, look);
+	pix1.r = (t_ivec2){(int)v1.x +DEFAULT_WINX/2, (int)v1.y +DEFAULT_WINY/2};
+	pix1.color = p1.color;
+	ft_plot_line(&img, pix0, pix1);
 }
 
 void	ft_plot_map(t_img img, t_map *map, t_cam cam)
@@ -38,23 +35,24 @@ void	ft_plot_map(t_img img, t_map *map, t_cam cam)
 	int		x;
 	int		y;
 
+	ft_axis(img, map, cam);
 	x = 0;
 	while (x < map->max_x -1)
 	{
 		y = 0;
 		while (y < map->max_y -1)
 		{
-			projection(img, cam, ft_point(map, x, y), ft_point(map, x, y + 1));
-			projection(img, cam, ft_point(map, x, y), ft_point(map, x + 1, y));
+			projection(img, cam.look, cam.t, ft_point(map, x, y), ft_point(map, x, y + 1));
+			projection(img, cam.look, cam.t, ft_point(map, x, y), ft_point(map, x + 1, y));
 			y++;
 		}
-		projection(img, cam, ft_point(map, x, y), ft_point(map, x + 1, y));
+		projection(img, cam.look, cam.t, ft_point(map, x, y), ft_point(map, x + 1, map->max_y -1));
 		x++;
 	}
 	y = 0;
 	while (y < map->max_y -1)
 	{
-		projection(img, cam, ft_point(map, x, y), ft_point(map, x, y + 1));
+		projection(img, cam.look, cam.t,ft_point(map, map->max_x -1, y), ft_point(map, map->max_x -1, y + 1));
 		y++;
 	}
 }

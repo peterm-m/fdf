@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   camera_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,49 +12,53 @@
 
 #include "fdf.h"
 
-void	ft_traslation(t_cam *cam, t_vec3 t)
+void	set_cam_rot(t_cam *c)
 {
-	(cam->pos).x -= t.x;
-	(cam->pos).y -= t.y;
-	(cam->pos).z -= t.z;
+	c->rot[0][0] = cosf(c->c) * cosf(c->a) - cosf(c->b) * sinf(c->c) * sinf(c->a);
+	c->rot[0][1] = - sinf(c->c) * cosf(c->a) - cosf(c->b) * sinf(c->a) * cosf(c->c);
+	c->rot[0][2] = sinf(c->b) * sinf(c->a);
+	c->rot[1][0] = cosf(c->c) * sinf(c->a) + cosf(c->b) * cosf(c->a) * sinf(c->b);
+	c->rot[1][1] = - sinf(c->a) * sinf(c->c) + cosf(c->b) * cosf(c->a) * cosf(c->c);
+	c->rot[1][2] = - sinf(c->b) * cosf(c->a);
+	c->rot[2][0] = sinf(c->b) * sinf(c->c);
+	c->rot[2][1] = sinf(c->b) * cosf(c->c);
+	c->rot[2][2] = cosf(c->b);
 }
 
-void	ft_rotation(t_cam *cam, t_vec3 r)
+void	set_cam_affin(t_cam *c)
 {
-	(cam->base).eu1 += r.x;
-	(cam->base).eu2 += r.y;
-	(cam->base).eu3 += r.z;
+	c->affin[0][0] = c->focal;
+	c->affin[0][1] = c->focal * c->sh;
+	c->affin[0][2] = c->offx;
+	c->affin[1][0] = 0;
+	c->affin[1][1] = c->focal * c->scale;
+	c->affin[1][2] = c->offy;
+	c->affin[2][0] = 0;
+	c->affin[2][1] = 0;
+	c->affin[2][2] = 1;
 }
 
-void	ft_scalar(t_cam *cam)
+void	set_cam_look(t_cam	*c)
 {
-	
+	ft_matmul(c->look, c->affin, c->rot);
 }
-
 
 t_cam	ft_newcam(void )
 {
 	t_cam	cam;
 
-	(cam.pos).x = DEFAULT_CAM_XPOS;
-	(cam.pos).y = DEFAULT_CAM_YPOS;
-	(cam.pos).z = DEFAULT_CAM_ZPOS;
-	cam.base.pos.x = DEFAULT_CAM_XPOS;
-	cam.base.pos.y = DEFAULT_CAM_YPOS;
-	cam.base.pos.z = DEFAULT_CAM_ZPOS;
-	(cam.base).e1.x = cosf(DEFAULT_CAM_PHI) * cosf(DEFAULT_CAM_THETA);
-	(cam.base).e1.y = cosf(DEFAULT_CAM_PHI) * sinf(DEFAULT_CAM_THETA);
-	(cam.base).e1.z = -sinf(DEFAULT_CAM_PHI);
-	(cam.base).e2.x = sinf(DEFAULT_CAM_PHI) * sinf(DEFAULT_CAM_THETA);
-	(cam.base).e2.y = cosf(DEFAULT_CAM_PHI) * cosf(DEFAULT_CAM_THETA);
-	(cam.base).e2.z = 0;
-	(cam.base).e3.x = sinf(DEFAULT_CAM_PHI) * cosf(DEFAULT_CAM_THETA);
-	(cam.base).e3.y = sinf(DEFAULT_CAM_PHI) * sinf(DEFAULT_CAM_THETA);
-	(cam.base).e3.z = cosf(DEFAULT_CAM_PHI);
-	cam.focal = 1;
+	cam.t = (t_vec3){0, 0, 10};
+	cam.a = 0;
+	cam.b = 0;
+	cam.c = 0;
+	set_cam_rot(&cam);
+	cam.focal = 10;
+	cam.scale = 1;
+	cam.sh = 0;
+	cam.offx = 0;
+	cam.offy = 0;
+	set_cam_affin(&cam);
+	set_cam_look(&cam);
+
 	return (cam);
 }
-
-/*
-* Initial orientation camera. 
-*/

@@ -23,28 +23,28 @@ void	ft_put_pixel(t_img img, int x, int y, int color)
 	}
 }
 
-void	ft_plot_line(t_img *img, int color, t_ivec2 r0, t_ivec2 r1)
+void	ft_plot_line(t_img *img, t_pixel r0, t_pixel r1)
 {
 	t_ivec2	dr;
 	int		err;
 
-	dr.x = abs(r0.x - r1.x);
-	dr.y = -abs(r0.y - r1.y);
+	dr.x = abs(r0.r.x - r1.r.x);
+	dr.y = -abs(r0.r.y - r1.r.y);
 	err = dr.x + dr.y;
 	while (1)
 	{
-		ft_put_pixel(*img, r0.x, r0.y, color);
-		if ((r0.x == r1.x) && (r0.y == r1.y))
+		ft_put_pixel(*img, r0.r.x, r0.r.y, r0.color);
+		if ((r0.r.x == r1.r.x) && (r0.r.y == r1.r.y))
 			break ;
 		if (2 * err >= dr.y)
 		{
 			err = err + dr.y;
-			r0.x = r0.x + (r1.x - r0.x) / abs(r1.x - r0.x);
+			r0.r.x = r0.r.x + (r1.r.x - r0.r.x) / abs(r1.r.x - r0.r.x);
 		}
 		if (2 * err <= dr.x)
 		{
 			err = err + dr.x;
-			r0.y = r0.y + (r1.y - r0.y) / abs(r1.y - r0.y);
+			r0.r.y = r0.r.y + (r1.r.y - r0.r.y) / abs(r1.r.y - r0.r.y);
 		}
 	}
 }

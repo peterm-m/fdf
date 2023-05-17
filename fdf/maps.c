@@ -24,17 +24,19 @@ static void	ft_mapline(char *line, t_map *map, int x)
 	while (points[y])
 	{
 		point = ft_split(points[y], ',');
-		map->arr_z[map->max_y * x + y] = ft_atoi(point[0]);
+		map->arr_z[x][y] = ft_atoi(point[0]);
+		printf("point z %s %d \n ", point[0], ft_atoi(point[0]));
 		free(point[0]);
 		if (point[1])
 		{
-			map->arr_color[map->max_y * x + y] = ft_atoi_base(point[1], 16);
+			map->arr_color[x][y] = ft_atoi_base(point[1], 16);
 			free(point[1]);
 		}
 		else
-			map->arr_color[map->max_y * x + y] = 0xFFFFFFFF;
+			map->arr_color[x][y] = 0xFFFFFFFF;
 		free(point);
 		free(points[y++]);
+		printf("leido x %d y %d z %d color %d\n", x, y , map->arr_z[x][y], map->arr_color[x][y]);
 	}
 	free(points);
 }
@@ -48,18 +50,20 @@ static t_map	*ft_newmap(int x, int y)
 	{
 		new->max_x = x;
 		new->max_y = y;
-		new->arr_z = (int *)malloc(x * y);
+		new->arr_z = (int **)malloc(x * sizeof(int *));
 		if (!new->arr_z)
-		{
-			free(new);
-			return (NULL);
-		}
-		new->arr_color = (int *)malloc(x * y);
+			exit(EXIT_FAILURE);
+		new->arr_color = (int **)malloc(x * sizeof(int *));
 		if (!new->arr_color)
+			exit(EXIT_FAILURE);
+		while (x-- > 0)
 		{
-			free(new->arr_z);
-			free(new);
-			return (NULL);
+			new->arr_z[x] = (int *)malloc(y);
+			if (!new->arr_z[x])
+				exit(EXIT_FAILURE);
+			new->arr_color[x] = (int *)malloc(y);
+			if (!new->arr_color[x])
+				exit(EXIT_FAILURE);
 		}
 	}
 	return (new);
@@ -109,8 +113,8 @@ t_point ft_point(t_map *map, int x, int y) {
 	{
 		p.r.x = (float)x;
 		p.r.y = (float)y;
-		p.r.z = (float)map->arr_z[map->max_y * x + y];
-		p.color = map->arr_color[map->max_y * x + y];
+		p.r.z = (float)map->arr_z[x][y];
+		p.color = map->arr_color[x][y];
 	}
 	return (p);
 }
