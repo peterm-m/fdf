@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:29:39 by pedromar          #+#    #+#             */
-/*   Updated: 2022/04/23 17:48:00 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:10:07 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	ft_atoi(const char *str)
 {
-	unsigned int	c;
+	int	c;
 	int	sing;
 
+	printf("%s\n", str);
 	c = 0;
 	sing = 1;
 	while (*str == ' ' || (*str < 14 && *str > 8))
@@ -31,10 +32,6 @@ int	ft_atoi(const char *str)
 		c = (c * 10) + (*str - '0');
 		str++;
 	}
-	if (c > 2147483647 && sing == 1)
-		return (-1);
-	if (c > 2147483648 && sing == -1)
-		return (0);
 	return (((int ) c) * sing);
 }
 

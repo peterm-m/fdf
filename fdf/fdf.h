@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/15 20:18:31 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:34:38 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_vec3 {
 	float	z;
 }	t_vec3;
 
-typedef float t_matrix[3][3];
+typedef float	t_matrix[3][3];
 
 /*
 * graphic structures

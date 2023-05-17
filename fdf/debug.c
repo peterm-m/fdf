@@ -2,9 +2,9 @@
 #include "fdf.h"
 
 
-void print_win(char *name, t_win *w)
+void	print_win(char *name, t_win *w)
 {
-	printf("win %s mlx %p win %p w %d h %d\n", name, w->mlx, w->win,w->w, w->h );
+	printf("win %s mlx %p win %p w %d h %d\n", name, w->mlx, w->win,w->w, w->h);
 }
 
 void	print_vec3(char *name, t_vec3 v)
@@ -40,25 +40,41 @@ void	print_matrix(char *name, t_matrix m)
 void	print_map(char *name, t_map map)
 {
 	printf("%s\n", name);
-	printf("x max %d , y max %d \n", map.max_x, map.max_y );
+	printf("x max %d , y max %d \n", map.max_x, map.max_y);
 	int x = 0, y = 0;
 	t_point p;
-	while(x < map.max_x)
+		printf("Z\n");
+	while(x < map.max_x )
 	{
-		while (y < map.max_y)
+		while (y < map.max_y )
 		{
 			p = ft_point(&map, x, y);
-			printf("r x %f y %f z %f color %d \n",p.r.x ,p.r.y, p.r.z, p.color);
+			printf("%f ", p.r.z);
 			y++;
 		}
 		x++;
+		printf("\n");
+		y = 0;
+	}
+	x = 0, y = 0;
+	printf("COLOR\n");
+	while(x < map.max_x)
+	{
+		while (y < map.max_y )
+		{
+			p = ft_point(&map, x, y);
+			printf("%d ", p.color);
+			y++;
+		}
+		x++;
+		printf("\n");
 		y = 0;
 	}
 }
 
 void	print_cam(char *name, t_cam cam)
 {
-	printf("cam %s\n");
+	printf("cam %s\n", name);
 	print_vec3("taslation", cam.t);
 	printf("angles: a %f b %f c %f \n", cam.a, cam.b, cam.c);
 	print_matrix("rotation", cam.rot);

@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/15 20:18:33 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:10:27 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ static int	key_manager(int key, void *param)
 	else if (key == Q_ZPLUS || key == E_ZMIN || key == W_XPLUS || key == S_XMIN
 		|| key == A_YPLUS || key == D_YMIN)
 		printf("traslation %d\n", key);//key_traslatio(key);
-	else if (key == U_APLUS || key == O_AMIN || key == I_BPLUS || key == K_BMIN ||
-	key == J_CPLUS || key == L_CMIN )
+	else if (key == U_APLUS || key == O_AMIN || key == I_BPLUS
+		|| key == K_BMIN || key == J_CPLUS || key == L_CMIN)
 		printf("rotation %d \n", key); // key_rotation(key);
-	else if (key == F_FOCPLUS || key == G_FOCMIN || key == B_SCALEPLUS ||
-	key == N_SCALEMIN || key == R_SHPLUS || key == T_SHMIN ||
-	key == Z_OFFXPLUS || X_OFFXMIN || key == C_OFFYPLUS || key == V_OFFYMIN)
+	else if (key == F_FOCPLUS || key == G_FOCMIN || key == B_SCALEPLUS
+		|| key == N_SCALEMIN || key == R_SHPLUS || key == T_SHMIN
+		|| key == Z_OFFXPLUS || key == X_OFFXMIN || key == C_OFFYPLUS
+		|| key == V_OFFYMIN)
 		printf("affin %d\n", key); // ft_affin(key);
 	else
 		printf("nada\n");
@@ -57,6 +58,7 @@ int	main(int argc, char **argv)
 	img = ft_image(win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
 	cam = ft_newcam();
 	ft_parser(argv[1], &map);
+	print_map("map", *map);
 	mlx_hook(win.win, 17, 1L << 0, ft_end, &win);
 	mlx_mouse_hook(win.win, mouse_manager, &win);
 	mlx_key_hook(win.win, key_manager, &win);

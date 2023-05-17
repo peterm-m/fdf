@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/15 18:34:14 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:22:47 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void	ft_mapline(char *line, t_map *map, int x)
 	while (points[y])
 	{
 		point = ft_split(points[y], ',');
-		map->arr_z[x][y] = ft_atoi(point[0]);
-		printf("point z %s %d \n ", point[0], ft_atoi(point[0]));
+		map->arr_z[x][y] = atoi(point[0]);
 		free(point[0]);
 		if (point[1])
 		{
@@ -33,10 +32,9 @@ static void	ft_mapline(char *line, t_map *map, int x)
 			free(point[1]);
 		}
 		else
-			map->arr_color[x][y] = 0xFFFFFFFF;
+			map->arr_color[x][y] = 0;
 		free(point);
 		free(points[y++]);
-		printf("leido x %d y %d z %d color %d\n", x, y , map->arr_z[x][y], map->arr_color[x][y]);
 	}
 	free(points);
 }
@@ -106,8 +104,9 @@ void	ft_parser(char *path, t_map **map)
 	free(lines);
 }
 
-t_point ft_point(t_map *map, int x, int y) {
-        t_point	p;
+t_point	ft_point(t_map *map, int x, int y)
+{
+	t_point	p;
 
 	if ((x <= map->max_x) && (x >= 0) && (y <= map->max_y) && (y >= 0))
 	{
