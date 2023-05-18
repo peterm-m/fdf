@@ -5,6 +5,7 @@
         "random": "c",
         "controls.h": "c",
         "map": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "__node_handle": "c"
     }
 }

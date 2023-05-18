@@ -6,30 +6,28 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/17 20:10:27 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:49:20 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	key_manager(int key, void *param)
+static int	key_manager(int key, t_render *render)
 {
-	t_img	*img;
-
-	img = (t_img *) param;
+	printf("%d\n", key);
 	if (key == F_ESC)
-		ft_end(&img->win);
+		ft_end(&(render->img->win));
 	else if (key == Q_ZPLUS || key == E_ZMIN || key == W_XPLUS || key == S_XMIN
 		|| key == A_YPLUS || key == D_YMIN)
-		printf("traslation %d\n", key);//key_traslatio(key);
+		key_traslation(key, render->cam);
 	else if (key == U_APLUS || key == O_AMIN || key == I_BPLUS
 		|| key == K_BMIN || key == J_CPLUS || key == L_CMIN)
-		printf("rotation %d \n", key); // key_rotation(key);
+		key_rotation(key, render->cam);
 	else if (key == F_FOCPLUS || key == G_FOCMIN || key == B_SCALEPLUS
 		|| key == N_SCALEMIN || key == R_SHPLUS || key == T_SHMIN
 		|| key == Z_OFFXPLUS || key == X_OFFXMIN || key == C_OFFYPLUS
 		|| key == V_OFFYMIN)
-		printf("affin %d\n", key); // ft_affin(key);
+		key_affin(key, render->cam);
 	return (EXIT_SUCCESS);
 }
 
@@ -38,7 +36,6 @@ static int	mouse_manager(int buttom, int x, int y, void *param)
 	t_img	*img;
 
 	img = (t_img *) param;
-
 	printf("bu %d, x %d, y %d \n", buttom, x, y);
 	return (0);
 }
@@ -58,8 +55,8 @@ static t_render	*set_render(t_win win, char *file)
 
 int	main(int argc, char **argv)
 {
-	t_win	win;
-	t_render *render;
+	t_win		win;
+	t_render	*render;
 
 	if (argc != 2)
 		return (EXIT_FAILURE);
@@ -68,9 +65,8 @@ int	main(int argc, char **argv)
 	info_render(render);
 	mlx_hook(win.win, 17, 1L << 0, ft_end, &win);
 	mlx_mouse_hook(win.win, mouse_manager, &win);
-	mlx_key_hook(win.win, key_manager, &win);
+	mlx_key_hook(win.win, key_manager, render);
 	mlx_loop_hook(win.mlx, ft_plot_map, render);
 	mlx_loop(win.mlx);
-
 	exit(EXIT_SUCCESS);
 }

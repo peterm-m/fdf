@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/17 20:22:47 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:57:33 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	ft_parser(char *path, t_map **map)
 {
 	char	*file;
 	char	**lines;
-	char	line;
 
 	file = ft_getfile(path);
 	if (!file)
@@ -101,13 +100,10 @@ t_point	ft_point(t_map *map, int x, int y)
 {
 	t_point	p;
 
-	if ((x <= map->ncol) && (x >= 0) && (y <= map->nrow) && (y >= 0))
-	{
-		p.r.x = (float)x;
-		p.r.y = (float)y;
-		p.r.z = (float)map->z[y * map->ncol + x];
-		p.color = map->color[y * map->ncol + x];
-	}
+	p.r.x = (float)x;
+	p.r.y = (float)y;
+	p.r.z = (float)map->z[y * map->ncol + x];
+	p.color = map->color[y * map->ncol + x];
 	return (p);
 }
 

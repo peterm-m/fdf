@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 21:06:18 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/15 15:11:19 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:48:58 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_img	*ft_image(t_win win, int w, int h)
 	img = (t_img *)malloc(sizeof(t_img));
 	img->win = win;
 	img->ptr = mlx_new_image(win.mlx, w, h);
-
 	if (!img->ptr)
 		exit(EXIT_FAILURE);
 	img->addr = mlx_get_data_addr(img->ptr, &(img->bpp),

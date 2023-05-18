@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera_utils.c                                     :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:23:47 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/15 20:18:28 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:44:45 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 void	set_cam_rot(t_cam *c)
 {
-	c->rot[0][0] = cosf(c->c) * cosf(c->a) - cosf(c->b) * sinf(c->c) * sinf(c->a);
-	c->rot[0][1] = - sinf(c->c) * cosf(c->a) - cosf(c->b) * sinf(c->a) * cosf(c->c);
+	c->rot[0][0] = cosf(c->c) * cosf(c->a)
+		- cosf(c->b) * sinf(c->c) * sinf(c->a);
+	c->rot[0][1] = -sinf(c->c) * cosf(c->a)
+		- cosf(c->b) * sinf(c->a) * cosf(c->c);
 	c->rot[0][2] = sinf(c->b) * sinf(c->a);
-	c->rot[1][0] = cosf(c->c) * sinf(c->a) + cosf(c->b) * cosf(c->a) * sinf(c->b);
-	c->rot[1][1] = - sinf(c->a) * sinf(c->c) + cosf(c->b) * cosf(c->a) * cosf(c->c);
-	c->rot[1][2] = - sinf(c->b) * cosf(c->a);
+	c->rot[1][0] = cosf(c->c) * sinf(c->a)
+		+ cosf(c->b) * cosf(c->a) * sinf(c->b);
+	c->rot[1][1] = -sinf(c->a) * sinf(c->c)
+		+ cosf(c->b) * cosf(c->a) * cosf(c->c);
+	c->rot[1][2] = -sinf(c->b) * cosf(c->a);
 	c->rot[2][0] = sinf(c->b) * sinf(c->c);
 	c->rot[2][1] = sinf(c->b) * cosf(c->c);
 	c->rot[2][2] = cosf(c->b);

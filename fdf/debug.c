@@ -93,7 +93,7 @@ void	info_render(t_render *r)
 	print_map("map", *(r->map));
 }
 
-void	ft_axis(t_img *img, t_map *map, t_cam *cam)
+void	ft_axis(t_img *img, t_cam *cam)
 {
 	t_point p0;
 	t_point p1;
@@ -102,11 +102,11 @@ void	ft_axis(t_img *img, t_map *map, t_cam *cam)
 	p0.color = 0x00FF0000;
 	p1.r = (t_vec3){20,0,0}; // ROJO +X
 	p1.color = 0x00FF0000; 
-	projection(img, cam->look, cam->t, p0, p1);
+	projection(img, cam, p0, p1);
 	p0.color = 0x0000FF00;
 	p1.r = (t_vec3){0,20,0}; // VERDE +Y
-	projection(img, cam->look, cam->t, p0, p1);
+	projection(img, cam, p0, p1);
 	p0.color = 0x000000FF;
 	p1.r = (t_vec3){0,0,20}; // AZUL +Z
-	projection(img, cam->look, cam->t, p0, p1);
+	projection(img, cam, p0, p1);
 }

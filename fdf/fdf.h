@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/17 19:34:38 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:03:06 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@ t_point	ft_point(t_map *map, int x, int y);
 */
 // defeault position
 
-void	set_camrot(t_cam *cam);
-void	set_camaffin(t_cam *cam);
-void	set_camlook(t_cam *cam);
+void	set_cam_rot(t_cam *cam);
+void	set_cam_affin(t_cam *cam);
+void	set_cam_look(t_cam *cam);
 t_cam	*ft_newcam(void );
 void	ft_rotation(t_cam *cam, t_vec3 r);
 void	ft_scala(t_cam *cam);
@@ -163,8 +163,15 @@ void	ft_plot_circle(t_img *img, int color, int rad, t_ivec2 r0);
 /*
 *  plot map
 */
-void	projection(t_img *img, t_matrix look, t_vec3 t, t_point p0, t_point p1);
+void	projection(t_img *img, t_cam *cam, t_point p0, t_point p1);
 int		ft_plot_map(t_render	*render);
+
+/*
+*  contol
+*/
+void	key_traslation(int key, t_cam *cam);
+void	key_rotation(int key, t_cam *cam);
+void	key_affin(int key, t_cam *cam);
 
 /////////////// DEBUG ////////////////////////
 void	print_win(char *name, t_win *w);
@@ -177,6 +184,6 @@ void	print_map(char *name, t_map map);
 void	print_cam(char *name, t_cam cam);
 void	print_pix(char *name, t_pixel p);
 void	print_line(char *name, t_pixel p0, t_pixel p1);
-void	ft_axis(t_img *img, t_map *map, t_cam *cam);
+void	ft_axis(t_img *img, t_cam *cam);
 void	info_render(t_render *r);
 #endif
