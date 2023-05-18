@@ -40,35 +40,35 @@ void	print_matrix(char *name, t_matrix m)
 void	print_map(char *name, t_map map)
 {
 	printf("%s\n", name);
-	printf("x max %d , y max %d \n", map.max_x, map.max_y);
+	printf("cols %d , rows %d \n", map.ncol, map.nrow);
 	int x = 0, y = 0;
 	t_point p;
 		printf("Z\n");
-	while(x < map.max_x )
+	while(y < map.nrow)
 	{
-		while (y < map.max_y )
+		while (x < map.ncol)
 		{
 			p = ft_point(&map, x, y);
 			printf("%f ", p.r.z);
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 		printf("\n");
-		y = 0;
+		x = 0;
 	}
 	x = 0, y = 0;
 	printf("COLOR\n");
-	while(x < map.max_x)
+	while(y < map.nrow)
 	{
-		while (y < map.max_y )
+		while (x < map.ncol)
 		{
 			p = ft_point(&map, x, y);
 			printf("%d ", p.color);
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 		printf("\n");
-		y = 0;
+		x = 0;
 	}
 }
 
@@ -87,20 +87,26 @@ void	print_cam(char *name, t_cam cam)
 	print_matrix("look ", cam.look);
 }
 
-void	ft_axis(t_img img, t_map *map, t_cam cam)
+void	info_render(t_render *r)
+{
+	print_cam("camera",*(r->cam));
+	print_map("map", *(r->map));
+}
+
+void	ft_axis(t_img *img, t_map *map, t_cam *cam)
 {
 	t_point p0;
 	t_point p1;
 
 	p0.r = (t_vec3){0,0,0};
 	p0.color = 0x00FF0000;
-	p1.r = (t_vec3){10,0,0}; // ROJO +X
+	p1.r = (t_vec3){20,0,0}; // ROJO +X
 	p1.color = 0x00FF0000; 
-	projection(img, cam.look, cam.t, p0, p1);
+	projection(img, cam->look, cam->t, p0, p1);
 	p0.color = 0x0000FF00;
-	p1.r = (t_vec3){0,10,0}; // VERDE +Y
-	projection(img, cam.look, cam.t, p0, p1);
+	p1.r = (t_vec3){0,20,0}; // VERDE +Y
+	projection(img, cam->look, cam->t, p0, p1);
 	p0.color = 0x000000FF;
-	p1.r = (t_vec3){0,0,10}; // AZUL +Z
-	projection(img, cam.look, cam.t, p0, p1);
+	p1.r = (t_vec3){0,0,20}; // AZUL +Z
+	projection(img, cam->look, cam->t, p0, p1);
 }

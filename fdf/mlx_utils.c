@@ -33,17 +33,19 @@ int	ft_end(t_win *win)
 	exit(EXIT_SUCCESS);
 }
 
-t_img	ft_image(t_win win, int w, int h)
+t_img	*ft_image(t_win win, int w, int h)
 {
-	t_img	img;
+	t_img	*img;
 
-	img.win = win;
-	img.ptr = mlx_new_image(win.mlx, w, h);
-	if (!img.ptr)
+	img = (t_img *)malloc(sizeof(t_img));
+	img->win = win;
+	img->ptr = mlx_new_image(win.mlx, w, h);
+
+	if (!img->ptr)
 		exit(EXIT_FAILURE);
-	img.addr = mlx_get_data_addr(img.ptr, &(img.bpp),
-			&(img.size_line), &(img.endian));
-	img.w = w;
-	img.h = h;
+	img->addr = mlx_get_data_addr(img->ptr, &(img->bpp),
+			&(img->size_line), &(img->endian));
+	img->w = w;
+	img->h = h;
 	return (img);
 }

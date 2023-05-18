@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	projection(t_img img, t_matrix look, t_vec3 t, t_point p0, t_point p1)
+void	projection(t_img *img, t_matrix look, t_vec3 t, t_point p0, t_point p1)
 {
 	t_vec3	v0;
 	t_vec3	v1;
@@ -27,32 +27,34 @@ void	projection(t_img img, t_matrix look, t_vec3 t, t_point p0, t_point p1)
 	v1 = ft_bymat(&v1, look);
 	pix1.r = (t_ivec2){(int)v1.x +DEFAULT_WINX/2, (int)v1.y +DEFAULT_WINY/2};
 	pix1.color = p1.color;
-	ft_plot_line(&img, pix0, pix1);
+	ft_plot_line(img, pix0, pix1);
 }
 
-void	ft_plot_map(t_img img, t_map *map, t_cam cam)
+int	ft_plot_map(t_render *r)
 {
 	int		x;
 	int		y;
 
-	ft_axis(img, map, cam);
-	x = 0;
-	while (x < map->max_x -1)
-	{
-		y = 0;
-		while (y < map->max_y -1)
-		{
-			projection(img, cam.look, cam.t, ft_point(map, x, y), ft_point(map, x, y + 1));
-			projection(img, cam.look, cam.t, ft_point(map, x, y), ft_point(map, x + 1, y));
-			y++;
-		}
-		projection(img, cam.look, cam.t, ft_point(map, x, y), ft_point(map, x + 1, map->max_y -1));
-		x++;
-	}
 	y = 0;
-	while (y < map->max_y -1)
+	while (y < r->map->nrow -1)
 	{
-		projection(img, cam.look, cam.t,ft_point(map, map->max_x -1, y), ft_point(map, map->max_x -1, y + 1));
+		x = 0;
+		while (x < r->map->ncol -1)
+		{
+			projection(r->img, r->cam->look, r->cam->t, ft_point(r->map, x, y), ft_point(r->map, x, y + 1));
+			projection(r->img, r->cam->look, r->cam->t, ft_point(r->map, x, y), ft_point(r->map, x + 1, y));
+			x++;
+		}
+		projection(r->img, r->cam->look, r->cam->t, ft_point(r->map, x, y), ft_point(r->map, x, y + 1));
 		y++;
 	}
+	x = 0;
+	while (x < r->map->ncol -1)
+	{
+		projection(r->img, r->cam->look, r->cam->t,ft_point(r->map, x, y), ft_point(r->map, x + 1, y));
+		x++;
+	}
+	ft_axis(r->img, r->map, r->cam);
+	mlx_put_image_to_window(r->img->win.mlx, r->img->win.win, r->img->ptr, 0, 0);
+	return (EXIT_SUCCESS);
 }

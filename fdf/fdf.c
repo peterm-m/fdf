@@ -30,8 +30,6 @@ static int	key_manager(int key, void *param)
 		|| key == Z_OFFXPLUS || key == X_OFFXMIN || key == C_OFFYPLUS
 		|| key == V_OFFYMIN)
 		printf("affin %d\n", key); // ft_affin(key);
-	else
-		printf("nada\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -45,25 +43,34 @@ static int	mouse_manager(int buttom, int x, int y, void *param)
 	return (0);
 }
 
+static t_render	*set_render(t_win win, char *file)
+{
+	t_render	*new;
+
+	new = (t_render *)malloc(sizeof(t_render));
+	if (!new)
+		exit(EXIT_FAILURE);
+	new->img = ft_image(win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
+	new->cam = ft_newcam();
+	ft_parser(file, &(new->map));
+	return (new);
+}
+
 int	main(int argc, char **argv)
 {
 	t_win	win;
-	t_img	img;
-	t_cam	cam;
-	t_map	*map;
+	t_render *render;
 
 	if (argc != 2)
 		return (EXIT_FAILURE);
 	win = ft_program(DEFAULT_WINX, DEFAULT_WINY, "fdf");
-	img = ft_image(win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
-	cam = ft_newcam();
-	ft_parser(argv[1], &map);
-	print_map("map", *map);
+	render = set_render(win, argv[1]);
+	info_render(render);
 	mlx_hook(win.win, 17, 1L << 0, ft_end, &win);
 	mlx_mouse_hook(win.win, mouse_manager, &win);
 	mlx_key_hook(win.win, key_manager, &win);
-	ft_plot_map(img, map, cam);
-	mlx_put_image_to_window(win.mlx, win.win, img.ptr, 0, 0);
+	mlx_loop_hook(win.mlx, ft_plot_map, render);
 	mlx_loop(win.mlx);
+
 	exit(EXIT_SUCCESS);
 }

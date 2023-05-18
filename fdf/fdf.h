@@ -36,17 +36,6 @@ typedef struct s_win {
 	int		h;
 }	t_win;
 
-typedef struct s_img {
-	t_win	win;
-	void	*ptr;
-	char	*addr;
-	int		bpp;
-	int		size_line;
-	int		endian;
-	int		w;
-	int		h;
-}	t_img;
-
 /*
 * mathematical structures
 */
@@ -66,11 +55,23 @@ typedef float	t_matrix[3][3];
 /*
 * graphic structures
 */
+
+typedef struct s_img {
+	t_win	win;
+	void	*ptr;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		w;
+	int		h;
+}	t_img;
+
 typedef struct s_map {
-	int	max_x;
-	int	max_y;
-	int	**arr_z;
-	int	**arr_color;
+	int	ncol;
+	int	nrow;
+	int	*z;
+	int	*color;
 }	t_map;
 
 typedef struct s_cam {
@@ -87,6 +88,12 @@ typedef struct s_cam {
 	t_matrix	affin;
 	t_matrix	look;
 }	t_cam;
+
+typedef struct s_render {
+	t_img	*img;
+	t_map	*map;
+	t_cam	*cam;
+}	t_render;
 
 typedef struct s_pixel {
 	t_ivec2	r;
@@ -113,7 +120,7 @@ int		ft_a_color(int color);
 int		ft_color_rgba(int a, int r, int g, int b);
 
 t_win	ft_program(int h, int w, char *str);
-t_img	ft_image(t_win win, int w, int h);
+t_img	*ft_image(t_win win, int w, int h);
 int		ft_end(t_win *win);
 
 /*
@@ -142,22 +149,22 @@ t_point	ft_point(t_map *map, int x, int y);
 void	set_camrot(t_cam *cam);
 void	set_camaffin(t_cam *cam);
 void	set_camlook(t_cam *cam);
-t_cam	ft_newcam(void );
+t_cam	*ft_newcam(void );
 void	ft_rotation(t_cam *cam, t_vec3 r);
 void	ft_scala(t_cam *cam);
 
 /*
 * Primitive plots
 */
-void		ft_put_pixel(t_img img, int x, int y, int color);
+void	ft_put_pixel(t_img img, int x, int y, int color);
 void	ft_plot_line(t_img *img, t_pixel r0, t_pixel r1);
 void	ft_plot_circle(t_img *img, int color, int rad, t_ivec2 r0);
 
 /*
 *  plot map
 */
-void	projection(t_img img, t_matrix look, t_vec3 t, t_point p0, t_point p1);
-void	ft_plot_map(t_img img, t_map *map, t_cam cam);
+void	projection(t_img *img, t_matrix look, t_vec3 t, t_point p0, t_point p1);
+int		ft_plot_map(t_render	*render);
 
 /////////////// DEBUG ////////////////////////
 void	print_win(char *name, t_win *w);
@@ -170,6 +177,6 @@ void	print_map(char *name, t_map map);
 void	print_cam(char *name, t_cam cam);
 void	print_pix(char *name, t_pixel p);
 void	print_line(char *name, t_pixel p0, t_pixel p1);
-void	ft_axis(t_img img, t_map *map, t_cam cam);
-
+void	ft_axis(t_img *img, t_map *map, t_cam *cam);
+void	info_render(t_render *r);
 #endif

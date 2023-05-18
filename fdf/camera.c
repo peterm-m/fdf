@@ -43,22 +43,22 @@ void	set_cam_look(t_cam	*c)
 	ft_matmul(c->look, c->affin, c->rot);
 }
 
-t_cam	ft_newcam(void )
+t_cam	*ft_newcam(void )
 {
-	t_cam	cam;
+	t_cam	*cam;
 
-	cam.t = (t_vec3){0, 0, 10};
-	cam.a = 0;
-	cam.b = 0;
-	cam.c = 0;
-	set_cam_rot(&cam);
-	cam.focal = 10;
-	cam.scale = 1;
-	cam.sh = 0;
-	cam.offx = 0;
-	cam.offy = 0;
-	set_cam_affin(&cam);
-	set_cam_look(&cam);
-
+	cam = (t_cam *) malloc(sizeof(t_cam));
+	cam->t = (t_vec3){0, 0, 10};
+	cam->a = 0;
+	cam->b = 0;
+	cam->c = 0;
+	set_cam_rot(cam);
+	cam->focal = 10;
+	cam->scale = 1;
+	cam->sh = 0;
+	cam->offx = 0;
+	cam->offy = 0;
+	set_cam_affin(cam);
+	set_cam_look(cam);
 	return (cam);
 }

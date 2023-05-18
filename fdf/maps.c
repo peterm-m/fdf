@@ -12,29 +12,31 @@
 
 #include "fdf.h"
 
-static void	ft_mapline(char *line, t_map *map, int x)
+static void	ft_mapline(char *line, t_map *map, int y)
 {
 	char	**points;
 	char	**point;
-	int		y;
+	int		x;
 
-	y = 0;
+	x = 0;
 	points = ft_split(line, ' ');
 	free(line);
-	while (points[y])
+	while (x < map->ncol)
 	{
-		point = ft_split(points[y], ',');
-		map->arr_z[x][y] = atoi(point[0]);
+		if (!points[x])
+			exit(EXIT_FAILURE);
+		point = ft_split(points[x], ',');
+		map->z[y * map->ncol + x] = atoi(point[0]);
 		free(point[0]);
 		if (point[1])
 		{
-			map->arr_color[x][y] = ft_atoi_base(point[1], 16);
+			map->color[y * map->ncol + x] = ft_atoi_base(point[1], 16);
 			free(point[1]);
 		}
 		else
-			map->arr_color[x][y] = 0;
+			map->color[y * map->ncol + x] = 0xFFFFFFFF;
 		free(point);
-		free(points[y++]);
+		free(points[x++]);
 	}
 	free(points);
 }
@@ -46,23 +48,14 @@ static t_map	*ft_newmap(int x, int y)
 	new = (t_map *)malloc(sizeof(t_map));
 	if (new)
 	{
-		new->max_x = x;
-		new->max_y = y;
-		new->arr_z = (int **)malloc(x * sizeof(int *));
-		if (!new->arr_z)
+		new->ncol = x;
+		new->nrow = y;
+		new->z = (int *)malloc(x * y * sizeof(int));
+		if (!new->z)
 			exit(EXIT_FAILURE);
-		new->arr_color = (int **)malloc(x * sizeof(int *));
-		if (!new->arr_color)
+		new->color = (int *)malloc(x * y * sizeof(int));
+		if (!new->color)
 			exit(EXIT_FAILURE);
-		while (x-- > 0)
-		{
-			new->arr_z[x] = (int *)malloc(y);
-			if (!new->arr_z[x])
-				exit(EXIT_FAILURE);
-			new->arr_color[x] = (int *)malloc(y);
-			if (!new->arr_color[x])
-				exit(EXIT_FAILURE);
-		}
 	}
 	return (new);
 }
@@ -76,16 +69,16 @@ static t_map	*ft_fillmap(char **lines)
 
 	x = 0;
 	y = 0;
-	while (lines[++x])
-		continue ;
+	while (lines[y])
+		y++ ;
 	points = ft_split(lines[0], ' ');
-	while (points[y])
-		free(points[y++]);
+	while (points[x])
+		free(points[x++]);
 	free(points);
 	map = ft_newmap(x, y);
-	x = -1;
-	while (lines[++x])
-		ft_mapline(lines[x], map, x);
+	y = -1;
+	while (++y < map->nrow)
+		ft_mapline(lines[y], map, y);
 	return (map);
 }
 
@@ -108,12 +101,12 @@ t_point	ft_point(t_map *map, int x, int y)
 {
 	t_point	p;
 
-	if ((x <= map->max_x) && (x >= 0) && (y <= map->max_y) && (y >= 0))
+	if ((x <= map->ncol) && (x >= 0) && (y <= map->nrow) && (y >= 0))
 	{
 		p.r.x = (float)x;
 		p.r.y = (float)y;
-		p.r.z = (float)map->arr_z[x][y];
-		p.color = map->arr_color[x][y];
+		p.r.z = (float)map->z[y * map->ncol + x];
+		p.color = map->color[y * map->ncol + x];
 	}
 	return (p);
 }

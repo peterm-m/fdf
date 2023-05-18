@@ -3,6 +3,8 @@
         "*.tcc": "c",
         "fdf.h": "c",
         "random": "c",
-        "controls.h": "c"
+        "controls.h": "c",
+        "map": "c",
+        "unistd.h": "c"
     }
 }
