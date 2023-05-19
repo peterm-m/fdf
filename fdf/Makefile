@@ -20,19 +20,19 @@ CC = gcc
 CLEANER = rm -rf
 
 #### linux
-#LIB_DIR = -L ../minilibx-linux -L ../lib_basic
-#LIBS = -lmlx -lm -lXext -lX11 -lft
-#INCLUDES = -I ../minilibx-linux -I../lib_basic/include
-#KEYS = -D KEYS_LINUX
+LIB_DIR = -L ../minilibx-linux -L ../lib_basic
+LIBS = -lmlx -lm -lXext -lX11 -lft
+INCLUDES = -I ../minilibx-linux -I../lib_basic/include
+KEYS = -D KEYS_LINUX
 
 #### mac
-LIB_DIR = -L ../minilibx_macos -L ../lib_basic
-LIBS = -lft -lmlx -lm -framework OpenGL -framework AppKit
-INCLUDES  = -I ../minilibx_macos -I ../lib_basic/include/
-KEYS = -D KEYS_MAC
+#LIB_DIR = -L ../minilibx_macos -L ../lib_basic
+#LIBS = -lft -lmlx -lm -framework OpenGL -framework AppKit
+#INCLUDES  = -I ../minilibx_macos -I ../lib_basic/include/
+#KEYS = -D KEYS_MAC
 
 FLAGS = -Wall -Wextra -Werror -O3
-CCFLAGS = -fsanitize=address -g3
+CCFLAGS =-Wall -Wextra -Werror -O3 -fsanitize=address -g3
 
 all: $(NAME)
 

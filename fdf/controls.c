@@ -19,13 +19,13 @@ void	key_traslation(int key, t_cam *cam)
 	else if (key == E_ZMIN)
 		(cam->t).z -= STEP_Z;
 	else if (key == W_XPLUS)
-		(cam->t).x += STEP_X;
+		(cam->t).y += STEP_X;
 	else if (key == S_XMIN)
-		(cam->t).x -= STEP_X;
+		(cam->t).y -= STEP_X;
 	else if (key == A_YPLUS)
-		(cam->t).y += STEP_Y;
+		(cam->t).x += STEP_Y;
 	else if (key == D_YMIN)
-		(cam->t).y -= STEP_Y;
+		(cam->t).x -= STEP_Y;
 }
 
 void	key_rotation(int key, t_cam *cam)
@@ -42,6 +42,12 @@ void	key_rotation(int key, t_cam *cam)
 		cam->c += STEP_C;
 	else if (key == L_CMIN)
 		cam->c -= STEP_C;
+	else if (key == ANG_RESTORE)
+	{
+		cam->a = 0;
+		cam->b = 0;
+		cam->c = 0;
+	}
 	set_cam_rot(cam);
 	set_cam_look(cam);
 }
@@ -49,24 +55,25 @@ void	key_rotation(int key, t_cam *cam)
 void	key_affin(int key, t_cam *cam)
 {
 	if (key == F_FOCPLUS)
-		return ;
-	else if (key == G_FOCMIN)
-		return ;
+		cam->focal += STEP_FOC;
+	else if (key == G_FOCMIN && cam->focal > MIN_FOC)
+		cam->focal -= STEP_FOC;
 	else if (key == B_SCALEPLUS)
-		return ;
-	else if (key == N_SCALEMIN)
-		return ;
+		cam->scale += STEP_SCALE;
+	else if (key == N_SCALEMIN && cam->scale > MIN_SCALE)
+		cam->scale -= STEP_SCALE;
 	else if (key == R_SHPLUS)
-		return ;
+		cam->sh += STEP_SH;
 	else if (key == T_SHMIN)
-		return ;
+		cam->sh -= STEP_SH;
 	else if (key == Z_OFFXPLUS)
-		return ;
+		cam->offx += STEP_OFFX;
 	else if (key == X_OFFXMIN)
-		return ;
+		cam->offx -= STEP_OFFX;
 	else if (key == C_OFFYPLUS)
-		return ;
+		cam->offy += STEP_OFFY;
 	else if (key == V_OFFYMIN)
-		return ;
-	cam = (void *) cam;
+		cam->offy -= STEP_OFFY;
+	set_cam_affin(cam);
+	set_cam_look(cam);
 }

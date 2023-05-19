@@ -20,7 +20,6 @@
 # define CL_BLUE 2
 # define CL_ALPHA 1
 
-# define CL_MASK_ALPHA 0xFF000000
 # define CL_MASK_RED   0x00FF0000
 # define CL_MASK_GREEN 0x0000FF00
 # define CL_MASK_BLUE  0x000000FF

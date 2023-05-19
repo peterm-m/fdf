@@ -15,7 +15,7 @@
 
 # if defined KEYS_LINUX
 // general
-#  define F_ESC 53
+#  define F_ESC 65307
 /*
 * camera control
 */
@@ -35,6 +35,7 @@
 #  define K_BMIN 107
 #  define J_CPLUS 106
 #  define L_CMIN 108
+#  define ANG_RESTORE 48
 // focal
 #  define F_FOCPLUS 102
 #  define G_FOCMIN 103
@@ -73,6 +74,7 @@
 #  define K_BMIN 40
 #  define J_CPLUS 38
 #  define L_CMIN 37
+#  define ANG_RESTORE 48
 // focal
 #  define F_FOCPLUS 3
 #  define G_FOCMIN 5
@@ -93,8 +95,20 @@
 # define STEP_Y 1
 # define STEP_Z 1
 
-# define STEP_A 2
-# define STEP_B 2
-# define STEP_C 2
+# define STEP_A 0.1
+# define STEP_B 0.1
+# define STEP_C 0.1
+
+# define STEP_FOC 1
+# define MIN_FOC 0.1
+
+# define STEP_SCALE 0.1
+# define MIN_SCALE 0.1
+
+# define STEP_SH 0.1
+# define MIN_SH 0
+
+# define STEP_OFFX 5
+# define STEP_OFFY 5
 
 #endif

@@ -21,13 +21,13 @@ void	projection(t_img *img, t_cam *cam, t_point p0, t_point p1)
 
 	v0 = ft_traslation(p0.r, cam->t);
 	v0 = ft_bymat(&v0, cam->look);
-	pix0.r = (t_ivec2){(int)v0.x + DEFAULT_WINX / 2,
-		(int)v0.y + DEFAULT_WINY / 2};
+	pix0.r = (t_ivec2){(int)v0.x + cam->offx,
+		(int)v0.y + cam->offy};
 	pix0.color = p0.color;
 	v1 = ft_traslation(p1.r, cam->t);
 	v1 = ft_bymat(&v1, cam->look);
-	pix1.r = (t_ivec2){(int )v1.x + DEFAULT_WINX / 2,
-		(int )v1.y + DEFAULT_WINY / 2};
+	pix1.r = (t_ivec2){(int )v1.x + cam->offx,
+		(int )v1.y + cam->offy};
 	pix1.color = p1.color;
 	ft_plot_line(img, pix0, pix1);
 }

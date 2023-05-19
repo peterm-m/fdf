@@ -33,10 +33,10 @@ void	set_cam_affin(t_cam *c)
 {
 	c->affin[0][0] = c->focal;
 	c->affin[0][1] = c->focal * c->sh;
-	c->affin[0][2] = c->offx;
+	c->affin[0][2] = 0;
 	c->affin[1][0] = 0;
 	c->affin[1][1] = c->focal * c->scale;
-	c->affin[1][2] = c->offy;
+	c->affin[1][2] = 0;
 	c->affin[2][0] = 0;
 	c->affin[2][1] = 0;
 	c->affin[2][2] = 1;

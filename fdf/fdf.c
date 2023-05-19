@@ -21,7 +21,7 @@ static int	key_manager(int key, t_render *render)
 		|| key == A_YPLUS || key == D_YMIN)
 		key_traslation(key, render->cam);
 	else if (key == U_APLUS || key == O_AMIN || key == I_BPLUS
-		|| key == K_BMIN || key == J_CPLUS || key == L_CMIN)
+		|| key == K_BMIN || key == J_CPLUS || key == L_CMIN || key == ANG_RESTORE)
 		key_rotation(key, render->cam);
 	else if (key == F_FOCPLUS || key == G_FOCMIN || key == B_SCALEPLUS
 		|| key == N_SCALEMIN || key == R_SHPLUS || key == T_SHMIN
@@ -29,13 +29,12 @@ static int	key_manager(int key, t_render *render)
 		|| key == V_OFFYMIN)
 		key_affin(key, render->cam);
 	return (EXIT_SUCCESS);
+	print_cam("camera", *(render->cam));
 }
 
-static int	mouse_manager(int buttom, int x, int y, void *param)
+static int	mouse_manager(int buttom, int x, int y, void *render)
 {
-	t_img	*img;
-
-	img = (t_img *) param;
+	render = (void *)render;
 	printf("bu %d, x %d, y %d \n", buttom, x, y);
 	return (0);
 }
