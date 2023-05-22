@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/18 20:57:33 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:45:54 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_parser(char *path, t_map **map)
 	free(lines);
 }
 
-t_point	ft_point(t_map *map, int x, int y)
+t_point	point(t_map *map, int x, int y)
 {
 	t_point	p;
 

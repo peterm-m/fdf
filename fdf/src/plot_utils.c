@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plotters.c                                         :+:      :+:    :+:   */
+/*   plot_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:07:51 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/18 20:46:28 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:46:30 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ void	ft_put_pixel(t_img img, int x, int y, int color)
 void	ft_plot_line(t_img *img, t_pixel r0, t_pixel r1)
 {
 	t_ivec2	dr;
+	t_color	grad;
 	int		err;
 
-	dr.x = abs(r0.r.x - r1.r.x);
-	dr.y = -abs(r0.r.y - r1.r.y);
+	dr = (t_ivec2){abs(r0.r.x - r1.r.x), -abs(r0.r.y - r1.r.y)};
 	err = dr.x + dr.y;
+	get_gradient(&grad, &r0, &r1);
 	while (1)
 	{
-		ft_put_pixel(*img, r0.r.x, r0.r.y, r0.color);
+		ft_put_pixel(*img, r0.r.x, r0.r.y, pixel_color(&grad, &r0, &r1));
 		if ((r0.r.x == r1.r.x) && (r0.r.y == r1.r.y))
 			break ;
 		if (2 * err >= dr.y)
@@ -71,4 +72,22 @@ void	ft_plot_circle(t_img *img, int color, int rad, t_ivec2 r0)
 		if (r.x > 0)
 			break ;
 	}
+}
+
+void	ft_plot_axis(t_img *img, t_cam *cam)
+{
+	t_point	p0;
+	t_point	p1;
+
+	p0.r = (t_vec3){0, 0, 0};
+	p0.color = 0x00FF0000;
+	p1.r = (t_vec3){20, 0, 0};
+	p1.color = 0x00FF0000;
+	to_img(img, cam, p0, p1);
+	p0.color = 0x0000FF00;
+	p1.r = (t_vec3){0, 20, 0};
+	to_img(img, cam, p0, p1);
+	p0.color = 0x000000FF;
+	p1.r = (t_vec3){0, 0, 20};
+	to_img(img, cam, p0, p1);
 }

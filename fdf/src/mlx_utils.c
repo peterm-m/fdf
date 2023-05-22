@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 21:06:18 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/18 20:48:58 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:27:37 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,28 @@ t_win	ft_program(int h, int w, char *str)
 	return ((t_win){mlx_ptr, win, w, h});
 }
 
-int	ft_end(t_win *win)
+int	ft_end(t_render *r)
 {
-	if (win)
-		mlx_destroy_image(win->mlx, win->win);
+	if (r)
+	{
+		if (r->map)
+		{
+			if (r->map->z)
+				free(r->map->z);
+			if (r->map->color)
+				free(r->map->color);
+			free(r->map);
+		}
+		if (r->cam)
+			free(r->cam);
+		if (r->img)
+		{
+			mlx_destroy_image((r->img->win).mlx, r->img->ptr);
+			mlx_destroy_window((r->img->win).mlx, (r->img->win).win);
+			free(r->img);
+		}
+		free(r);
+	}
 	exit(EXIT_SUCCESS);
 }
 

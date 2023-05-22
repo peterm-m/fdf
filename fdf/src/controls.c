@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:18:44 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/18 21:01:57 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:51:02 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	key_traslation(int key, t_cam *cam)
 		(cam->t).x += STEP_Y;
 	else if (key == D_YMIN)
 		(cam->t).x -= STEP_Y;
+	set_cam_look(cam);
+	print_cam(*cam);
 }
 
 void	key_rotation(int key, t_cam *cam)
@@ -50,6 +52,7 @@ void	key_rotation(int key, t_cam *cam)
 	}
 	set_cam_rot(cam);
 	set_cam_look(cam);
+	print_cam(*cam);
 }
 
 void	key_affin(int key, t_cam *cam)

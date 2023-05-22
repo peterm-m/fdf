@@ -1,4 +1,4 @@
-NAME := libft.a
+NAME :=libft.a
 
 SRC_DIR := src
 
@@ -44,6 +44,14 @@ SRCS :=  \
     ftio/ft_putstr_fd.c\
     ftio/ft_wc.c\
     ftio/ft_getfile.c\
+    \
+    ftio/ft_printf.c\
+	ftio/ft_vaprintf.c\
+	ftio/ft_switch_conversion.c\
+	ftio/ft_int_conversion.c\
+	ftio/ft_char_conversion.c\
+	ftio/ft_double_conversion.c\
+	ftio/ft_print_buffer.c\
 	\
 	ftlist/ft_lstadd.c\
     ftlist/ft_lstclear.c\
@@ -71,7 +79,7 @@ CFLAGS   := -Wall -Wextra -Werror
 CPPFLAGS := -MMD -MP -I include
 AR := ar
 ARFLAGS  := -r -c -s
-RM  := rm -f
+RM  := rm -rf
 DIR_DUP = mkdir -p $(@D)
 
 all: $(NAME)
@@ -90,10 +98,11 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 -include $(DEPS)
 
 clean:
-	$(RM) $(OBJS) $(DEPS)
+	$(RM) $(OBJS)
+	$(RM) $(DEPS)
 
 fclean: clean
-	$(CLENER) $(NAME)
+	$(RM) $(NAME)
 
 re:
 	$(MAKE) fclean

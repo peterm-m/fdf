@@ -1,54 +1,85 @@
 NAME = fdf
 
-SRC = plotters.c\
+SRC_DIR := src
+
+SRCS = \
+	  mlx_utils.c\
 	  vector.c\
 	  vector_utils.c\
 	  camera.c\
-	  camera_utils.c\
 	  maps.c\
-	  mlx_utils.c\
+	  maps_utils.c\
 	  color.c\
+	  color_utils.c\
+	  plot_utils.c\
 	  plot_map.c\
 	  controls.c\
-	  debug.c\
 	  fdf.c
 
-OBJ = $(SRC:%.c=%.o)
+SRCS := $(SRCS:%=$(SRC_DIR)/%)
+
+BUILD_DIR   := .build
+
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+
+OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 
 CC = gcc
-
+DIR_DUP = mkdir -p $(@D)
 CLEANER = rm -rf
 
-#### linux
-LIB_DIR = -L ../minilibx-linux -L ../lib_basic
-LIBS = -lmlx -lm -lXext -lX11 -lft
-INCLUDES = -I ../minilibx-linux -I../lib_basic/include
-KEYS = -D KEYS_LINUX
+UNAME := $(shell uname)
 
-#### mac
-#LIB_DIR = -L ../minilibx_macos -L ../lib_basic
-#LIBS = -lft -lmlx -lm -framework OpenGL -framework AppKit
-#INCLUDES  = -I ../minilibx_macos -I ../lib_basic/include/
-#KEYS = -D KEYS_MAC
+INCLUDE_FT =  -I../lib_basic/include 
+DIR_FT = ../lib_basic
+
+ifeq ($(UNAME), Linux)
+ DIR_MLX = ../minilibx-linux
+ INCLUDE_MLX = -I ../minilibx-linux
+ MLX_FLAGS = -lXext -lX11 
+ KEYS = -D KEYS_LINUX
+else 
+ DIR_MLX = ../minilibx_macos
+ INCLUDE_MLX = -I ../minilibx_macos
+ MLX_FLAGS = -framework OpenGL -framework AppKit
+ KEYS = -D KEYS_MAC
+endif
+
+LIBS = -lft -lm $(MLX_FLAGS) -lmlx 
+LIB_DIR = -L $(DIR_MLX) -L $(DIR_FT)
+INCLUDES = -I./include $(INCLUDE_MLX) $(INCLUDE_FT)
+
 
 FLAGS = -Wall -Wextra -Werror -O3
 CCFLAGS =-Wall -Wextra -Werror -O3 -fsanitize=address -g3
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CCFLAGS) $(OBJ) -o $(NAME) $(INCLUDES) $(LIB_DIR) $(LIBS) $(KEYS)
+$(NAME): libft mlx $(OBJS)
+	$(CC) $(CCFLAGS) $(OBJS) -o $(NAME) $(INCLUDES) $(LIB_DIR) $(LIBS) $(KEYS)
+	$(info CREATED $(NAME))
 
-%.o: %.c
+libft:
+	$(MAKE) -C $(DIR_FT)
+
+mlx:
+	$(MAKE) -C $(DIR_MLX)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	$(DIR_DUP)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(INCLUDES) $(KEYS)
+	$(info CREATED $@)
 
 clean:
-	$(CLEANER) $(OBJ)
+	$(CLEANER) $(OBJS)
+	$(MAKE) -C $(DIR_FT) clean
+	$(MAKE) -C $(DIR_MLX) clean
 
 fclean: clean 
 	$(CLEANER) $(NAME)
+	$(MAKE) -C $(DIR_FT) fclean
+	$(MAKE) -C $(DIR_MLX) clean	
 
 re:
 	$(MAKE) fclean
 	$(MAKE) all
-

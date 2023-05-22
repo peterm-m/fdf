@@ -6,6 +6,14 @@
         "controls.h": "c",
         "map": "c",
         "unistd.h": "c",
-        "__node_handle": "c"
+        "__node_handle": "c",
+        "cstdlib": "c",
+        "cmath": "c",
+        "render.h": "c",
+        "mlxutils.h": "c",
+        "vector.h": "c",
+        "mlx_int.h": "c",
+        "istream": "c",
+        "ostream": "c"
     }
 }
