@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:18:44 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/22 16:51:02 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/02 18:38:22 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	key_affin(int key, t_cam *cam)
 		cam->offy -= STEP_OFFY;
 	set_cam_affin(cam);
 	set_cam_look(cam);
+	print_cam(*cam);
 }
