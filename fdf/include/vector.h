@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:15:20 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/22 15:59:19 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/03 20:37:46 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ t_vec3	ft_traslation(t_vec3 v, t_vec3 traslation);
 t_vec3	ft_scaling(t_vec3 v, t_vec3 factors);
 t_vec3	ft_byscalar(t_vec3 v, float a);
 void	ft_matmul(t_matrix res, t_matrix a, t_matrix b);
+
+void	ft_setrow(t_matrix *mat, t_vec3 data, int row);
+void	ft_setcol(t_matrix *mat, t_vec3 data, int row);
+t_vec3	ft_getrow(t_matrix *mat, int row);
+t_vec3	ft_getcol(t_matrix *mat, int row);
 
 void	print_vec3(t_vec3 v);
 void	print_matrix(t_matrix m);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/22 16:48:37 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/03 21:48:58 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,50 @@ typedef struct s_cam {
 	t_matrix	affin;
 	t_matrix	look;
 }	t_cam;
+/*
+* CAM version 2 contains the necessary information about the observer
+*	cam inicialment en -z del world
+*	polar angle from zenith (+z cam, -z world). [0, pi]
+*	azimuth angle projection in xy-cam-plane, with y-cam-axis[0, 2pi]
+*
+*	pos location cam in world coordinates.
+*	
+*	cam_angle_* free-look rotating the camera up, down ,around
+*		camera local left axis
+*	forward_* spherical coordinates forward vector cam (vector e_r spherical)
+*	up_angle polar angles in e_theta-e_phi-plane with e phi (revisar)
+*/
+typedef struct s_view {
+	t_vec3		pos;
+	float		cam_angle_x;
+	float		cam_angle_y;
+	float		cam_angle_z;
+	t_matrix	cam_rot;
+	float		forward_azi;
+	float		forward_pol;
+	float		up_angle;
+	t_matrix	model_rot;
+}	t_view;
+
+# define PROJECTION 0
+# define ORRTOGRAPHIC 1
+
+typedef struct s_proj
+{
+	int			type;
+	float		range_x[2];
+	float		range_y[2];
+	float		range_z[2];
+	t_matrix	projec;
+}	t_proj;
+
+typedef struct s_cam2 {
+	t_vec3		scales;
+	t_view		view;
+	t_proj		projc;
+	t_vec3		cam_pos;
+	t_matrix	cam_rot;
+}	t_cam2;
 /*
 * IMG contains the information of the
 * map projected on the screen and the data to display it on the screen.

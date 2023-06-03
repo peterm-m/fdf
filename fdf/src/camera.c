@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:23:47 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/02 20:56:40 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/03 20:57:48 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,26 @@ void	set_cam_rot(t_cam *c)
 	c->rot[2][0] = -sinf(c->b);
 	c->rot[0][1] = sinf(c->a) * sinf(c->b) * cosf(c->c)
 		+ cosf(c->a) * sinf(c->c);
-	c->rot[1][1] = sinf(c->a) * sinf(c->b) * sinf(c->c)
-		- cosf(c->a) * cosf(c->c);
+	c->rot[1][1] = -sinf(c->a) * sinf(c->b) * sinf(c->c)
+		+ cosf(c->a) * cosf(c->c);
 	c->rot[2][1] = -sinf(c->a) * cosf(c->b);
 	c->rot[0][2] = cosf(c->a) * sinf(c->b) * cosf(c->c)
 		+ sinf(c->a) * sinf(c->c);
 	c->rot[1][2] = cosf(c->a) * sinf(c->b) * sinf(c->c)
 		+ sinf(c->a) * cosf(c->c);
-	c->rot[2][2] = cosf(c->a) * cosf(c->b);
+	c->rot[2][2] = -cosf(c->a) * cosf(c->b);
+}
+
+void	set_cam_view(t_cam2 *c)
+{
+	c = (void *) c;
+	return ;
+}
+
+void	set_cam_proj(t_cam2 *c)
+{
+	c = (void *) c;
+	return ;
 }
 
 void	set_cam_affin(t_cam *c)
@@ -44,14 +56,7 @@ void	set_cam_affin(t_cam *c)
 
 void	set_cam_look(t_cam	*cam)
 {
-	cam->cam_pos = ((t_vec3){
-			(cam->t).x * cam->rot[0][0] + (cam->t).y * cam->rot[1][0]
-			+ (cam->t).z * cam->rot[2][0],
-			(cam->t).x * cam->rot[0][1] + (cam->t).y * cam->rot[1][1]
-			+ (cam->t).z * cam->rot[2][1],
-			(cam->t).x * cam->rot[0][2] + (cam->t).y * cam->rot[1][2]
-			+ (cam->t).z * cam->rot[2][2]
-		});
+	cam->cam_pos = ft_bymat(&(cam->t), cam->rot);
 	ft_matmul(cam->look, cam->affin, cam->rot);
 }
 
@@ -60,8 +65,8 @@ t_cam	*ft_newcam(void )
 	t_cam	*cam;
 
 	cam = (t_cam *) malloc(sizeof(t_cam));
-	cam->t = (t_vec3){0, 0, 0};
-	cam->a = M_PI_2 / 3;
+	cam->t = (t_vec3){0, 0, 10};
+	cam->a = -M_PI_2 / 3;
 	cam->b = 0;
 	cam->c = 0;
 	cam->focal = 10;
