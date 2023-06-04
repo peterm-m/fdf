@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/03 21:48:58 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:10:29 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_map {
 	int	*z;
 	int	*color;
 }	t_map;
-//point struct contains the information of a value (x,y) of the map.
+//point struct contains the information of a value (x,y) map.
 typedef struct s_point {
 	t_vec3	r;
 	int		color;
@@ -60,20 +60,25 @@ typedef struct s_cam {
 *	forward_* spherical coordinates forward vector cam (vector e_r spherical)
 *	up_angle polar angles in e_theta-e_phi-plane with e phi (revisar)
 */
+typedef struct s_model {
+	t_vec3		pos_mod;
+	float		ang_z;
+	float		ang_y;
+	float		ang_x;
+	t_trasform	model;
+}	t_model;
+
 typedef struct s_view {
-	t_vec3		pos;
-	float		cam_angle_x;
-	float		cam_angle_y;
-	float		cam_angle_z;
-	t_matrix	cam_rot;
-	float		forward_azi;
-	float		forward_pol;
-	float		up_angle;
-	t_matrix	model_rot;
+	t_vec3		pos_cam;
+	t_vec3		target;
+	t_vec3		up;
+	t_trasform	view;
 }	t_view;
 
 # define PROJECTION 0
-# define ORRTOGRAPHIC 1
+# define ORTHOGRAPHIC 1
+# define PROJEC_SYMMETRIC 2
+# define ORTHO_SYMMETRIC 3
 
 typedef struct s_proj
 {
@@ -81,11 +86,12 @@ typedef struct s_proj
 	float		range_x[2];
 	float		range_y[2];
 	float		range_z[2];
-	t_matrix	projec;
+	t_trasform	proj;
 }	t_proj;
 
 typedef struct s_cam2 {
 	t_vec3		scales;
+	t_model		model;
 	t_view		view;
 	t_proj		projc;
 	t_vec3		cam_pos;

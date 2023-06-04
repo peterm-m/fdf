@@ -1,43 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   trasforms.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 18:39:23 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/04 18:32:00 by pedromar         ###   ########.fr       */
+/*   Created: 2023/06/04 18:32:20 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/04 19:10:11 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vec3	ft_getcol(t_matrix *mat, int col)
+t_vec4	ft_tgetcol(t_trasform *mat, int col)
 {
-	return ((t_vec3){
+	return ((t_vec4){
 		*mat[0][col],
 	*mat[1][col],
-	*mat[2][col]});
+	*mat[2][col],
+	*mat[3][col]});
 }
 
-t_vec3	ft_getrow(t_matrix *mat, int row)
+t_vec4	ft_tgetrow(t_trasform *mat, int row)
 {
-	return ((t_vec3){
+	return ((t_vec4){
 		*mat[row][0],
 	*mat[row][1],
-	*mat[row][2]});
+	*mat[row][2],
+	*mat[row][3]});
 }
 
-void	ft_setcol(t_matrix *mat, t_vec3 data, int col)
+void	ft_tsetcol(t_trasform *mat, t_vec4 data, int col)
 {
 	*mat[0][col] = data.x;
 	*mat[1][col] = data.y;
 	*mat[2][col] = data.z;
+	*mat[3][col] = data.w;
 }
 
-void	ft_setrow(t_matrix *mat, t_vec3 data, int row)
+void	ft_tsetrow(t_trasform *mat, t_vec4 data, int row)
 {
 	*mat[row][0] = data.x;
 	*mat[row][1] = data.y;
 	*mat[row][2] = data.z;
+	*mat[row][3] = data.w;
 }

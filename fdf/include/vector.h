@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:15:20 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/03 20:37:46 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:37:11 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ typedef struct s_vec3 {
 	float	z;
 }	t_vec3;
 
+typedef struct s_vec4 {
+	float	x;
+	float	y;
+	float	z;
+	float	w;
+}	t_vec4;
+
 typedef float	t_matrix[3][3];
+typedef float	t_trasform[4][4];
 
 float	ft_dot_product(t_vec3 a, t_vec3 b);
 t_vec3	ft_vector_product(t_vec3 *a, t_vec3 *b);

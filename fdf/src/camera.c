@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:23:47 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/03 20:57:48 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:29:17 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ void	set_cam_rot(t_cam *c)
 	c->rot[1][2] = cosf(c->a) * sinf(c->b) * sinf(c->c)
 		+ sinf(c->a) * cosf(c->c);
 	c->rot[2][2] = -cosf(c->a) * cosf(c->b);
-}
-
-void	set_cam_view(t_cam2 *c)
-{
-	c = (void *) c;
-	return ;
-}
-
-void	set_cam_proj(t_cam2 *c)
-{
-	c = (void *) c;
-	return ;
 }
 
 void	set_cam_affin(t_cam *c)
