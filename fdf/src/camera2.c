@@ -63,20 +63,57 @@ void	set_transform_view(t_cam2 *c)
 
 void	projection(float rx[2], float ry[2], float rz[2], t_proj *p)
 {
-	return ;
+	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001 &&
+		fabs(rz[1] - rz[0]) > 0.0001)
+	{
+		ft_tsetrow(&(p->proj), (t_vec4){2 * rz[0] / (rx[1] - rx[0]), 0,
+			(rx[1] + rx[0]) / (rx[1] - rx[0])}, 0);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 2 * rz[0] / (ry[1] - ry[0]),
+			(ry[1] + ry[0]) / (ry[1] - ry[0])}, 1);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0,-1 * (rz[1] + rz[0]) / (rz[1] - rz[0]),
+			-2 * rz[0] * rz[1] / (rz[1] - rz[0])}, 2);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -1, 0}, 3);
+	}
 }
 
 void	sym_projection(float rx[2], float ry[2], float rz[2], t_proj *p)
 {
-	return ;
+	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001 &&
+		fabs(rz[1] - rz[0]) > 0.0001)
+	{
+		ft_tsetrow(&(p->proj), (t_vec4){rz[0]/rx[1], 0, 0,
+			-1 * (rx[1] + rx[0]) / (rx[1] - rx[0])}, 0);
+		ft_tsetrow(&(p->proj), (t_vec4){0, rz[0]/ry[1], 0, 0}, 1);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0,-1 * (rz[1] + rz[0]) / (rz[1] - rz[0]),
+			-2 * rz[0] * rz[1] / (rz[1] - rz[0])}, 2);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -1, 0}, 3);
+	}
 }
 
 void	orthographic(float rx[2], float ry[2], float rz[2], t_proj *p)
 {
-	return ;
+	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001 &&
+		fabs(rz[1] - rz[0]) > 0.0001)
+	{
+		ft_tsetrow(&(p->proj), (t_vec4){2 / (rx[1] - rx[0]), 0, 0,
+			-1 * (rx[1] + rx[0]) / (rx[1] - rx[0])}, 0);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 2 / (ry[1] - ry[0]), 0,
+			-1 * (ry[1] + ry[0]) / (ry[1] - ry[0])}, 1);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -2 / (rz[1] - rz[0]),
+			-1 * (rz[1] + rz[0]) / (rz[1] - rz[0])}, 2);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0, 0, 1}, 3);
+	}
 }
 
 void	sym_orthographic(float rx[2], float ry[2], float rz[2], t_proj *p)
 {
-	return ;
+	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001 &&
+		fabs(rz[1] - rz[0]) > 0.0001)
+	{
+		ft_tsetrow(&(p->proj), (t_vec4){1 / rx[1] , 0, 0, 0}, 0);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 1 / ry[1], 0, 0}, 1);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -2 / (rz[1] - rz[0]),
+			-1 * (rz[1] + rz[0]) / (rz[1] - rz[0])}, 2);
+		ft_tsetrow(&(p->proj), (t_vec4){0, 0, 0, 1}, 3);
+	}
 }

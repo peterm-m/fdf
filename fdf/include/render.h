@@ -28,6 +28,11 @@ typedef struct s_point {
 	t_vec3	r;
 	int		color;
 }	t_point;
+// line struct
+typedef struct s_line {
+	t_point	p0;
+	t_point	p1;
+}	t_line;
 /*
 * CAM contains the necessary information about the observer
 * and the perspective from which the map is observed.
@@ -90,10 +95,9 @@ typedef struct s_proj
 }	t_proj;
 
 typedef struct s_cam2 {
-	t_vec3		scales;
 	t_model		model;
 	t_view		view;
-	t_proj		projc;
+	t_proj		proj;
 	t_vec3		cam_pos;
 	t_matrix	cam_rot;
 }	t_cam2;
