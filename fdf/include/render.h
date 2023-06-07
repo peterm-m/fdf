@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/04 19:10:29 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:44:02 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,13 @@ void	ft_print_map(t_map *m);
 * Camera
 */
 t_cam	*ft_newcam(void );
+t_cam2	*ft_newcam2(void );
+void	set_transform_model(t_cam2 *c);
+void	set_transform_view(t_cam2 *c);
 void	set_cam_rot(t_cam *cam);
 void	set_cam_affin(t_cam *cam);
 void	set_cam_look(t_cam *cam);
-void	print_cam( t_cam cam);
+void	print_cam(t_cam cam);
 /*
 * Image
 */

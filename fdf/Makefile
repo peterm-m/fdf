@@ -6,7 +6,9 @@ SRCS = \
 	  mlx_utils.c\
 	  vector.c\
 	  vector_utils.c\
+	  trasforms.c\
 	  camera.c\
+	  camera2.c\
 	  maps.c\
 	  maps_utils.c\
 	  color.c\
@@ -51,7 +53,7 @@ INCLUDES = -I./include $(INCLUDE_MLX) $(INCLUDE_FT)
 
 
 FLAGS = -Wall -Wextra -Werror -O3
-CCFLAGS =-Wall -Wextra -Werror -O3 -fsanitize=address -g3
+CCFLAGS =-Wall -Wextra  -O3 -fsanitize=address -g3
 
 all: $(NAME)
 
