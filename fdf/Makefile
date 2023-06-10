@@ -7,6 +7,8 @@ SRCS = \
 	  vector.c\
 	  vector_utils.c\
 	  trasforms.c\
+	  trasforms_utils.c\
+	  projectors.c\
 	  camera.c\
 	  camera2.c\
 	  maps.c\

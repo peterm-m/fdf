@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:03:56 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/07 20:47:55 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:29:01 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,20 @@ t_cam2	*ft_newcam2(void )
 	t_cam2	*cam;
 
 	cam = (t_cam2 *) malloc(sizeof(t_cam2));
-	(cam->model).pos_mod = (t_vec3){10, 0, 0};
+	(cam->model).pos_mod = (t_vec3){0, -5, -6};
 	(cam->model).ang_x = 0;
 	(cam->model).ang_y = 0;
-	(cam->model).ang_z = 0;
+	(cam->model).ang_z = M_PI_2 / 3;
 	set_transform_model(cam);
-	(cam->view).pos_cam = (t_vec3){0, 1, 0};
-	(cam->view).target = (t_vec3){1, 0, 0};
+	(cam->view).pos_cam = (t_vec3){1, 1, 1};
+	(cam->view).target = (t_vec3){0, 0, 0};
 	(cam->view).up = (t_vec3){0, 1, 0};
 	set_transform_view(cam);
 	(cam->proj).type = PROJEC_SYMMETRIC;
+	(cam->proj).max = (t_vec3){1, 1, 1};
+	(cam->proj).min = (t_vec3){-1, -1, -1};
+	set_transform_proj(cam);
+	set_transform(cam);
 	return (cam);
 }
 
@@ -72,59 +76,22 @@ void	set_transform_view(t_cam2 *c)
 	ft_tsetcol(&(c->view).view, (t_vec4){tras.x, tras.y, tras.z, 1}, 3);
 }
 
-void	projection(float rx[2], float ry[2], float rz[2], t_proj *p)
+void	set_transform_proj(t_cam2 *c)
 {
-	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001
-		&& fabs(rz[1] - rz[0]) > 0.0001)
-	{
-		ft_tsetrow(&(p->proj), (t_vec4){2 * rz[0] / (rx[1] - rx[0]), 0,
-			(rx[1] + rx[0]) / (rx[1] - rx[0]), 0}, 0);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 2 * rz[0] / (ry[1] - ry[0]),
-			(ry[1] + ry[0]) / (ry[1] - ry[0]), 0}, 1);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -1 * (rz[1] + rz[0])
-			/ (rz[1] - rz[0]), -2 * rz[0] * rz[1] / (rz[1] - rz[0])}, 2);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -1, 0}, 3);
-	}
+	if ((c->proj).type == PROJECTION)
+		projection(c);
+	else if ((c->proj).type == PROJEC_SYMMETRIC)
+		sym_projection(c);
+	else if ((c->proj).type == ORTHOGRAPHIC)
+		orthographic(c);
+	else if ((c->proj).type == ORTHO_SYMMETRIC)
+		sym_orthographic(c);
 }
 
-void	sym_projection(float rx[2], float ry[2], float rz[2], t_proj *p)
+void	set_transform(t_cam2 *c)
 {
-	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001
-		&& fabs(rz[1] - rz[0]) > 0.0001)
-	{
-		ft_tsetrow(&(p->proj), (t_vec4){rz[0] / rx[1], 0, 0,
-			-1 * (rx[1] + rx[0]) / (rx[1] - rx[0])}, 0);
-		ft_tsetrow(&(p->proj), (t_vec4){0, rz[0] / ry[1], 0, 0}, 1);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -1 * (rz[1] + rz[0])
-			/ (rz[1] - rz[0]), -2 * rz[0] * rz[1] / (rz[1] - rz[0])}, 2);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -1, 0}, 3);
-	}
-}
+	t_trasform	res;
 
-void	orthographic(float rx[2], float ry[2], float rz[2], t_proj *p)
-{
-	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001
-		&& fabs(rz[1] - rz[0]) > 0.0001)
-	{
-		ft_tsetrow(&(p->proj), (t_vec4){2 / (rx[1] - rx[0]), 0, 0,
-			-1 * (rx[1] + rx[0]) / (rx[1] - rx[0])}, 0);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 2 / (ry[1] - ry[0]), 0,
-			-1 * (ry[1] + ry[0]) / (ry[1] - ry[0])}, 1);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -2 / (rz[1] - rz[0]),
-			-1 * (rz[1] + rz[0]) / (rz[1] - rz[0])}, 2);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, 0, 1}, 3);
-	}
-}
-
-void	sym_orthographic(float rx[2], float ry[2], float rz[2], t_proj *p)
-{
-	if (fabs(rx[1] - rx[0]) > 0.0001 && fabs(ry[1] - ry[0]) > 0.0001
-		&& fabs(rz[1] - rz[0]) > 0.0001)
-	{
-		ft_tsetrow(&(p->proj), (t_vec4){1 / rx[1], 0, 0, 0}, 0);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 1 / ry[1], 0, 0}, 1);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, -2 / (rz[1] - rz[0]),
-			-1 * (rz[1] + rz[0]) / (rz[1] - rz[0])}, 2);
-		ft_tsetrow(&(p->proj), (t_vec4){0, 0, 0, 1}, 3);
-	}
+	ft_tproduct(&res, &(c->model).model, &(c->view).view);
+	ft_tproduct(&(c->trasform), &res, &(c->proj).proj);
 }

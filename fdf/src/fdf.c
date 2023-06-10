@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/07 20:44:33 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:40:27 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,32 +47,24 @@ static t_render	*set_render(t_win win, char *file)
 	if (!new)
 		exit(EXIT_FAILURE);
 	new->img = ft_image(win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
-	new->cam = ft_newcam();
+	new->cam = ft_newcam2();
 	ft_parser(file, &(new->map));
 	return (new);
 }
 
 int	main(int argc, char **argv)
 {
-//	t_win		win;
-//	t_render	*render;
-//
-//	if (argc != 2)
-//		return (EXIT_FAILURE);
-//	win = ft_program(DEFAULT_WINX, DEFAULT_WINY, "fdf");
-//	render = set_render(win, argv[1]);
-//	mlx_mouse_hook(win.win, &mouse_manager, &win);
-//	mlx_key_hook(win.win, &key_manager, render);
-//	mlx_loop_hook(win.mlx, &ft_plot_map, render);
-//	mlx_hook(win.win, 17, 1L << 0, &ft_end, render);
-//	mlx_loop(win.mlx);
-//	exit(EXIT_SUCCESS);
-	argv = (void *) argv;
-	argc++;
-	t_cam2 *c = ft_newcam2();
+	t_win		win;
+	t_render	*render;
 
-	printf("%f %f %f %f\n", (c->view).view[0][0], (c->view).view[0][1], (c->view).view[0][2],(c->view).view[0][3]);
-	printf("%f %f %f %f\n", (c->view).view[1][0], (c->view).view[1][1], (c->view).view[1][2],(c->view).view[1][3]);
-	printf("%f %f %f %f\n", (c->view).view[2][0], (c->view).view[2][1], (c->view).view[2][2],(c->view).view[2][3]);
-	printf("%f %f %f %f\n", (c->view).view[3][0], (c->view).view[3][1], (c->view).view[3][2],(c->view).view[3][3]);
+	if (argc != 2)
+		return (EXIT_FAILURE);
+	win = ft_program(DEFAULT_WINX, DEFAULT_WINY, "fdf");
+	render = set_render(win, argv[1]);
+	mlx_mouse_hook(win.win, &mouse_manager, &win);
+	mlx_key_hook(win.win, &key_manager, render);
+	mlx_loop_hook(win.mlx, &ft_plot_map, render);
+	mlx_hook(win.win, 17, 1L << 0, &ft_end, render);
+	mlx_loop(win.mlx);
+	exit(EXIT_SUCCESS);
 }

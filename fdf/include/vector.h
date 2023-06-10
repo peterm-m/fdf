@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:15:20 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/07 19:43:26 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:02:36 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ typedef float	t_matrix[3][3];
 typedef float	t_trasform[4][4];
 
 float	ft_dot_product(t_vec3 a, t_vec3 b);
+float	ft_tdot_product(t_vec4 a, t_vec4 b);
 t_vec3	ft_vector_product(t_vec3 *a, t_vec3 *b);
 t_vec3	ft_normalize(t_vec3 a);
 t_vec3	ft_bymat(t_vec3 *a, t_matrix mat);
+t_vec4	ft_bytrast(t_vec4 *a, t_trasform mat);
 t_vec3	ft_traslation(t_vec3 v, t_vec3 traslation);
 t_vec3	ft_scaling(t_vec3 v, t_vec3 factors);
 t_vec3	ft_byscalar(t_vec3 v, float a);
@@ -47,7 +49,9 @@ void	ft_tsetrow(t_trasform *mat, t_vec4 data, int row);
 void	ft_tsetcol(t_trasform *mat, t_vec4 data, int row);
 t_vec4	ft_tgetrow(t_trasform *mat, int row);
 t_vec4	ft_tgetcol(t_trasform *mat, int row);
+void	ft_tproduct(t_trasform *res, t_trasform *a, t_trasform *b);
 
 void	print_vec3(t_vec3 v);
 void	print_matrix(t_matrix m);
+void	print_tras(t_trasform m);
 #endif
