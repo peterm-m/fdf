@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/22 17:45:54 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/11 15:45:51 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	ft_mapline(char *line, t_map *map, int y)
+void	ft_mapline(char *line, t_map *map, int y)
 {
 	char	**points;
 	char	**point;
@@ -41,7 +41,7 @@ static void	ft_mapline(char *line, t_map *map, int y)
 	free(points);
 }
 
-static t_map	*ft_newmap(int x, int y)
+t_map	*ft_newmap(int x, int y)
 {
 	t_map	*new;
 
@@ -60,7 +60,7 @@ static t_map	*ft_newmap(int x, int y)
 	return (new);
 }
 
-static t_map	*ft_fillmap(char **lines)
+t_map	*ft_fillmap(char **lines)
 {
 	t_map	*map;
 	char	**points;
@@ -82,18 +82,25 @@ static t_map	*ft_fillmap(char **lines)
 	return (map);
 }
 
-void	ft_parser(char *path, t_map **map)
+void	ft_print_map(t_map *m)
 {
-	char	*file;
-	char	**lines;
+	int		x;
+	int		y;
+	t_point	p;
 
-	file = ft_getfile(path);
-	if (!file)
-		exit(EXIT_FAILURE);
-	lines = ft_split(file, '\n');
-	free(file);
-	*map = ft_fillmap(lines);
-	free(lines);
+	y = -1;
+	ft_printf("MAP:\n");
+	while (++y < m->nrow)
+	{
+		x = -1;
+		while (++x < m->ncol)
+		{
+			p = point(m, x, y);
+			ft_printf("%d|%d ", p.r.z, p.color);
+		}
+		ft_printf("\n");
+	}
+	ft_printf("nrow %d ncol %d\n", m->nrow, m->ncol);
 }
 
 t_point	point(t_map *map, int x, int y)

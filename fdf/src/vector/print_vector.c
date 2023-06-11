@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trasforms_utils.c                                  :+:      :+:    :+:   */
+/*   print_vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 18:56:05 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/10 19:03:40 by pedromar         ###   ########.fr       */
+/*   Created: 2023/06/11 13:42:11 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/11 13:58:25 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vec4	ft_bytrast(t_vec4 *a, t_trasform mat)
+void	print_vec2(t_vec2 m)
 {
-	return ((t_vec4){
-		a->x * mat[0][0] + a->y * mat[0][1] + a->z * mat[0][2]
-		+ a->w * mat[0][3],
-		a->x * mat[1][0] + a->y * mat[1][1] + a->z * mat[1][2]
-		+ a->w * mat[1][3],
-		a->x * mat[2][0] + a->y * mat[2][1] + a->z * mat[2][2]
-		+ a->w * mat[2][3],
-		a->x * mat[3][0] + a->y * mat[3][1] + a->z * mat[3][2]
-		+ a->w * mat[3][3],
-		});
+	ft_printf("%f %f\n", m.x, m.y);
+}
+
+void	print_vec3(t_vec3 m)
+{
+	ft_printf("%f %f %f \n", m.x, m.y, m.z);
+}
+
+void	print_vec4(t_vec4 m)
+{
+	ft_printf("%f %f %f %f\n", m.x, m.y, m.z, m.w);
 }

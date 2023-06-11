@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlxcolor.h                                         :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:45:13 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/21 22:30:24 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/11 15:22:24 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLXCOLOR_H
-# define MLXCOLOR_H
+#ifndef COLORS_H
+# define COLORS_H
 
 /*
 * ARGB-color space utils

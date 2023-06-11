@@ -1,43 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   vector3_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 18:39:23 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/07 20:31:06 by pedromar         ###   ########.fr       */
+/*   Created: 2023/05/13 15:57:41 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/11 13:47:35 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vec3	ft_getcol(t_matrix *mat, int col)
+t_vec3	ft_minus3(t_vec3 v, t_vec3 traslation)
 {
 	return ((t_vec3){
-		(*mat)[0][col],
-	(*mat)[1][col],
-	(*mat)[2][col]});
+		v.x - traslation.x,
+		v.y - traslation.y,
+		v.z - traslation.z
+	});
 }
 
-t_vec3	ft_getrow(t_matrix *mat, int row)
+t_vec3	ft_byscalar3(t_vec3 v, float a)
 {
 	return ((t_vec3){
-		(*mat)[row][0],
-	(*mat)[row][1],
-	(*mat)[row][2]});
+		v.x * a,
+		v.y * a,
+		v.z * a
+	});
 }
 
-void	ft_setcol(t_matrix *mat, t_vec3 data, int col)
+t_vec3	ft_scaling3(t_vec3 v, t_vec3 factors)
 {
-	(*mat)[0][col] = data.x;
-	(*mat)[1][col] = data.y;
-	(*mat)[2][col] = data.z;
-}
+	t_vec3	new;
 
-void	ft_setrow(t_matrix *mat, t_vec3 data, int row)
-{
-	(*mat)[row][0] = data.x;
-	(*mat)[row][1] = data.y;
-	(*mat)[row][2] = data.z;
+	new.x = v.x * factors.x;
+	new.y = v.y * factors.y;
+	new.z = v.z * factors.z;
+	return (new);
 }

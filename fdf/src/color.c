@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 11:51:46 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/21 18:32:01 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/11 15:20:25 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+**  color is 0xAARRGGBB format
+*/
 
 #include "fdf.h"
 
@@ -37,7 +41,3 @@ int	get_alpha(int color)
 {
 	return ((color & CL_MASK_ALPHA) >> CL_POS_ALPHA);
 }
-
-/*
-**  color is 0xAARRGGBB format
-*/

@@ -3,16 +3,22 @@ NAME = fdf
 SRC_DIR := src
 
 SRCS = \
+	  vector/vector2.c\
+	  vector/vector2_utils.c\
+	  vector/matrix2.c\
+	  vector/vector3.c\
+	  vector/vector3_utils.c\
+	  vector/matrix3.c\
+	  vector/vector4.c\
+	  vector/vector4_utils.c\
+	  vector/matrix4.c\
+	  vector/print_vector.c\
+	  vector/print_matrix.c\
 	  mlx_utils.c\
-	  vector.c\
-	  vector_utils.c\
-	  trasforms.c\
-	  trasforms_utils.c\
 	  projectors.c\
 	  camera.c\
-	  camera2.c\
+	  render.c\
 	  maps.c\
-	  maps_utils.c\
 	  color.c\
 	  color_utils.c\
 	  plot_utils.c\

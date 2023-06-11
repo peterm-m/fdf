@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_utils.c                                     :+:      :+:    :+:   */
+/*   vector2_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 19:41:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/10 19:48:14 by pedromar         ###   ########.fr       */
+/*   Created: 2023/05/13 15:57:41 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/11 13:53:36 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	ft_tdot_product(t_vec4 a, t_vec4 b)
+t_vec2	ft_minus2(t_vec2 v, t_vec2 traslation)
 {
-	return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+	return ((t_vec2){
+		v.x - traslation.x,
+		v.y - traslation.y
+	});
+}
+
+t_vec2	ft_byscalar2(t_vec2 v, float a)
+{
+	return ((t_vec2){
+		v.x * a,
+		v.y * a
+	});
+}
+
+t_vec2	ft_scaling2(t_vec2 v, t_vec2 factors)
+{
+	t_vec2	new;
+
+	new.x = v.x * factors.x;
+	new.y = v.y * factors.y;
+	return (new);
 }

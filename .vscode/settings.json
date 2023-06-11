@@ -14,6 +14,9 @@
         "vector.h": "c",
         "mlx_int.h": "c",
         "istream": "c",
-        "ostream": "c"
+        "ostream": "c",
+        "geometric.h": "c",
+        "colors.h": "c",
+        "libft.h": "c"
     }
 }

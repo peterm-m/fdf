@@ -6,12 +6,19 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:32:20 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/18 20:32:44 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/11 15:01:31 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTROLS_H
 # define CONTROLS_H
+
+int		key_manager(int key, t_render *render);
+int		mouse_manager(int buttom, int x, int y, void *render);
+
+void	key_traslation(int key, t_cam *cam);
+void	key_rotation(int key, t_cam *cam);
+void	key_affin(int key, t_cam *cam);
 
 # if defined KEYS_LINUX
 // general

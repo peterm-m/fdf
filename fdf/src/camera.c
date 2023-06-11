@@ -1,88 +1,75 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   camera.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 12:23:47 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/04 18:29:17 by pedromar         ###   ########.fr       */
+/*   Created: 2023/06/03 17:03:56 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/10 18:29:01 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	set_cam_rot(t_cam *c)
+void	set_transform_model(t_cam *c)
 {
-	c->rot[0][0] = cosf(c->c) * cosf(c->b);
-	c->rot[1][0] = -cosf(c->b) * sinf(c->c);
-	c->rot[2][0] = -sinf(c->b);
-	c->rot[0][1] = sinf(c->a) * sinf(c->b) * cosf(c->c)
-		+ cosf(c->a) * sinf(c->c);
-	c->rot[1][1] = -sinf(c->a) * sinf(c->b) * sinf(c->c)
-		+ cosf(c->a) * cosf(c->c);
-	c->rot[2][1] = -sinf(c->a) * cosf(c->b);
-	c->rot[0][2] = cosf(c->a) * sinf(c->b) * cosf(c->c)
-		+ sinf(c->a) * sinf(c->c);
-	c->rot[1][2] = cosf(c->a) * sinf(c->b) * sinf(c->c)
-		+ sinf(c->a) * cosf(c->c);
-	c->rot[2][2] = -cosf(c->a) * cosf(c->b);
+	float	x;
+	float	y;
+	float	z;
+
+	x = (c->model).ang_x;
+	y = - (c->model).ang_y;
+	z = (c->model).ang_z;
+	ft_setrow4(&(c->model).model, (t_vec4){cosf(y) * cosf(z),
+		-cosf(y) * sinf(z), sinf(y), -(c->model).pos_mod.x}, 0);
+	ft_setrow4(&(c->model).model, (t_vec4){sinf(x) * sinf(y) * cosf(z)
+		+ cosf(x) * sinf(z), -sinf(x) * sinf(y) * sinf(z) + cosf(x) * cosf(z),
+		- sinf(x) * cos(y), -(c->model).pos_mod.y}, 1);
+	ft_setrow4(&(c->model).model, (t_vec4){-cosf(x) * sinf(y) * cosf(z)
+		+ sinf(x) * sinf(z), cosf(x) * sinf(y) * sinf(z)
+		+ sinf(x) * cosf(z), cosf(x) * cosf(y), -(c->model).pos_mod.z}, 2);
+	ft_setrow4(&(c->model).model, (t_vec4){0, 0, 0, 1}, 3);
 }
 
-void	set_cam_affin(t_cam *c)
+void	set_transform_view(t_cam *c)
 {
-	c->affin[0][0] = c->focal;
-	c->affin[0][1] = c->focal * c->sh;
-	c->affin[0][2] = 0;
-	c->affin[1][0] = 0;
-	c->affin[1][1] = c->focal * c->scale;
-	c->affin[1][2] = 0;
-	c->affin[2][0] = 0;
-	c->affin[2][1] = 0;
-	c->affin[2][2] = 0.1;
+	t_vec3	forward;
+	t_vec3	left;
+	t_vec3	up;
+	t_vec3	tras;
+
+	forward = ft_normalize3(ft_minus3((c->view).pos_cam,
+				(c->view).target));
+	left = ft_normalize3(ft_vector_product3(&(c->view).up, &forward));
+	up = ft_vector_product3(&forward, &left);
+	ft_setrow4(&(c->view).view, (t_vec4){left.x, left.y, left.z, 0}, 0);
+	ft_setrow4(&(c->view).view, (t_vec4){forward.x,
+		forward.y, forward.z, 0}, 2);
+	ft_setrow4(&(c->view).view, (t_vec4){up.x, up.y, up.z, 0}, 1);
+	ft_setrow4(&(c->view).view, (t_vec4){0, 0, 0, 1}, 3);
+	tras.x = -1 * ft_dot_product3(left, (c->view).pos_cam);
+	tras.y = -1 * ft_dot_product3(up, (c->view).pos_cam);
+	tras.z = -1 * ft_dot_product3(forward, (c->view).pos_cam);
+	ft_setcol4(&(c->view).view, (t_vec4){tras.x, tras.y, tras.z, 1}, 3);
 }
 
-void	set_cam_look(t_cam	*cam)
+void	set_transform_proj(t_cam *c)
 {
-	cam->cam_pos = ft_bymat(&(cam->t), cam->rot);
-	ft_matmul(cam->look, cam->affin, cam->rot);
+	if ((c->proj).type == PROJECTION)
+		projection(c);
+	else if ((c->proj).type == PROJEC_SYMMETRIC)
+		sym_projection(c);
+	else if ((c->proj).type == ORTHOGRAPHIC)
+		orthographic(c);
+	else if ((c->proj).type == ORTHO_SYMMETRIC)
+		sym_orthographic(c);
 }
 
-t_cam	*ft_newcam(void )
+void	set_transform(t_cam *c)
 {
-	t_cam	*cam;
+	t_matrix4	res;
 
-	cam = (t_cam *) malloc(sizeof(t_cam));
-	cam->t = (t_vec3){0, 0, 10};
-	cam->a = -M_PI_2 / 3;
-	cam->b = 0;
-	cam->c = 0;
-	cam->focal = 10;
-	cam->scale = 1;
-	cam->sh = 0;
-	cam->offx = 0;
-	cam->offy = 0;
-	set_cam_rot(cam);
-	set_cam_affin(cam);
-	set_cam_look(cam);
-	return (cam);
-}
-
-void	print_cam( t_cam cam)
-{
-	printf("TRASLATION\n");
-	print_vec3(cam.t);
-	printf("ANGLES\na %f b %f c %f\n",
-		cam.a, cam.b, cam.c);
-	printf("FOCAL %f\n", cam.focal);
-	printf("SCALE %f\n", cam.scale);
-	printf("SH %f\n", cam.sh);
-	printf("OFFX %f\n", cam.offx);
-	printf("OFFY %f\n", cam.offy);
-	printf("TROTATION MATRIX\n");
-	print_matrix(cam.rot);
-	printf("AFFIN MATRIX\n");
-	print_matrix(cam.affin);
-	printf("LOOK MATRIX\n");
-	print_matrix(cam.look);
+	ft_matmul4(&res, &(c->model).model, &(c->view).view);
+	ft_matmul4(&(c->trasform), &res, &(c->proj).proj);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 21:06:18 by pedromar          #+#    #+#             */
-/*   Updated: 2023/05/22 19:27:37 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/11 15:39:22 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_win	ft_program(int h, int w, char *str)
 	return ((t_win){mlx_ptr, win, w, h});
 }
 
-int	ft_end(t_render *r)
+int	ft_end_program(t_render *r)
 {
 	if (r)
 	{
@@ -49,20 +49,4 @@ int	ft_end(t_render *r)
 		free(r);
 	}
 	exit(EXIT_SUCCESS);
-}
-
-t_img	*ft_image(t_win win, int w, int h)
-{
-	t_img	*img;
-
-	img = (t_img *)malloc(sizeof(t_img));
-	img->win = win;
-	img->ptr = mlx_new_image(win.mlx, w, h);
-	if (!img->ptr)
-		exit(EXIT_FAILURE);
-	img->addr = mlx_get_data_addr(img->ptr, &(img->bpp),
-			&(img->size_line), &(img->endian));
-	img->w = w;
-	img->h = h;
-	return (img);
 }
