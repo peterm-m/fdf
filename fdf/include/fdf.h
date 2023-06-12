@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 15:37:36 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:52:53 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # include "colors.h"
 
-void	to_img(t_img *img, t_cam *cam, t_point p0, t_point p1);
+void	to_image(t_render *r, t_point p0, t_point p1);
 int		ft_plot_map(t_render	*render);
 
 #endif

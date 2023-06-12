@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:07:51 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 15:26:46 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:09:24 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,29 @@ void	ft_put_pixel(t_img *img, t_pixel *p)
 
 void	ft_plot_line(t_img *img, t_line *l)
 {
-//	int		err;
+	int		err;
 
-	//(t_ivec2){abs(r0.r.x - r1.r.x), -abs(r0.r.y - r1.r.y)}; /*#CONTINUE#*/
-	//err = dr.x + dr.y;
-	//get_gradient(&grad, &r0, &r1);
-	//while (1)
-	//{
-	//	ft_put_pixel(*img, r0.r.x, r0.r.y, pixel_color(&grad, &r0, &r1));
-	//	if ((r0.r.x == r1.r.x) && (r0.r.y == r1.r.y))
-	//		break ;
-	//	if (2 * err >= dr.y && (r1.r.x - r0.r.x) != 0)
-	//	{
-	//		err = err + dr.y;
-	//		r0.r.x = r0.r.x + (r1.r.x - r0.r.x) / abs(r1.r.x - r0.r.x);
-	//	}
-	//	if (2 * err <= dr.x && (r1.r.y - r0.r.y) != 0)
-	//	{
-	//		err = err + dr.x;
-	//		r0.r.y = r0.r.y + (r1.r.y - r0.r.y) / abs(r1.r.y - r0.r.y);
-	//	}
-	//}
+	err = l->dx + l->dy;
+	while (1)
+	{
+		ft_put_pixel(img, &(l->p0));
+		if (l->p0.x == l->p1.x && l->p0.y == l->p1.y)
+			break ;
+		if (err >= l->dy)
+		{
+			err += l->dy;
+			l->p0.x += l->dx;
+		}
+		if (err <= l->dx)
+		{
+			err += l->dx;
+			l->p0.y += l->sy;
+		}
+	}
 }
 
-void	ft_plot_circle(t_img *img, t_circle *c)
-{
+//void	ft_plot_circle(t_img *img, t_circle *c)
+//{
 //	t_ivec2	r; /*#CONTINUE#*/
 //	int		err;
 //
@@ -70,7 +68,7 @@ void	ft_plot_circle(t_img *img, t_circle *c)
 //		if (r.x > 0)
 //			break ;
 //	}
-}
+//}
 
 // void	ft_plot_axis(t_img *img, t_cam *cam)
 // {
