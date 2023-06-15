@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/12 18:57:33 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:47:50 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		projection(t_cam *c);
 
 t_cam		*set_camera(void );
 
-void		set_image(t_img *img, t_win *win, int w, int h);
+void		ft_image(t_render *r, t_win *win, int w, int h);
 
 t_render	*set_render(t_win *win, char *file);
 void		set_transform(t_cam *c);

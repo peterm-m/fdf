@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:07:51 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/12 20:09:24 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 21:23:35 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,25 @@ void	ft_put_pixel(t_img *img, t_pixel *p)
 	if (p->x > 0 && p->y > 0 && p->x < img->w && p->y < img->h)
 	{
 		dst = img->addr + (p->y * img->size_line + p->x * (img->bpp / 8));
-		*(unsigned int *) dst = p->color;
+		*(unsigned int *) dst = 0;
 	}
 }
 
 void	ft_plot_line(t_img *img, t_line *l)
 {
-	int		err;
-
-	err = l->dx + l->dy;
 	while (1)
 	{
 		ft_put_pixel(img, &(l->p0));
-		if (l->p0.x == l->p1.x && l->p0.y == l->p1.y)
+		if ((l->p0.x == l->p1.x) && (l->p0.y == l->p1.y))
 			break ;
-		if (err >= l->dy)
+		if (2 * l->err >= l->dy)
 		{
-			err += l->dy;
-			l->p0.x += l->dx;
+			l->err += l->dy;
+			l->p0.x += l->sx;
 		}
-		if (err <= l->dx)
+		if (2 * l->err <= l->dx)
 		{
-			err += l->dx;
+			l->err += l->dx;
 			l->p0.y += l->sy;
 		}
 	}

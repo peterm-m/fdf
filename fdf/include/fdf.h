@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/12 19:52:53 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:18:48 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
-
 
 # include "libft.h"
 # include "mlx.h"

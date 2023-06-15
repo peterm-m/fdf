@@ -6,23 +6,23 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:13:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 15:48:50 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:55:35 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_image(t_img *img, t_win *win, int w, int h)
+void	ft_image(t_render *r, t_win *win, int w, int h)
 {
-	img = (t_img *)malloc(sizeof(t_img));
-	img->win = *win;
-	img->ptr = mlx_new_image(win->mlx, w, h);
-	if (!img->ptr)
+	r->img = (t_img *)malloc(sizeof(t_img));
+	r->img->win = *win;
+	r->img->ptr = mlx_new_image(win->mlx, w, h);
+	if (!r->img->ptr)
 		exit(EXIT_FAILURE);
-	img->addr = mlx_get_data_addr(img->ptr, &(img->bpp),
-			&(img->size_line), &(img->endian));
-	img->w = w;
-	img->h = h;
+	r->img->addr = mlx_get_data_addr(r->img->ptr, &(r->img->bpp),
+			&(r->img->size_line), &(r->img->endian));
+	r->img->w = w;
+	r->img->h = h;
 }
 
 t_cam	*set_camera(void )
@@ -68,7 +68,7 @@ t_render	*set_render(t_win *win, char *file)
 	new = (t_render *)malloc(sizeof(t_render));
 	if (!new)
 		exit(EXIT_FAILURE);
-	ft_image(new->img, win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
+	ft_image(new, win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
 	new->cam = set_camera();
 	set_map(file, &(new->map));
 	return (new);

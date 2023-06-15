@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:43:41 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/12 20:03:30 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:19:03 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ typedef struct s_point {
 	int		color;
 }	t_point;
 
-typedef struct s_line {
-	t_pixel	p0;
-	t_pixel	p1;
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		dcolor;
-}	t_line;
-
 typedef struct s_circle {
 	t_point	p0;
 	float	rad;
@@ -43,8 +32,19 @@ typedef struct s_pixel {
 	int	color;
 }	t_pixel;
 
-t_point		to_ndc(t_render *r, int x, int y);
+typedef struct s_line {
+	t_pixel	p0;
+	t_pixel	p1;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		dcolor;
+}	t_line;
 
+t_point		to_ndc(t_render *r, int x, int y);
+t_point		point(t_map *map, int x, int y);
 /*
 *	Primitive plots
 */

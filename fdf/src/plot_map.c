@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:28:29 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/12 20:09:39 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 21:22:10 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ void	to_imgage(t_render *r, t_point p0, t_point p1)
 	l.p1.y = (int) p1.r.y;
 	l.p1.color = (int) p1.color;
 	l.dx = abs(l.p1.x - l.p0.x);
-	l.dy = abs(l.p1.y - l.p0.y);
-	l.sx = -1;
+	l.dy = -abs(l.p1.y - l.p0.y);
 	if (l.p0.x < l.p1.x)
 		l.sx = 1;
-	l.sy = -1;
+	else
+		l.sx = -1;
 	if (l.p0.y < l.p1.y)
-		l.sx = 1;
+		l.sy = 1;
+	else
+		l.sy = -1;
 	l.err = l.dx + l.dy;
 	ft_plot_line(r->img, &l);
 }
@@ -39,8 +41,8 @@ t_point	to_windows(t_render *r, int x, int y)
 	t_point	p;
 	t_vec4	v;
 
-	v = ft_bymat4((t_vec4 *){x, y,
-			r->map->z[y * r->map->ncol + x], 0},
+	v = ft_bymat4(&((t_vec4){x, y,
+				r->map->z[y * r->map->ncol + x], 0}),
 			r->cam->trasform);
 	if (v.w == 0)
 		v.w = 0.01;
@@ -57,8 +59,6 @@ int	ft_plot_map(t_render *r)
 	int		x;
 	int		y;
 
-	ft_bzero((void *)(r->img->addr), r->img->h * r->img->size_line
-		+ r->img->w * (r->img->bpp / 8));
 	y = -1;
 	while (++y < r->map->nrow -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:32:20 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 15:01:31 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:10:57 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define CONTROLS_H
 
 int		key_manager(int key, t_render *render);
-int		mouse_manager(int buttom, int x, int y, void *render);
+int		mouse_manager(int buttom, int x, int y, t_render *render);
 
-void	key_traslation(int key, t_cam *cam);
-void	key_rotation(int key, t_cam *cam);
-void	key_affin(int key, t_cam *cam);
+void	key_traslation(int key, t_render *render);
+void	key_rotation(int key, t_render *render);
+void	key_affin(int key, t_render *render);
 
 # if defined KEYS_LINUX
 // general
