@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 13:55:57 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 13:17:58 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:57:28 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec3	ft_normalize3(t_vec3 a)
 {
 	float	norm;
 
-	norm = sqrt(ft_dot_product3(a, a));
+	norm = sqrtf(ft_dot_product3(a, a));
 	if (norm == 0)
 		return ((t_vec3){0, 0, 0});
 	return ((t_vec3){

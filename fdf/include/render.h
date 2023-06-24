@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/15 19:47:50 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:40:59 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ typedef struct s_model {
 	float		ang_z;
 	float		ang_y;
 	float		ang_x;
-	t_matrix4	model;
+	t_matrix4	*model;
 }	t_model;
 
 typedef struct s_view {
-	t_vec3		pos_cam;
-	t_vec3		target;
-	t_vec3		up;
-	t_matrix4	view;
+	t_vec3		pos;
+	float		pitch;
+	float		yal;
+	float		roll;
+	t_matrix4	*view;
 }	t_view;
 
 # define PROJECTION 0
@@ -42,8 +43,7 @@ typedef struct s_view {
 # define PROJEC_SYMMETRIC 2
 # define ORTHO_SYMMETRIC 3
 
-typedef struct s_proj
-{
+typedef struct s_proj {
 	int			type;
 	t_vec3		max;
 	t_vec3		min;
@@ -51,10 +51,17 @@ typedef struct s_proj
 }	t_proj;
 
 typedef struct s_cam {
-	t_model		model;
-	t_view		view;
-	t_proj		proj;
-	t_matrix4	trasform;
+	t_vec3		pos_view;
+	t_vec3		rot_view;
+	t_matrix4	*view;
+	t_vec3		pos_model;
+	t_vec3		rot_model;
+	t_matrix4	*model;
+	int			proj_type;
+	t_vec3		proj_max;
+	t_vec3		proj_min;
+	t_matrix4	*proj;
+	t_matrix4	*trasform;
 }	t_cam;
 
 # define DEFAULT_WINX 1024

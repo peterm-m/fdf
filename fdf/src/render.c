@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:13:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/15 19:55:35 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:42:24 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,26 @@ void	ft_image(t_render *r, t_win *win, int w, int h)
 	r->img->h = h;
 }
 
-t_cam	*set_camera(void )
+t_cam	*new_camera(void )
 {
 	t_cam	*cam;
 
 	cam = (t_cam *) malloc(sizeof(t_cam));
-	(cam->model).pos_mod = (t_vec3){0, -5, -6};
-	(cam->model).ang_x = 0;
-	(cam->model).ang_y = 0;
-	(cam->model).ang_z = M_PI_2 / 3;
-	set_transform_model(cam);
-	(cam->view).pos_cam = (t_vec3){1, 1, 1};
-	(cam->view).target = (t_vec3){0, 0, 0};
-	(cam->view).up = (t_vec3){0, 1, 0};
-	set_transform_view(cam);
-	(cam->proj).type = PROJEC_SYMMETRIC;
-	(cam->proj).max = (t_vec3){1, 1, 1};
-	(cam->proj).min = (t_vec3){-1, -1, -1};
-	set_transform_proj(cam);
+	if (!cam)
+		exit(EXIT_FAILURE);
+	cam->model = new_matrix4();
+	cam->proj = new_matrix4();
+	cam->view = new_matrix4();
+	cam->trasform = new_matrix4();
+	if (!cam->proj || !cam->trasform || !cam->view || !cam->model)
+		exit(EXIT_FAILURE);
+	cam->proj_type = PROJECTION;
+	cam->pos_view = (t_vec3){0, 0, 0};
+	cam->rot_view = (t_vec3){0, 0, 0};
+	cam->pos_model = (t_vec3){0, 0, 0};
+	cam->rot_model = (t_vec3){0, 0, 0};
+	cam->proj_max = (t_vec3){0, 0, 0};
+	cam->proj_min = (t_vec3){0, 0, 0};
 	set_transform(cam);
 	return (cam);
 }

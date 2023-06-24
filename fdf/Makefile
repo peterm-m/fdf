@@ -4,16 +4,23 @@ SRC_DIR := src
 
 SRCS = \
 	  vector/vector2.c\
-	  vector/vector2_utils.c\
 	  vector/matrix2.c\
+	  vector/vector2_utils.c\
+	  vector/matrix2_utils.c\
 	  vector/vector3.c\
-	  vector/vector3_utils.c\
 	  vector/matrix3.c\
+	  vector/vector3_utils.c\
+	  vector/matrix3_utils.c\
 	  vector/vector4.c\
-	  vector/vector4_utils.c\
 	  vector/matrix4.c\
+	  vector/vector4_utils.c\
+	  vector/matrix4_utils.c\
 	  vector/print_vector.c\
 	  vector/print_matrix.c\
+	  trasformations/look_at.c\
+	  trasformations/rotation.c\
+	  trasformations/scale.c\
+	  trasformations/traslation.c\
 	  mlx_utils.c\
 	  projectors.c\
 	  camera.c\

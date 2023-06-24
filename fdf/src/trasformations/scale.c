@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector2.c                                          :+:      :+:    :+:   */
+/*   scale.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 13:48:05 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/24 15:58:13 by pedromar         ###   ########.fr       */
+/*   Created: 2023/06/24 15:24:46 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/24 16:45:46 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	ft_dot_product2(t_vec2 a, t_vec2 b)
+void	scale(t_vec3 *s, t_matrix4 *mat)
 {
-	return (a.x * b.x + a.y * b.y);
-}
-
-t_vec2	ft_normalize2(t_vec2 a)
-{
-	float	norm;
-
-	norm = sqrtf(ft_dot_product2(a, a));
-	if (norm != 0)
-		return ((t_vec2){0, 0});
-	return ((t_vec2){
-		a.x / norm,
-		a.y / norm
-	});
-}
-
-t_vec2	ft_bymat2(t_vec2 *a, t_matrix2 mat)
-{
-	return ((t_vec2){
-		a->x * mat[0][0] + a->y * mat[0][1],
-		a->x * mat[1][0] + a->y * mat[1][1]
-		});
+	ft_setrow4(&mat, (t_vec4){s->x, 0, 0, 0}, 0);
+	ft_setrow4(&mat, (t_vec4){0, s->y, 0, 0}, 1);
+	ft_setrow4(&mat, (t_vec4){0, 0, s->z, 0}, 2);
+	ft_setrow4(&mat, (t_vec4){0, 0, 0, 1}, 3);
 }

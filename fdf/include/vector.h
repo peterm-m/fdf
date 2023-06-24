@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:15:20 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/15 20:01:25 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/24 20:35:46 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_setrow4(t_matrix4 *mat, t_vec4 data, int row);
 void	ft_setcol4(t_matrix4 *mat, t_vec4 data, int row);
 t_vec4	ft_getrow4(t_matrix4 *mat, int row);
 t_vec4	ft_getcol4(t_matrix4 *mat, int row);
-void	ft_matmul4(t_matrix4 *res, t_matrix4 *a, t_matrix4 *b);
+void	ft_matmul4(t_matrix4 *res, t_matrix4 a, t_matrix4 b);
 
 void	print_matrix4(t_matrix4 m);
 

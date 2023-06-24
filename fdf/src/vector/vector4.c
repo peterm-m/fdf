@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:57:41 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 14:10:41 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:57:28 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec4	ft_normalize4(t_vec4 a)
 {
 	float	norm;
 
-	norm = sqrt(ft_dot_product4(a, a));
+	norm = sqrtf(ft_dot_product4(a, a));
 	if (norm == 0)
 		return ((t_vec4){0, 0, 0, 0});
 	return ((t_vec4){

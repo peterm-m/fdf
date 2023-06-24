@@ -17,6 +17,10 @@
         "ostream": "c",
         "geometric.h": "c",
         "colors.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "__functional_03": "c",
+        "functional": "c",
+        "type_traits": "c",
+        "ios": "c"
     }
 }

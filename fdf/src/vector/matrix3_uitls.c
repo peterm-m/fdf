@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector2.c                                          :+:      :+:    :+:   */
+/*   matrix3_uitls.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 13:48:05 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/24 15:58:13 by pedromar         ###   ########.fr       */
+/*   Created: 2023/06/24 15:07:26 by pedromar          #+#    #+#             */
+/*   Updated: 2023/06/24 15:15:38 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	ft_dot_product2(t_vec2 a, t_vec2 b)
+t_matrix3	*new_matrix3(void )
 {
-	return (a.x * b.x + a.y * b.y);
-}
+	t_matrix3	*new;
 
-t_vec2	ft_normalize2(t_vec2 a)
-{
-	float	norm;
-
-	norm = sqrtf(ft_dot_product2(a, a));
-	if (norm != 0)
-		return ((t_vec2){0, 0});
-	return ((t_vec2){
-		a.x / norm,
-		a.y / norm
-	});
-}
-
-t_vec2	ft_bymat2(t_vec2 *a, t_matrix2 mat)
-{
-	return ((t_vec2){
-		a->x * mat[0][0] + a->y * mat[0][1],
-		a->x * mat[1][0] + a->y * mat[1][1]
-		});
+	new = (t_matrix3 *)malloc(sizeof(t_matrix3));
+	if (!new)
+		return (NULL);
+	ft_setrow3(new, (t_vec3){1, 0, 0}, 0);
+	ft_setrow3(new, (t_vec3){0, 1, 0}, 1);
+	ft_setrow3(new, (t_vec3){0, 0, 1}, 2);
+	return (new);
 }
