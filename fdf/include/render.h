@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/24 19:40:59 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:58:53 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,6 @@ typedef struct s_map {
 	int	*z;
 	int	*color;
 }	t_map;
-
-typedef struct s_model {
-	t_vec3		pos_mod;
-	float		ang_z;
-	float		ang_y;
-	float		ang_x;
-	t_matrix4	*model;
-}	t_model;
-
-typedef struct s_view {
-	t_vec3		pos;
-	float		pitch;
-	float		yal;
-	float		roll;
-	t_matrix4	*view;
-}	t_view;
 
 # define PROJECTION 0
 # define ORTHOGRAPHIC 1

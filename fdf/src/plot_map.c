@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:28:29 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/15 21:22:10 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:58:19 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,23 @@ int	ft_plot_map(t_render *r)
 	int		x;
 	int		y;
 
-	y = -1;
-	while (++y < r->map->nrow -1)
-	{
-		x = -1;
-		while (++x < r->map->ncol -1)
-		{
-			to_imgage(r, to_windows(r, x, y),
-				to_windows(r, x, y + 1));
-			to_imgage(r, to_windows(r, x, y),
-				to_windows(r, x + 1, y));
-		}
-		to_imgage(r, to_windows(r, x, y), to_windows(r, x, y + 1));
-	}
-	x = -1;
-	while (++x < r->map->ncol -1)
-		to_imgage(r, to_windows(r, x, y), to_windows(r, x + 1, y));
-	mlx_put_image_to_window(r->img->win.mlx, r->img->win.win,
-		r->img->ptr, 0, 0);
-	return (EXIT_SUCCESS);
+	//y = -1;
+	//while (++y < r->map->nrow -1)
+	//{
+	//	x = -1;
+	//	while (++x < r->map->ncol -1)
+	//	{
+	//		to_imgage(r, to_windows(r, x, y),
+	//			to_windows(r, x, y + 1));
+	//		to_imgage(r, to_windows(r, x, y),
+	//			to_windows(r, x + 1, y));
+	//	}
+	//	to_imgage(r, to_windows(r, x, y), to_windows(r, x, y + 1));
+	//}
+	//x = -1;
+	//while (++x < r->map->ncol -1)
+	//	to_imgage(r, to_windows(r, x, y), to_windows(r, x + 1, y));
+	//mlx_put_image_to_window(r->img->win.mlx, r->img->win.win,
+	//	r->img->ptr, 0, 0);
+	//return (EXIT_SUCCESS);
 }

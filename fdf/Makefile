@@ -68,7 +68,7 @@ INCLUDES = -I./include $(INCLUDE_MLX) $(INCLUDE_FT)
 
 
 FLAGS = -Wall -Wextra -Werror -O3
-CCFLAGS =-Wall -Wextra  -O3 -fsanitize=address -g3
+CCFLAGS =-Wall -Wextra  -Werror -O3 -fsanitize=address -g3
 
 all: $(NAME)
 
