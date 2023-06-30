@@ -21,11 +21,11 @@ SRCS = \
 	  trasformations/rotation.c\
 	  trasformations/scale.c\
 	  trasformations/traslation.c\
+	  trasformations/projection.c\
+	  render/camera.c\
+	  render/render.c\
+	  render/maps.c\
 	  mlx_utils.c\
-	  projectors.c\
-	  camera.c\
-	  render.c\
-	  maps.c\
 	  color.c\
 	  color_utils.c\
 	  plot_utils.c\

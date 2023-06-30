@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 15:07:26 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/24 15:15:29 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:53:59 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ t_matrix4	*new_matrix4(void )
 	ft_setrow4(new, (t_vec4){0, 0, 0, 1}, 3);
 	return (new);
 }
-

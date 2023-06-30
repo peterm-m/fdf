@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:13:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/29 21:19:20 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/30 21:11:23 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ t_cam	*new_camera(void )
 	cam = (t_cam *) malloc(sizeof(t_cam));
 	if (!cam)
 		exit(EXIT_FAILURE);
-	cam->model = new_matrix4();
+	cam->model = (t_matrix4 *)new_matrix4();
 	cam->proj = new_matrix4();
 	cam->view = new_matrix4();
 	cam->trasform = new_matrix4();
 	if (!cam->proj || !cam->trasform || !cam->view || !cam->model)
 		exit(EXIT_FAILURE);
 	cam->proj_type = PROJECTION;
-	cam->pos_view = (t_vec3){0, 0, 0};
+	cam->pos_view = (t_vec3){1, 1, 1};
 	cam->rot_view = (t_vec3){0, 0, 0};
-	cam->pos_model = (t_vec3){0, 0, 0};
+	cam->pos_model = (t_vec3){1, 1, 1};
 	cam->rot_model = (t_vec3){0, 0, 0};
 	cam->proj_max = (t_vec3){0, 0, 0};
 	cam->proj_min = (t_vec3){0, 0, 0};
@@ -71,7 +71,7 @@ t_render	*set_render(t_win *win, char *file)
 	if (!new)
 		exit(EXIT_FAILURE);
 	ft_image(new, win, DEFAULT_IMGSIZX, DEFAULT_IMGSIZY);
-	new->cam = set_camera();
+	new->cam = new_camera();
 	set_map(file, &(new->map));
 	return (new);
 }

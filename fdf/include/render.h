@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/29 19:58:53 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:00:04 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void		sym_projection(t_cam *c);
 void		orthographic(t_cam *c);
 void		sym_orthographic(t_cam *c);
 void		projection(t_cam *c);
-
-t_cam		*set_camera(void );
 
 void		ft_image(t_render *r, t_win *win, int w, int h);
 

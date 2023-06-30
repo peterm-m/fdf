@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 18:32:20 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/29 20:54:39 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/06/30 21:12:08 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,21 @@ void	ft_matmul4(t_matrix4 *res, t_matrix4 a, t_matrix4 b)
 {
 	t_matrix4	*aa;
 	t_matrix4	*bb;
+	int			col;
+	int			row;
 
 	aa = (t_matrix4 *) &a;
 	bb = (t_matrix4 *) &b;
-	(*res)[0][0] = ft_dot_product4(ft_getrow4(aa, 0), ft_getcol4(bb, 0));
-	(*res)[0][1] = ft_dot_product4(ft_getrow4(aa, 0), ft_getcol4(bb, 1));
-	(*res)[0][2] = ft_dot_product4(ft_getrow4(aa, 0), ft_getcol4(bb, 2));
-	(*res)[0][3] = ft_dot_product4(ft_getrow4(aa, 0), ft_getcol4(bb, 3));
-	(*res)[1][0] = ft_dot_product4(ft_getrow4(aa, 1), ft_getcol4(bb, 0));
-	(*res)[1][1] = ft_dot_product4(ft_getrow4(aa, 1), ft_getcol4(bb, 1));
-	(*res)[1][2] = ft_dot_product4(ft_getrow4(aa, 1), ft_getcol4(bb, 2));
-	(*res)[1][3] = ft_dot_product4(ft_getrow4(aa, 1), ft_getcol4(bb, 3));
-	(*res)[2][0] = ft_dot_product4(ft_getrow4(aa, 2), ft_getcol4(bb, 0));
-	(*res)[2][1] = ft_dot_product4(ft_getrow4(aa, 2), ft_getcol4(bb, 1));
-	(*res)[2][2] = ft_dot_product4(ft_getrow4(aa, 2), ft_getcol4(bb, 2));
-	(*res)[2][3] = ft_dot_product4(ft_getrow4(aa, 2), ft_getcol4(bb, 3));
-	(*res)[3][0] = ft_dot_product4(ft_getrow4(aa, 3), ft_getcol4(bb, 0));
-	(*res)[3][1] = ft_dot_product4(ft_getrow4(aa, 3), ft_getcol4(bb, 1));
-	(*res)[3][2] = ft_dot_product4(ft_getrow4(aa, 3), ft_getcol4(bb, 2));
-	(*res)[3][3] = ft_dot_product4(ft_getrow4(aa, 3), ft_getcol4(bb, 3));
+	col = 0;
+	while (col < 4)
+	{
+		row = 0;
+		while (row < 4)
+		{
+			(*res)[row][col] = a[row][0] * b[0][col] + a[row][1] * b[1][col]
+				+ a[row][2] * b[2][col] + a[row][3] * b[3][col];
+			row++;
+		}
+		col++;
+	}
 }
