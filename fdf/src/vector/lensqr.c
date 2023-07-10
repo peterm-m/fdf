@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix3_utils.c                                    :+:      :+:    :+:   */
+/*   lensqr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 15:07:26 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/30 20:54:03 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 21:33:16 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 21:34:31 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix3	*new_matrix3(void )
+float	ft_lensqrv2(t_vec2 v)
 {
-	t_matrix3	*new;
+	return (v.x * v.x + v.y * v.y);
+}
 
-	new = (t_matrix3 *)malloc(sizeof(t_matrix3));
-	if (!new)
-		return (NULL);
-	ft_setrow3(new, (t_vec3){1, 0, 0}, 0);
-	ft_setrow3(new, (t_vec3){0, 1, 0}, 1);
-	ft_setrow3(new, (t_vec3){0, 0, 1}, 2);
-	return (new);
+float	ft_lensqrv3(t_vec3 v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
+float	ft_lensqrv4(t_vec4 v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
 }

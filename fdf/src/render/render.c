@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:13:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/30 21:11:23 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/10 20:01:37 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,13 @@ t_cam	*new_camera(void )
 	cam = (t_cam *) malloc(sizeof(t_cam));
 	if (!cam)
 		exit(EXIT_FAILURE);
-	cam->model = (t_matrix4 *)new_matrix4();
-	cam->proj = new_matrix4();
-	cam->view = new_matrix4();
-	cam->trasform = new_matrix4();
-	if (!cam->proj || !cam->trasform || !cam->view || !cam->model)
-		exit(EXIT_FAILURE);
-	cam->proj_type = PROJECTION;
-	cam->pos_view = (t_vec3){1, 1, 1};
-	cam->rot_view = (t_vec3){0, 0, 0};
-	cam->pos_model = (t_vec3){1, 1, 1};
-	cam->rot_model = (t_vec3){0, 0, 0};
-	cam->proj_max = (t_vec3){0, 0, 0};
-	cam->proj_min = (t_vec3){0, 0, 0};
+	cam->proj_type = ORTHO_SYMMETRIC ;
+	cam->pos_view = ft_vec3(0.0f, 0.0f, 0.0f);
+	cam->rot_view = ft_vec3(0.0f, 0.0f, 0.0f);
+	cam->pos_model = ft_vec3(0.0f, 0.0f, 0.0f);
+	cam->rot_model = ft_vec3(0.0f, 0.0f, 0.0f);
+	cam->proj_max = ft_vec3(1.0f, 1.0f, 1.0f);
+	cam->proj_min = ft_vec3(-1.0f, -1.0f, -1.0f);
 	set_transform(cam);
 	return (cam);
 }

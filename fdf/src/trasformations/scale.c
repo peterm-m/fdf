@@ -3,19 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   scale.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 15:24:46 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/29 20:26:00 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/07 18:37:13 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/10 02:48:32 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	scale(t_vec3 *s, t_matrix4 *mat)
+t_matrix4	scale(t_vec3 scale)
 {
-	ft_setrow4(mat, (t_vec4){s->x, 0, 0, 0}, 0);
-	ft_setrow4(mat, (t_vec4){0, s->y, 0, 0}, 1);
-	ft_setrow4(mat, (t_vec4){0, 0, s->z, 0}, 2);
-	ft_setrow4(mat, (t_vec4){0, 0, 0, 1}, 3);
+	t_matrix4	m;
+
+	m = ft_ident4();
+	m.elements[0][0] = scale.x;
+	m.elements[1][1] = scale.y;
+	m.elements[2][2] = scale.z;
+	return (m);
+}
+
+t_matrix4	invscale(t_matrix4 scale_m)
+{
+	t_matrix4	m;
+
+	m = scale_m;
+	m.elements[0][0] = 1.0f / m.elements[0][0];
+	m.elements[1][1] = 1.0f / m.elements[1][1];
+	m.elements[2][2] = 1.0f / m.elements[2][2];
+	return (m);
 }

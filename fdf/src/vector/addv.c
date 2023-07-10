@@ -1,25 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix2_utils.c                                    :+:      :+:    :+:   */
+/*   addv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 15:07:26 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/24 15:16:27 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 20:26:09 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 20:28:09 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix2	*new_matrix2(void )
+t_vec2	ft_addv2(t_vec2 v1, t_vec2 v2)
 {
-	t_matrix2	*new;
+	t_vec2	v;
 
-	new = (t_matrix2 *)malloc(sizeof(t_matrix2));
-	if (!new)
-		return (NULL);
-	ft_setrow2(new, (t_vec2){1, 0}, 0);
-	ft_setrow2(new, (t_vec2){0, 1}, 1);
-	return (new);
+	v.x = v1.x + v2.x;
+	v.y = v1.y + v2.y;
+	return (v);
+}
+
+t_vec3	ft_addv3(t_vec3 v1, t_vec3 v2)
+{
+	t_vec3	v;
+
+	v.x = v1.x + v2.x;
+	v.y = v1.y + v2.y;
+	v.z = v1.z + v2.z;
+	return (v);
+}
+
+t_vec4	ft_addv4(t_vec4 v1, t_vec4 v2)
+{
+	t_vec4	v;
+
+	v.x = v1.x + v2.x;
+	v.y = v1.y + v2.y;
+	v.y = v1.z + v2.z;
+	v.w = v1.w + v2.w;
+	return (v);
 }

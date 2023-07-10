@@ -3,36 +3,46 @@ NAME = fdf
 SRC_DIR := src
 
 SRCS = \
-	  vector/vector2.c\
-	  vector/matrix2.c\
-	  vector/vector2_utils.c\
-	  vector/matrix2_utils.c\
-	  vector/vector3.c\
-	  vector/matrix3.c\
-	  vector/vector3_utils.c\
-	  vector/matrix3_utils.c\
-	  vector/vector4.c\
-	  vector/matrix4.c\
-	  vector/vector4_utils.c\
-	  vector/matrix4_utils.c\
-	  vector/print_vector.c\
-	  vector/print_matrix.c\
-	  trasformations/look_at.c\
+	  vector/addm.c\
+	  vector/ident.c\
+	  vector/addv.c\
+	  vector/cross.c\
+	  vector/divmf.c\
+	  vector/divv2.c\
+	  vector/dotv.c\
+	  vector/eqv.c\
+	  vector/len.c\
+	  vector/lensqr.c\
+	  vector/linearcomb.c\
+	  vector/mat.c\
+	  vector/mulmf.c\
+	  vector/mulmm.c\
+	  vector/mulmv.c\
+	  vector/mulv.c\
+	  vector/mulvf.c\
+	  vector/printm.c\
+	  vector/printv.c\
+	  vector/subm.c\
+	  vector/subv.c\
+	  vector/vec.c\
+	  vector/transpose.c\
+	  trasformations/lookat.c\
+	  trasformations/ortho.c\
+	  trasformations/perspective.c\
 	  trasformations/rotation.c\
 	  trasformations/scale.c\
 	  trasformations/traslation.c\
-	  trasformations/projection.c\
 	  render/camera.c\
-	  render/render.c\
 	  render/maps.c\
+	  render/render.c\
+	  controls/controls.c\
 	  mlx_utils.c\
-	  color.c\
-	  color_utils.c\
 	  plot_utils.c\
 	  plot_map.c\
-	  controls.c\
-	  fdf.c
+	  fdf.c\
+	  color/color.c
 
+.SILENT:
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR   := .build
@@ -77,10 +87,11 @@ $(NAME): libft mlx $(OBJS)
 	$(info CREATED $(NAME))
 
 libft:
-	$(MAKE) -C $(DIR_FT)
+	@$(MAKE) -C $(DIR_FT)
 
 mlx:
-	$(MAKE) -C $(DIR_MLX)
+	echo make $(DIR_MLX)
+	@$(MAKE) -C $(DIR_MLX) 2>/dev/null
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)

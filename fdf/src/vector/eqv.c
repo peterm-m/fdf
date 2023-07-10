@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix4_utils.c                                    :+:      :+:    :+:   */
+/*   eqv.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 15:07:26 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/30 20:53:59 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 20:57:52 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 20:59:51 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix4	*new_matrix4(void )
+bool	ft_eqv2(t_vec2 v1, t_vec2 v2)
 {
-	t_matrix4	*new;
+	return (v1.x == v2.x && v1.y == v2.y);
+}
 
-	new = (t_matrix4 *)malloc(sizeof(t_matrix4));
-	if (!new)
-		return (NULL);
-	ft_setrow4(new, (t_vec4){1, 0, 0, 0}, 0);
-	ft_setrow4(new, (t_vec4){0, 1, 0, 0}, 1);
-	ft_setrow4(new, (t_vec4){0, 0, 1, 0}, 2);
-	ft_setrow4(new, (t_vec4){0, 0, 0, 1}, 3);
-	return (new);
+bool	ft_eqv3(t_vec3 v1, t_vec3 v2)
+{
+	return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
+}
+
+bool	ft_eqv4(t_vec4 v1, t_vec4 v2)
+{
+	return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z && v1.w == v2.w);
 }

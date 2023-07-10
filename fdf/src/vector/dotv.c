@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3_utils.c                                    :+:      :+:    :+:   */
+/*   dotv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 15:57:41 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 13:47:35 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 21:03:23 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 21:05:09 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vec3	ft_minus3(t_vec3 v, t_vec3 traslation)
+float	ft_dotv2(t_vec2 v1, t_vec2 v2)
 {
-	return ((t_vec3){
-		v.x - traslation.x,
-		v.y - traslation.y,
-		v.z - traslation.z
-	});
+	return (v1.x * v2.x + v1.y * v2.y);
 }
 
-t_vec3	ft_byscalar3(t_vec3 v, float a)
+float	ft_dotv3(t_vec3 v1, t_vec3 v2)
 {
-	return ((t_vec3){
-		v.x * a,
-		v.y * a,
-		v.z * a
-	});
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vec3	ft_scaling3(t_vec3 v, t_vec3 factors)
+float	ft_dotv4(t_vec4 v1, t_vec4 v2)
 {
-	t_vec3	new;
-
-	new.x = v.x * factors.x;
-	new.y = v.y * factors.y;
-	new.z = v.z * factors.z;
-	return (new);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w);
 }

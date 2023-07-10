@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 21:06:18 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 15:39:22 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:06:18 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int	ft_end_program(t_render *r)
 	{
 		if (r->map)
 		{
-			if (r->map->z)
-				free(r->map->z);
-			if (r->map->color)
-				free(r->map->color);
+			if (r->map->p)
+				free(r->map->p);
 			free(r->map);
 		}
 		if (r->cam)

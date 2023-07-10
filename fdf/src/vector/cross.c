@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector2_utils.c                                    :+:      :+:    :+:   */
+/*   cross.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 15:57:41 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 13:53:36 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 21:05:54 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/07 18:39:17 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vec2	ft_minus2(t_vec2 v, t_vec2 traslation)
+t_vec3	ft_cross(t_vec3 v1, t_vec3 v2)
 {
-	return ((t_vec2){
-		v.x - traslation.x,
-		v.y - traslation.y
-	});
-}
+	t_vec3	v;
 
-t_vec2	ft_byscalar2(t_vec2 v, float a)
-{
-	return ((t_vec2){
-		v.x * a,
-		v.y * a
-	});
-}
-
-t_vec2	ft_scaling2(t_vec2 v, t_vec2 factors)
-{
-	t_vec2	new;
-
-	new.x = v.x * factors.x;
-	new.y = v.y * factors.y;
-	return (new);
+	v.x = (v1.y * v2.z) - (v2.y * v1.z);
+	v.y = (v1.z * v2.x) - (v2.z * v1.x);
+	v.z = (v1.x * v2.y) - (v2.x * v1.y);
+	return (v);
 }

@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/30 20:21:50 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/10 20:52:24 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define _USE_MATH_DEFINES
 
 # include <math.h>
+# include <sys/param.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -26,8 +27,8 @@
 
 # include "vector.h"
 # include "trasformations.h"
-# include "render.h"
 # include "geometric.h"
+# include "render.h"
 # include "controls.h"
 
 # include "colors.h"

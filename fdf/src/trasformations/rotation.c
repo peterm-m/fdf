@@ -5,88 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 14:53:35 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/29 20:25:20 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/07 18:38:01 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/07 19:49:59 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	axis_rotation(float angle, t_vec3 *axis, t_matrix4 *mat)
+t_matrix4	rotater(float a, t_vec3 axis)
 {
-	float	c;
-	float	s;
+	t_matrix4	m;
+	float		s;
+	float		c;
+	float		cv;
 
-	c = cosf(angle);
-	s = sinf(angle);
-	ft_setcol4(mat, (t_vec4){(1 - c) * axis->x * axis->x + c,
-		(1 - c) * axis->x * axis->y - s * axis->z,
-		(1 - c) * axis->x * axis->z - s * axis->y, 0}, 0);
-	ft_setcol4(mat, (t_vec4){(1 - c) * axis->x * axis->y - s * axis->z,
-		(1 - c) * axis->y * axis->y + c,
-		(1 - c) * axis->y * axis->z - s * axis->x, 0}, 1);
-	ft_setcol4(mat, (t_vec4){(1 - c) * axis->x * axis->z - s * axis->y,
-		(1 - c) * axis->y * axis->z - s * axis->x,
-		(1 - c) * axis->z * axis->z + c, 0}, 2);
-	ft_setcol4(mat, (t_vec4){0, 0, 0, 1}, 3);
+	s = sinf(a);
+	c = cosf(a);
+	cv = 1.0f - c;
+	m = ft_ident4();
+	axis = ft_divv3f(axis, ft_lenv3(axis));
+	m.elements[0][0] = (axis.x * axis.x * cv) + c;
+	m.elements[0][1] = (axis.x * axis.y * cv) + (axis.z * s);
+	m.elements[0][2] = (axis.x * axis.z * cv) - (axis.y * s);
+	m.elements[1][0] = (axis.y * axis.x * cv) - (axis.z * s);
+	m.elements[1][1] = (axis.y * axis.y * cv) + c;
+	m.elements[1][2] = (axis.y * axis.z * cv) + (axis.x * s);
+	m.elements[2][0] = (axis.z * axis.x * cv) + (axis.y * s);
+	m.elements[2][1] = (axis.z * axis.y * cv) - (axis.x * s);
+	m.elements[2][2] = (axis.z * axis.z * cv) + c;
+	return (m);
 }
 
-void	rotationx(float angle, t_matrix4 *mat)
+t_matrix4	rotatel(float a, t_vec3 axis)
 {
-	float	c;
-	float	s;
-
-	c = cosf(angle);
-	s = sinf(angle);
-	ft_setcol4(mat, (t_vec4){1, 0, 0, 0}, 0);
-	ft_setcol4(mat, (t_vec4){0, c, -s, 0}, 1);
-	ft_setcol4(mat, (t_vec4){0, s, c, 0}, 2);
-	ft_setcol4(mat, (t_vec4){0, 0, 0, 1}, 3);
+	return (rotater(-a, axis));
 }
 
-void	rotationy(float angle, t_matrix4 *mat)
+t_matrix4	invrotate(t_matrix4 rotation_m)
 {
-	float	c;
-	float	s;
+	t_matrix4	m;
 
-	c = cosf(angle);
-	s = sinf(angle);
-	ft_setcol4(mat, (t_vec4){c, 0, -s, 0}, 0);
-	ft_setcol4(mat, (t_vec4){0, 1, 0, 0}, 1);
-	ft_setcol4(mat, (t_vec4){s, 0, c, 0}, 2);
-	ft_setcol4(mat, (t_vec4){0, 0, 0, 1}, 3);
-}
-
-void	rotationz(float angle, t_matrix4 *mat)
-{
-	float	c;
-	float	s;
-
-	c = cosf(angle);
-	s = sinf(angle);
-	ft_setcol4(mat, (t_vec4){c, -s, 0, 0}, 0);
-	ft_setcol4(mat, (t_vec4){s, c, 0, 0}, 1);
-	ft_setcol4(mat, (t_vec4){0, 0, 1, 0}, 2);
-	ft_setcol4(mat, (t_vec4){0, 0, 0, 1}, 3);
-}
-
-void	angle_to_axes(t_vec3 *a, t_matrix4 *mat)
-{
-	float	cx;
-	float	cy;
-	float	cz;
-
-	cx = cosf(a->x);
-	cy = cosf(a->y);
-	cz = cosf(a->z);
-	ft_setcol4(mat, (t_vec4){cy * cz,
-		(1 - cx * cx) * (1 - cy * cy) * cz + cx * (1 - cz * cz),
-		-cx * (1 - cy * cy) * cz + (1 - cx * cx) * (1 - cz * cz), 0}, 0);
-	ft_setcol4(mat, (t_vec4){-cy * (1 - cz * cz),
-		-(1 - cx * cx) * (1 - cy * cy) * (1 - cz * cz) + cx * cz,
-		cx * (1 - cy * cy) * (1 - cz * cz) + (1 - cx * cx) * cz, 0}, 1);
-	ft_setcol4(mat, (t_vec4){(1 - cy * cy),
-		-(1 - cx * cx) * cy,
-		cx * cy, 0}, 2);
-	ft_setcol4(mat, (t_vec4){0, 0, 0, 1}, 3);
+	m.elements[0][1] = rotation_m.elements[1][0];
+	m.elements[0][2] = rotation_m.elements[2][0];
+	m.elements[0][3] = rotation_m.elements[3][0];
+	m.elements[1][0] = rotation_m.elements[0][1];
+	m.elements[1][2] = rotation_m.elements[2][1];
+	m.elements[1][3] = rotation_m.elements[3][1];
+	m.elements[2][1] = rotation_m.elements[1][2];
+	m.elements[2][0] = rotation_m.elements[0][2];
+	m.elements[2][3] = rotation_m.elements[3][2];
+	m.elements[3][1] = rotation_m.elements[1][3];
+	m.elements[3][2] = rotation_m.elements[2][3];
+	m.elements[3][0] = rotation_m.elements[0][3];
+	return (m);
 }

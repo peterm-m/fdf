@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_vector.c                                     :+:      :+:    :+:   */
+/*   mulvf.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 13:42:11 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/30 20:22:22 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 20:39:15 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 21:02:58 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_vec2(t_vec2 m)
+t_vec2	ft_mulv2f(t_vec2 v, float f)
 {
-	printf("%f %f\n", m.x, m.y);
+	t_vec2	v1;
+
+	v1.x = v.x * f;
+	v1.y = v.y * f;
+	return (v1);
 }
 
-void	print_vec3(t_vec3 m)
+t_vec3	ft_mulv3f(t_vec3 v, float f)
 {
-	printf("%f %f %f \n", m.x, m.y, m.z);
+	t_vec3	v1;
+
+	v1.x = v.x * f;
+	v1.y = v.y * f;
+	v1.z = v.z * f;
+	return (v1);
 }
 
-void	print_vec4(t_vec4 m)
+t_vec4	ft_mulv4f(t_vec4 v, float f)
 {
-	printf("%f %f %f %f\n", m.x, m.y, m.z, m.w);
+	t_vec4	v1;
+
+	v1.x = v.x * f;
+	v1.y = v.y * f;
+	v1.z = v.z * f;
+	v1.w = v.w * f;
+	return (v1);
 }

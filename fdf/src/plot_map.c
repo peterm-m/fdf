@@ -6,78 +6,59 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:28:29 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/30 20:32:10 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:20:41 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//void	to_imgage(t_render *r, t_point p0, t_point p1)
-//{
-//	t_line	l;
-//
-//	l.p0.x = (int) p0.r.x;
-//	l.p0.y = (int) p0.r.y;
-//	l.p0.color = (int) p1.color;
-//	l.p1.x = (int) p1.r.x;
-//	l.p1.y = (int) p1.r.y;
-//	l.p1.color = (int) p1.color;
-//	l.dx = abs(l.p1.x - l.p0.x);
-//	l.dy = -abs(l.p1.y - l.p0.y);
-//	if (l.p0.x < l.p1.x)
-//		l.sx = 1;
-//	else
-//		l.sx = -1;
-//	if (l.p0.y < l.p1.y)
-//		l.sy = 1;
-//	else
-//		l.sy = -1;
-//	l.err = l.dx + l.dy;
-//	ft_plot_line(r->img, &l);
-//}
-//
-//t_point	to_windows(t_render *r, int x, int y)
-//{
-//	t_point	p;
-//	t_vec4	v;
-//
-//	v = ft_bymat4(&((t_vec4){x, y,
-//				r->map->z[y * r->map->ncol + x], 0}),
-//			r->cam->trasform);
-//	if (v.w == 0)
-//		v.w = 0.01;
-//	p.r = (t_vec3){r->img->w / 2 * v.x / v.w + r->img->w / 2,
-//		r->img->h / 2 * v.y / v.w + r->img->h / 2,
-//		(r->cam->proj.min.z - r->cam->proj.max.z) / 2 * v.z / v.w
-//		+ (r->cam->proj.min.z - r->cam->proj.max.z) / 2};
-//	p.color = r->map->color[y * r->map->ncol + x];
-//	return (p);
-//}
+int	set_line(t_render *r, t_point p0, t_point p1)
+{
+	t_line	l;
+
+	p0.r = ft_mulm4v(r->cam->trasform, p0.r);
+	p1.r = ft_mulm4v(r->cam->trasform, p1.r);
+	printf("r0\n");
+	printv4(p0.r);
+	printf("r1\n");
+	printv4(p1.r);
+	l.x0 = (int) p0.r.x;
+	l.y0 = (int) p0.r.y;
+	l.z0 = (int) p0.r.z;
+	l.x1 = (int) p1.r.x;
+	l.y1 = (int) p1.r.y;
+	l.z1 = (int) p1.r.z;
+	l.c0 = p0.color;
+	l.c1 = p1.color;
+	ft_plot_line(r->img, l.x0, l.y0, l.z0, l.x1, l.y1, l.z1);
+	return (EXIT_SUCCESS);
+}
 
 int	ft_plot_map(t_render *r)
 {
-	r->cam->rot_model.x = r->cam->rot_model.x;
-//	int		x;
-//	int		y;
+	int		x;
+	int		y;
 
-
-	//y = -1;
-	//while (++y < r->map->nrow -1)
-	//{
-	//	x = -1;
-	//	while (++x < r->map->ncol -1)
-	//	{
-	//		to_imgage(r, to_windows(r, x, y),
-	//			to_windows(r, x, y + 1));
-	//		to_imgage(r, to_windows(r, x, y),
-	//			to_windows(r, x + 1, y));
-	//	}
-	//	to_imgage(r, to_windows(r, x, y), to_windows(r, x, y + 1));
-	//}
-	//x = -1;
-	//while (++x < r->map->ncol -1)
-	//	to_imgage(r, to_windows(r, x, y), to_windows(r, x + 1, y));
-	//mlx_put_image_to_window(r->img->win.mlx, r->img->win.win,
-	//	r->img->ptr, 0, 0);
+	y = -1;
+	while (++y < r->map->nrow -1)
+	{
+		x = -1;
+		while (++x < r->map->ncol -1)
+		{
+			set_line(r, r->map->p[y * r->map->ncol + x],
+				r->map->p[(y + 1) * r->map->ncol + x]);
+			set_line(r, r->map->p[y * r->map->ncol + x],
+				r->map->p[y * r->map->ncol + x + 1]);
+		}
+		set_line(r, r->map->p[y * r->map->ncol + x],
+			r->map->p[(y + 1) * r->map->ncol + x]);
+	}
+	x = -1;
+	while (++x < r->map->ncol -1)
+		set_line(r, r->map->p[y * r->map->ncol + x],
+			r->map->p[y * r->map->ncol + x + 1]);
+	mlx_put_image_to_window(r->img->win.mlx, r->img->win.win,
+		r->img->ptr, 0, 0);
 	return (EXIT_SUCCESS);
 }
+

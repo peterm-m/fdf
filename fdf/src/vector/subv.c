@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traslation.c                                       :+:      :+:    :+:   */
+/*   subv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 18:38:08 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/07 21:06:02 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 20:26:09 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 20:33:21 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix4	translate(t_vec3 translation)
+t_vec2	ft_subv2(t_vec2 v1, t_vec2 v2)
 {
-	t_matrix4	m;
+	t_vec2	v;
 
-	m = ft_ident4();
-	m.elements[3][0] = translation.x;
-	m.elements[3][1] = translation.y;
-	m.elements[3][2] = translation.z;
-	return (m);
+	v.x = v1.x - v2.x;
+	v.y = v1.y - v2.y;
+	return (v);
 }
 
-t_matrix4	inv_translate(t_matrix4 translation_m)
+t_vec3	ft_subv3(t_vec3 v1, t_vec3 v2)
 {
-	t_matrix4	m;
+	t_vec3	v;
 
-	m = translation_m;
-	m.elements[3][0] = -m.elements[3][0];
-	m.elements[3][1] = -m.elements[3][1];
-	m.elements[3][2] = -m.elements[3][2];
-	return (m);
+	v.x = v1.x - v2.x;
+	v.y = v1.y - v2.y;
+	v.z = v1.z - v2.z;
+	return (v);
+}
+
+t_vec4	ft_subv4(t_vec4 v1, t_vec4 v2)
+{
+	t_vec4	v;
+
+	v.x = v1.x - v2.x;
+	v.y = v1.y - v2.y;
+	v.y = v1.z - v2.z;
+	v.w = v1.w - v2.w;
+	return (v);
 }

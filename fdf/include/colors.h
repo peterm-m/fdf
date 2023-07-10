@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:45:13 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/11 15:22:24 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:34:14 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,10 @@ typedef struct s_color {
 # define CL_POS_GREEN 8
 # define CL_POS_BLUE 0
 
-int		set_rgba(int a, int r, int g, int b);
-int		get_red(int color);
-int		get_green(int color);
-int		get_blue(int color);
-int		get_alpha(int color);
-
-void	get_gradient(t_color *grad, t_pixel *r0, t_pixel *r1);
-int		pixel_color(t_color *grad, t_pixel *r0, t_pixel *r1);
+int		set_rgba(t_vec4 color);
+int		get_r(float color);
+int		get_g(float color);
+int		get_b(float color);
+int		get_a(float color);
 
 #endif

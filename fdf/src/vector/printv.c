@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traslation.c                                       :+:      :+:    :+:   */
+/*   printv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 18:38:08 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/07 21:06:02 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/07 20:45:38 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/07 20:47:35 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_matrix4	translate(t_vec3 translation)
+void	printv2(t_vec2 v)
 {
-	t_matrix4	m;
-
-	m = ft_ident4();
-	m.elements[3][0] = translation.x;
-	m.elements[3][1] = translation.y;
-	m.elements[3][2] = translation.z;
-	return (m);
+	printf("%f %f \n", v.x, v.y);
 }
 
-t_matrix4	inv_translate(t_matrix4 translation_m)
+void	printv3(t_vec3 v)
 {
-	t_matrix4	m;
+	printf("%f %f %f \n", v.x, v.y, v.z);
+}
 
-	m = translation_m;
-	m.elements[3][0] = -m.elements[3][0];
-	m.elements[3][1] = -m.elements[3][1];
-	m.elements[3][2] = -m.elements[3][2];
-	return (m);
+void	printv4(t_vec4 v)
+{
+	printf("%f %f %f %f \n", v.x, v.y, v.z, v.w);
 }

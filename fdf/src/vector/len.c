@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector2.c                                          :+:      :+:    :+:   */
+/*   len.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 13:48:05 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/24 15:58:13 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/06 21:35:48 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/06 21:36:34 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	ft_dot_product2(t_vec2 a, t_vec2 b)
+float	ft_lenv2(t_vec2 v)
 {
-	return (a.x * b.x + a.y * b.y);
+	return (sqrtf(v.x * v.x + v.y * v.y));
 }
 
-t_vec2	ft_normalize2(t_vec2 a)
+float	ft_lenv3(t_vec3 v)
 {
-	float	norm;
-
-	norm = sqrtf(ft_dot_product2(a, a));
-	if (norm != 0)
-		return ((t_vec2){0, 0});
-	return ((t_vec2){
-		a.x / norm,
-		a.y / norm
-	});
+	return (sqrtf(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
-t_vec2	ft_bymat2(t_vec2 *a, t_matrix2 mat)
+float	ft_lenv4(t_vec4 v)
 {
-	return ((t_vec2){
-		a->x * mat[0][0] + a->y * mat[0][1],
-		a->x * mat[1][0] + a->y * mat[1][1]
-		});
+	return (sqrtf(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w));
 }

@@ -6,93 +6,243 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:15:20 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/30 20:54:17 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:48:19 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-typedef struct s_vec2 {
-	float	x;
-	float	y;
+typedef union u_vec2
+{
+	struct
+	{
+		float	x;
+		float	y;
+	};
+	struct
+	{
+		float	u;
+		float	v;
+	};
+	struct
+	{
+		float	left;
+		float	right;
+	};
+	struct
+	{
+		float	width;
+		float	height;
+	};
+	float	elements[2];
 }	t_vec2;
 
-typedef float	t_matrix2[2][2];
+typedef union u_matrix2
+{
+	float	elements[2][2];
+	t_vec2	columns[2];
+}	t_matrix2;
 
-t_matrix2	*new_matrix2(void );
-
-void		ft_setrow2(t_matrix2 *mat, t_vec2 data, int row);
-void		ft_setcol2(t_matrix2 *mat, t_vec2 data, int row);
-t_vec2		ft_getrow2(t_matrix2 *mat, int row);
-t_vec2		ft_getcol2(t_matrix2 *mat, int row);
-void		ft_matmul2(t_matrix2 res, t_matrix2 a, t_matrix2 b);
-
-void		print_matrix2(t_matrix2 m);
-
-t_vec2		ft_bymat2(t_vec2 *a, t_matrix2 mat);
-float		ft_dot_product2(t_vec2 a, t_vec2 b);
-t_vec2		ft_normalize2(t_vec2 a);
-t_vec2		ft_byscalar2(t_vec2 v, float a);
-t_vec2		ft_minus2(t_vec2 v, t_vec2 traslation);
-t_vec2		ft_scaling2(t_vec2 v, t_vec2 factors);
-
-void		print_vec2(t_vec2 v);
-
-typedef struct s_vec3 {
-	float	x;
-	float	y;
-	float	z;
+typedef union u_vec3
+{
+	struct
+	{
+		float	x;
+		float	y;
+		float	z;
+	};
+	struct
+	{
+		float	u;
+		float	v;
+		float	w;
+	};
+	struct
+	{
+		float	r;
+		float	g;
+		float	b;
+	};
+	struct
+	{
+		t_vec2	xy;
+		float	nothing1;
+	};
+	struct
+	{
+		float	nothing2;
+		t_vec2	yz;
+	};
+	struct
+	{
+		t_vec2	uv;
+		float	nothing3;
+	};
+	struct
+	{
+		float	nothing4;
+		t_vec2	vw;
+	};
+	float	elements[3];
 }	t_vec3;
 
-typedef float	t_matrix3[3][3];
+typedef union u_matrix3
+{
+	float	elements[3][3];
+	t_vec3	columns[3];
+}	t_matrix3;
 
-t_matrix3	*new_matrix3(void );
-
-void		ft_setrow3(t_matrix3 *mat, t_vec3 data, int row);
-void		ft_setcol3(t_matrix3 *mat, t_vec3 data, int row);
-t_vec3		ft_getrow3(t_matrix3 *mat, int row);
-t_vec3		ft_getcol3(t_matrix3 *mat, int row);
-void		ft_matmul3(t_matrix3 res, t_matrix3 a, t_matrix3 b);
-
-void		print_matrix3(t_matrix3 m);
-
-t_vec3		ft_bymat3(t_vec3 *a, t_matrix3 mat);
-float		ft_dot_product3(t_vec3 a, t_vec3 b);
-t_vec3		ft_vector_product3(t_vec3 *a, t_vec3 *b);
-t_vec3		ft_normalize3(t_vec3 a);
-t_vec3		ft_byscalar3(t_vec3 v, float a);
-t_vec3		ft_minus3(t_vec3 v, t_vec3 traslation);
-t_vec3		ft_scaling3(t_vec3 v, t_vec3 factors);
-
-void		print_vec3(t_vec3 v);
-
-typedef struct s_vec4 {
-	float	x;
-	float	y;
-	float	z;
-	float	w;
+typedef union u_vec4
+{
+	struct
+	{
+		union
+		{
+			t_vec3	xyz;
+			struct
+			{
+				float	x;
+				float	y;
+				float	z;
+			};
+		};
+		float	w;
+	};
+	struct
+	{
+		union
+		{
+			t_vec3	rgb;
+			struct
+			{
+				float	r;
+				float	g;
+				float	b;
+			};
+		};
+		float	a;
+	};
+	struct
+	{
+		t_vec2	xy;
+		float	nothing1;
+		float	nothing2;
+	};
+	struct
+	{
+		float	nothing3;
+		t_vec2	yz;
+		float	nothing4;
+	};
+	struct
+	{
+		float	nothing5;
+		float	nothing6;
+		t_vec2	zw;
+	};
+	float	elements[4];
 }	t_vec4;
 
-typedef float	t_matrix4[4][4];
+typedef union u_matrix4
+{
+	float	elements[4][4];
+	t_vec4	columns[4];
+}	t_matrix4;
 
-t_matrix4	*new_matrix4(void );
+/// creation
+t_vec2		ft_vec2(float x, float y);
+t_vec3		ft_vec3(float x, float y, float z);
+t_vec4		ft_vec4(float x, float y, float z, float w);
 
-void		ft_setrow4(t_matrix4 *mat, t_vec4 data, int row);
-void		ft_setcol4(t_matrix4 *mat, t_vec4 data, int row);
-t_vec4		ft_getrow4(t_matrix4 *mat, int row);
-t_vec4		ft_getcol4(t_matrix4 *mat, int row);
-void		ft_matmul4(t_matrix4 *res, t_matrix4 a, t_matrix4 b);
+t_matrix2	ft_mat2(void );
+t_matrix3	ft_mat3(void );
+t_matrix4	ft_mat4(void );
 
-void		print_matrix4(t_matrix4 *m);
+t_matrix2	ft_ident2(void );
+t_matrix3	ft_ident3(void );
+t_matrix4	ft_ident4(void );
 
-float		ft_dot_product4(t_vec4 a, t_vec4 b);
-t_vec4		ft_normalize4(t_vec4 a);
-t_vec4		ft_bymat4(t_vec4 *a, t_matrix4 mat);
-t_vec4		ft_byscalar4(t_vec4 v, float a);
-t_vec4		ft_minus4(t_vec4 v, t_vec4 traslation);
-t_vec4		ft_scaling4(t_vec4 v, t_vec4 factors);
+// binary
+t_vec4		ft_linear_combv4m4(t_vec4 v, t_matrix4 m);
 
-void		print_vec4(t_vec4 v);
+t_vec2		ft_addv2(t_vec2 v1, t_vec2 v2);
+t_vec3		ft_addv3(t_vec3 v1, t_vec3 v2);
+t_vec4		ft_addv4(t_vec4 v1, t_vec4 v2);
+
+t_matrix2	ft_addm2(t_matrix2 m1, t_matrix2 m2);
+t_matrix3	ft_addm3(t_matrix3 m1, t_matrix3 m2);
+t_matrix4	ft_addm4(t_matrix4 m1, t_matrix4 m2);
+
+t_vec2		ft_subv2(t_vec2 v1, t_vec2 v2);
+t_vec3		ft_subv3(t_vec3 v1, t_vec3 v2);
+t_vec4		ft_subv4(t_vec4 v1, t_vec4 v2);
+
+t_matrix2	ft_subm2(t_matrix2 a, t_matrix2 b);
+t_matrix3	ft_subm3(t_matrix3 a, t_matrix3 b);
+t_matrix4	ft_subm4(t_matrix4 a, t_matrix4 b);
+
+t_vec2		ft_mulv2v(t_vec2 v1, t_vec2 v2);
+t_vec3		ft_mulv3v(t_vec3 v1, t_vec3 v2);
+t_vec4		ft_mulv4v(t_vec4 v1, t_vec4 v2);
+
+t_vec2		ft_mulm2v(t_matrix2 m, t_vec2 v);
+t_vec3		ft_mulm3v(t_matrix3 m, t_vec3 v);
+t_vec4		ft_mulm4v(t_matrix4 m, t_vec4 v);
+
+t_matrix2	ft_mulm2m(t_matrix2 m1, t_matrix2 m2);
+t_matrix3	ft_mulm3m(t_matrix3 m1, t_matrix3 m2);
+t_matrix4	ft_mulm4m(t_matrix4 m1, t_matrix4 m2);
+
+t_vec2		ft_mulv2f(t_vec2 v, float f);
+t_vec3		ft_mulv3f(t_vec3 v, float f);
+t_vec4		ft_mulv4f(t_vec4 v, float f);
+
+t_matrix2	ft_mulm2f(t_matrix2 m, float f);
+t_matrix3	ft_mulm3f(t_matrix3 m, float f);
+t_matrix4	ft_mulm4f(t_matrix4 m, float f);
+
+t_vec2		ft_divv2f(t_vec2 v, float f);
+t_vec3		ft_divv3f(t_vec3 v, float f);
+t_vec4		ft_divv4f(t_vec4 v, float f);
+
+t_matrix2	ft_divm2f(t_matrix2 m, float f);
+t_matrix3	ft_divm3f(t_matrix3 m, float f);
+t_matrix4	ft_divm4f(t_matrix4 m, float f);
+
+bool		ft_eqv2(t_vec2 v1, t_vec2 v2);
+bool		ft_eqv3(t_vec3 v1, t_vec3 v2);
+bool		ft_eqv4(t_vec4 v1, t_vec4 v2);
+
+float		ft_dotv2(t_vec2 v1, t_vec2 v2);
+float		ft_dotv3(t_vec3 v1, t_vec3 v2);
+float		ft_dotv4(t_vec4 v1, t_vec4 v2);
+
+t_vec3		ft_cross(t_vec3 v1, t_vec3 v2);
+// unary
+float		ft_lensqrv2(t_vec2 v);
+float		ft_lensqrv3(t_vec3 v);
+float		ft_lensqrv4(t_vec4 v);
+
+float		ft_lenv2(t_vec2 v);
+float		ft_lenv3(t_vec3 v);
+float		ft_lenv4(t_vec4 v);
+
+float		ft_normv2(t_vec2 v);
+float		ft_normv3(t_vec3 v);
+float		ft_normv4(t_vec4 v);
+
+t_matrix2	ft_transposem2(t_matrix2 m);
+t_matrix3	ft_transposem3(t_matrix3 m);
+t_matrix4	ft_transposem4(t_matrix4 m);
+
+// utils
+void		printv2(t_vec2 v);
+void		printv3(t_vec3 v);
+void		printv4(t_vec4 v);
+
+void		printm2(t_matrix2 m);
+void		printm3(t_matrix3 m);
+void		printm4(t_matrix4 m);
 
 #endif

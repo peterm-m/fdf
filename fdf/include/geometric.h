@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 14:43:41 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/15 19:19:03 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:41:04 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,28 @@
 
 # include "fdf.h"
 
-typedef struct s_point {
-	t_vec3	r;
-	int		color;
-}	t_point;
-
 typedef struct s_circle {
-	t_point	p0;
+	t_vec4	p0;
 	float	rad;
 	int		color;
 }	t_circle;
 
-typedef struct s_pixel {
-	int	x;
-	int	y;
-	int	color;
-}	t_pixel;
-
 typedef struct s_line {
-	t_pixel	p0;
-	t_pixel	p1;
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		dcolor;
+	int		x0;
+	int		y0;
+	int		z0;
+	t_vec4	c0;
+	int		x1;
+	int		y1;
+	int		z1;
+	t_vec4	c1;
 }	t_line;
 
-t_point		to_ndc(t_render *r, int x, int y);
-t_point		point(t_map *map, int x, int y);
+
 /*
 *	Primitive plots
 */
-void		ft_put_pixel(t_img *img, t_pixel *p);
-void		ft_plot_line(t_img *img, t_line *l);
+
 //void		ft_plot_circle(t_img *img, t_circle *c);
 //void		ft_plot_axis(t_img *img, t_cam *cam);
 

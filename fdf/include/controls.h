@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:32:20 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/15 20:10:57 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:29:30 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,86 +16,65 @@
 int		key_manager(int key, t_render *render);
 int		mouse_manager(int buttom, int x, int y, t_render *render);
 
-void	key_traslation(int key, t_render *render);
-void	key_rotation(int key, t_render *render);
-void	key_affin(int key, t_render *render);
+void	view_manager(int key, t_render *r);
+void	model_manger(int key, t_render *r);
+void	projection_manager(int key, t_render *r);
+void	key_scale(void );
 
 # if defined KEYS_LINUX
-// general
-#  define F_ESC 65307
-/*
-* camera control
-*/
 
-// traslation 
-#  define Q_ZPLUS 113
-#  define E_ZMIN 101
-#  define W_XPLUS 119
-#  define S_XMIN 115
-#  define A_YPLUS 97
-#  define D_YMIN 100
-
-// rotation
-#  define U_APLUS 117
-#  define O_AMIN 111
-#  define I_BPLUS 105
-#  define K_BMIN 107
-#  define J_CPLUS 106
-#  define L_CMIN 108
+#  define KEY_ESC 65307
+#  define KEY_Q 113
+#  define KEY_E 101
+#  define KEY_W 119
+#  define KEY_S 115
+#  define KEY_A 97
+#  define KEY_D 100
+#  define KEY_U 117
+#  define KEY_O 111
+#  define KEY_I 105
+#  define KEY_K 107
+#  define KEY_J 106
+#  define KEY_L 108
+#  define KEY_F 102
+#  define KEY_G 103
+#  define KEY_B 98
+#  define KEY_N 110
+#  define KEY_R 114
+#  define KEY_T 116
+#  define KEY_Z 122
+#  define KEY_X 120
+#  define KEY_C 99
+#  define KEY_V 118
 #  define ANG_RESTORE 48
-// focal
-#  define F_FOCPLUS 102
-#  define G_FOCMIN 103
-// scale
-#  define B_SCALEPLUS 98
-#  define N_SCALEMIN 110
-// shear
-#  define R_SHPLUS 114
-#  define T_SHMIN 116
-// offset 
-#  define Z_OFFXPLUS 122
-#  define X_OFFXMIN 120
-#  define C_OFFYPLUS 99
-#  define V_OFFYMIN 118
 
 # else
-// general
-#  define F_ESC 53
 
-/*
-* camera control
-*/
-
-// traslation 
-#  define Q_ZPLUS 12
-#  define E_ZMIN 14
-#  define W_XPLUS 13
-#  define S_XMIN 1
-#  define A_YPLUS 0
-#  define D_YMIN 2
-
-// rotation
-#  define U_APLUS 32
-#  define O_AMIN 31
-#  define I_BPLUS 34
-#  define K_BMIN 40
-#  define J_CPLUS 38
-#  define L_CMIN 37
+#  define KEY_ESC 53
+#  define KEY_Q 12
+#  define KEY_W 13
+#  define KEY_E 14
+#  define KEY_S 1
+#  define KEY_A 0
+#  define KEY_D 2
+#  define KEY_U 32
+#  define KEY_O 31
+#  define KEY_I 34
+#  define KEY_K 40
+#  define KEY_J 38
+#  define KEY_L 37
+#  define KEY_F 3
+#  define KEY_G 5
+#  define KEY_B 11
+#  define KEY_N 45
+#  define KEY_R 15
+#  define KEY_T 17
+#  define KEY_Z 6
+#  define KEY_X 7
+#  define KEY_C 8
+#  define KEY_V 9
 #  define ANG_RESTORE 48
-// focal
-#  define F_FOCPLUS 3
-#  define G_FOCMIN 5
-// scale
-#  define B_SCALEPLUS 11
-#  define N_SCALEMIN 45
-// shear
-#  define R_SHPLUS 15
-#  define T_SHMIN 17
-// offset 
-#  define Z_OFFXPLUS 6
-#  define X_OFFXMIN 7
-#  define C_OFFYPLUS 8
-#  define V_OFFYMIN 9
+
 # endif
 
 # define STEP_X 1

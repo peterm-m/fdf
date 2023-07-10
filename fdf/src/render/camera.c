@@ -14,60 +14,24 @@
 
 void	set_transform(t_cam *c)
 {
-	set_transform_model(c);
-	printf("model\n");
-	print_matrix4(c->model);
-	set_transform_view(c);
-	printf("view\n");
-	print_matrix4(c->view);
-	set_transform_proj(c);
-	printf("proj\n");
-	print_matrix4(c->proj);
-	ft_matmul4(c->trasform, *(c->trasform), *(c->model));
-	ft_matmul4(c->trasform, *(c->trasform), *(c->view));
-	ft_matmul4(c->trasform, *(c->trasform), *(c->proj));
-	printf("total\n");
-	print_matrix4(c->trasform);
-}
-
-void	set_transform_model(t_cam *c)
-{
-	t_matrix4	rot;
-
-	traslation(&(c->pos_model), c->model);
-	axis_rotation(c->rot_model.x, &((t_vec3){1, 0, 0}), &rot);
-	ft_matmul4(c->model, *(c->model), rot);
-	axis_rotation(c->rot_model.y, &((t_vec3){0, 1, 0}), &rot);
-	ft_matmul4(c->model, *(c->model), rot);
-	axis_rotation(c->rot_model.z, &((t_vec3){0, 0, 1}), &rot);
-	ft_matmul4(c->model, *(c->model), rot);
-}
-
-void	set_transform_view(t_cam *c)
-{
-	t_matrix4	rot;
-
-	axis_rotation(c->rot_view.x, &((t_vec3){0, 0, 1}), &rot);
-	ft_matmul4(c->view, *(c->view), rot);
-	axis_rotation(-c->rot_view.y, &((t_vec3){0, 1, 0}), &rot);
-	ft_matmul4(c->view, *(c->view), rot);
-	axis_rotation(c->rot_view.z, &((t_vec3){1, 0, 0}), &rot);
-	ft_matmul4(c->view, *(c->view), rot);
-	traslation(&((t_vec3){
-			-c->pos_view.x,
-			-c->pos_view.y,
-			-c->pos_view.z}), &rot);
-	ft_matmul4(c->view, *(c->view), rot);
-}
-
-void	set_transform_proj(t_cam *c)
-{
-	if (c->proj_type == PROJECTION)
-		projection(c);
-	else if (c->proj_type == PROJEC_SYMMETRIC)
-		sym_projection(c);
-	else if (c->proj_type == ORTHOGRAPHIC)
-		orthographic(c);
-	else if (c->proj_type == ORTHO_SYMMETRIC)
-		sym_orthographic(c);
+	c->model = translate(c->pos_model);
+	c->model = ft_mulm4m(rotater(c->rot_model.x,
+				ft_vec3(1.0f, 0.0f, 0.0f)), c->model);
+	c->model = ft_mulm4m(rotater(c->rot_model.y,
+				ft_vec3(0.0f, 1.0f, 0.0f)), c->model);
+	c->model = ft_mulm4m(rotater(c->rot_model.z,
+				ft_vec3(0.0f, 0.0f, 1.0f)), c->model);
+	c->view = rotater(c->rot_view.z, ft_vec3(0.1f, 0.0f, 0.0f));
+	c->view = ft_mulm4m(rotater(-c->rot_view.y,
+				ft_vec3(0.0f, 1.0f, 0.0f)), c->view);
+	c->view = ft_mulm4m(rotater(c->rot_view.x,
+				ft_vec3(0.0f, 0.0f, 1.0f)), c->view);
+	c->view = ft_mulm4m(translate(c->pos_view), c->view);
+	c->proj = orthographicr(c->proj_max, c->proj_min);
+	c->trasform = ft_mulm4m(c->model, c->view);
+	c->trasform = ft_mulm4m(c->proj, c->trasform);
+	c->trasform = ft_mulm4m(c->trasform,
+			scale(ft_vec3(10.0f, 10.0f, 10.0f)));
+	c->trasform = ft_mulm4m(c->trasform,
+			translate(ft_vec3(DEFAULT_WINX / 2, DEFAULT_WINY / 2, 0)));
 }

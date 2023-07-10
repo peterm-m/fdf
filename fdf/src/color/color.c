@@ -16,28 +16,28 @@
 
 #include "fdf.h"
 
-int	set_rgba(int a, int r, int g, int b)
+int	set_rgba(t_vec4	c)
 {
-	return ((r << CL_POS_RED) + (g << CL_POS_GREEN)
-		+ (b << CL_POS_BLUE) + (a << CL_POS_ALPHA));
+	return (((int)c.a << CL_POS_RED) + ((int)c.g << CL_POS_GREEN)
+		+ ((int)c.b << CL_POS_BLUE) + ((int)c.a << CL_POS_ALPHA));
 }
 
-int	get_red(int color)
+int	get_r(float color)
 {
-	return ((color & CL_MASK_RED) >> CL_POS_RED);
+	return (((int)color & CL_MASK_RED) >> CL_POS_RED);
 }
 
-int	get_green(int color)
+int	get_g(float color)
 {
-	return ((color & CL_MASK_GREEN) >> CL_POS_GREEN);
+	return (((int)color & CL_MASK_GREEN) >> CL_POS_GREEN);
 }
 
-int	get_blue(int color)
+int	get_b(float color)
 {
-	return ((color & CL_MASK_BLUE) >> CL_POS_BLUE);
+	return (((int)color & CL_MASK_BLUE) >> CL_POS_BLUE);
 }
 
-int	get_alpha(int color)
+int	get_a(float color)
 {
-	return ((color & CL_MASK_ALPHA) >> CL_POS_ALPHA);
+	return (((int)color & CL_MASK_ALPHA) >> CL_POS_ALPHA);
 }
