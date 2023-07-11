@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:07:51 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/10 21:40:32 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:06:07 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,29 @@ void	ft_put_pixel(t_img *img, int x, int y, int c)
 	}
 }
 
-
-
-void ft_plot_line(t_img *img, int x0, int y0, int z0, int x1, int y1, int z1)
+void	ft_plot_line(t_img *img, t_line l)
 {
-	int	dx;
-	int	dy;
-	int	dz;
-	int	i;
-
-	dx = abs(x1 - x0) * ((x0 < x1) - (x0 >= x1));
-	dy = abs(y1 - y0) * ((y0 < y1) - (y0 >= y1));
-	dz = abs(z1 - z0) * ((z0 < z1) - (z0 >= z1));
-	i = MAX(MAX(abs(dx), abs(dy)), abs(dz));
-	x1 = MAX(MAX(abs(dx), abs(dy)), abs(dz)) / 2;
-	y1 = MAX(MAX(abs(dx), abs(dy)), abs(dz)) / 2;
-	z1 = MAX(MAX(abs(dx), abs(dy)), abs(dz)) / 2;
-	while (i-- == 0)
+	while (l.i-- != 0)
 	{
-		ft_put_pixel(img, x0, y0, 0x00FFFFFF);
-		x1 -= abs(dx);
-		x1 += (x1 < 0) * MAX(MAX(dx, dy), dz);
-		x0 += dx / abs(dx);
-		y1 -= abs(dy);
-		y1 += ((y1 < 0) * MAX(MAX(dx, dy), dz));
-		y0 += dy / abs(dy);
-		z1 -= abs(dz);
-		z1 += ((z1 < 0) * MAX(MAX(dx, dy), dz));
-		z0 += dz / abs(dz);
+		ft_put_pixel(img, l.x0, l.y0, set_rgba(l.c));
+		l.x1 -= l.dx;
+		if (l.x1 < 0)
+		{
+			l.x1 += l.dm;
+			l.x0 += l.sx;
+		}
+		l.y1 -= l.dy;
+		if (l.y1 < 0)
+		{
+			l.y1 += l.dm;
+			l.y0 += l.sy;
+		}
+		l.z1 -= l.dz;
+		if (l.z1 < 0)
+		{
+			l.z1 += l.dm;
+			l.z0 += l.sz;
+		}
+		l.c = ft_addv4(l.c, l.dc);
 	}
 }

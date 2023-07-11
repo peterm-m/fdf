@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/07/10 21:21:27 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:34:35 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 # define RENDER_H
 
 # include "fdf.h"
-
-# define PROJECTION 0
-# define ORTHOGRAPHIC 1
-# define PROJEC_SYMMETRIC 2
-# define ORTHO_SYMMETRIC 3
-
-# define DEFAULT_WINX 1024
-# define DEFAULT_WINY 1024
-# define DEFAULT_IMGSIZX DEFAULT_WINX
-# define DEFAULT_IMGSIZY DEFAULT_WINY
 
 typedef struct s_point {
 	t_vec4	r;
@@ -89,6 +79,6 @@ void		set_transform_view(t_cam *c);
 t_render	*set_render(t_win *win, char *file);
 void		set_transform(t_cam *c);
 void		ft_put_pixel(t_img *img, int x, int y, int c);
-void		ft_plot_line(t_img *img, int x0, int y0, int z0 , int x1, int y1, int z1);
+void		ft_plot_line(t_img *img, t_line l);
 
 #endif

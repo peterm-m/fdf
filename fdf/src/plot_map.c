@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:28:29 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/10 21:20:41 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:12:13 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@ int	set_line(t_render *r, t_point p0, t_point p1)
 
 	p0.r = ft_mulm4v(r->cam->trasform, p0.r);
 	p1.r = ft_mulm4v(r->cam->trasform, p1.r);
-	printf("r0\n");
-	printv4(p0.r);
-	printf("r1\n");
-	printv4(p1.r);
+	l.dx = abs((int)p1.r.x - (int)p0.r.x);
+	l.dy = abs((int)p1.r.y - (int)p0.r.y);
+	l.dz = abs((int)p1.r.z - (int)p0.r.z);
+	l.sx = (p0.r.x < p1.r.x) - (p0.r.x >= p1.r.x);
+	l.sy = (p0.r.y < p1.r.y) - (p0.r.y >= p1.r.y);
+	l.sz = (p0.r.z < p1.r.z) - (p0.r.z >= p1.r.z);
+	l.dm = MAX(MAX(l.dx, l.dy), l.dz);
+	l.i = l.dm;
+	l.x1 = l.dm / 2;
+	l.y1 = l.dm / 2;
+	l.z1 = l.dm / 2;
 	l.x0 = (int) p0.r.x;
 	l.y0 = (int) p0.r.y;
 	l.z0 = (int) p0.r.z;
-	l.x1 = (int) p1.r.x;
-	l.y1 = (int) p1.r.y;
-	l.z1 = (int) p1.r.z;
-	l.c0 = p0.color;
-	l.c1 = p1.color;
-	ft_plot_line(r->img, l.x0, l.y0, l.z0, l.x1, l.y1, l.z1);
+	l.c = p0.color;
+	l.dc = ft_divv4f(ft_subv4(p1.color, p0.color), (float) l.i);
+	ft_plot_line(r->img, l);
 	return (EXIT_SUCCESS);
 }
 
@@ -61,4 +65,3 @@ int	ft_plot_map(t_render *r)
 		r->img->ptr, 0, 0);
 	return (EXIT_SUCCESS);
 }
-

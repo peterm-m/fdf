@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/10 19:56:27 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:57:32 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	ft_mapline(char *line, t_map *map, int y)
 		map->p[y * map->ncol + x].r = ft_vec4((float)x, (float)y,
 				(float)atoi(point[0]), 1.0f);
 		free(point[0]);
-		map->p[y * map->ncol + x].color = ft_vec4(255.0f, 255.0f, 255.0f, 0.0f);
+		map->p[y * map->ncol + x].color = ft_vec4(0.0f, 255.0f, 255.0f, 255.0f);
 		if (point[1])
 		{
 			color = (float)ft_atoi_base(point[1], 16);
-			map->p[y * map->ncol + x].color = ft_vec4(get_r(color),
-					get_g(color), get_b(color), get_a(color));
+			map->p[y * map->ncol + x].color = ft_vec4(get_a(color),
+					get_r(color), get_g(color), get_b(color));
 			free(point[1]);
 		}
 		free(point);

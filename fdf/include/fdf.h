@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 12:39:01 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/10 20:52:24 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:34:59 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@
 # include "controls.h"
 
 # include "colors.h"
+
+# define DEFAULT_WINX 1024
+# define DEFAULT_WINY 1024
+# define DEFAULT_IMGSIZX DEFAULT_WINX
+# define DEFAULT_IMGSIZY DEFAULT_WINY
 
 void	to_image(t_render *r, t_point p0, t_point p1);
 int		ft_plot_map(t_render	*render);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:18:44 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/10 08:28:40 by pedro            ###   ########.fr       */
+/*   Updated: 2023/07/11 21:35:44 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	key_manager(int key, t_render *r)
 		+ r->img->w * (r->img->bpp / 8));
 	if (key == KEY_ESC)
 		ft_end_program(r);
-	else if (key == ANG_RESTORE)
-		r->cam->rot_view = ft_vec3(0.0f, 0.0f, 0.0f);
+	//else if (key == ANG_RESTORE)
+	//	r->cam->rot_view = ft_vec3(0.0f, 0.0f, 0.0f);
 	view_manager(key, r);
 	model_manger(key, r);
 	projection_manager(key, r);
@@ -77,7 +77,7 @@ void	projection_manager(int key, t_render *r)
 
 int	mouse_manager(int buttom, int x, int y, t_render *render)
 {
-	buttom = x + y;
 	render = (void *) render;
+	printf("but %d x %d y %d \n", buttom, x, y);
 	return (buttom);
 }

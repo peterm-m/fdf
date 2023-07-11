@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/09 14:39:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/07/11 20:27:16 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	win = ft_program(DEFAULT_WINX, DEFAULT_WINY, "fdf");
 	render = set_render(&win, argv[1]);
+//	mlx_hook(win.win, 6, 1L << 7, &mouse_manager, render);
 	mlx_mouse_hook(win.win, &mouse_manager, &win);
 	mlx_key_hook(win.win, &key_manager, render);
 	mlx_loop_hook(win.mlx, &ft_plot_map, render);
