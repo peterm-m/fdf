@@ -36,6 +36,8 @@ SRCS = \
 	  render/maps.c\
 	  render/render.c\
 	  controls/controls.c\
+	  controls/keys.c\
+	  controls/mouse.c\
 	  mlx_utils.c\
 	  plot_utils.c\
 	  plot_map.c\

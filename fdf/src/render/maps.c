@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:25:52 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/11 19:57:32 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:18:34 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,46 +81,3 @@ t_map	*ft_fillmap(char **lines)
 		ft_mapline(lines[y], map, y);
 	return (map);
 }
-
-//oid	ft_print_map(t_map *m)
-//
-//	int		x;
-//	int		y;
-//	t_point	p;
-//
-//	y = -1;
-//	ft_printf("MAP:\n");
-//	while (++y < m->nrow)
-//	{
-//		x = -1;
-//		while (++x < m->ncol)
-//		{
-//			p = point(m, x, y);
-//			ft_printf("%d|%d ", p.r.z, p.color);
-//		}
-//		ft_printf("\n");
-//	}
-//	ft_printf("nrow %d ncol %d\n", m->nrow, m->ncol);
-//
-//
-//_point	ft_point(t_map *map, int x, int y)
-//
-//	t_point	p;
-//
-//	p.r.x = (float)x;
-//	p.r.y = (float)y;
-//	p.r.z = (float)map->z[y * map->ncol + x];
-//	p.r.w = 1.0f;
-//	p.color.r = get_r(map->color[y * map->ncol + x]);
-//	p.color.g = get_g(map->color[y * map->ncol + x]);
-//	p.color.b = get_b(map->color[y * map->ncol + x]);
-//	p.color.a = get_a(map->color[y * map->ncol + x]);
-//	return (p);
-//
-//
-/*
- *	 save map
- *	|----------------------------------------------------------|
- *	| (x0,y0), (x0,y1), ... , (x0,ymax), (x1,y0)...(xmax,ymax) |
- *	|----------------------------------------------------------|
- */

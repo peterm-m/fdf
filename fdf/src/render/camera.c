@@ -35,3 +35,14 @@ void	set_transform(t_cam *c)
 	c->trasform = ft_mulm4m(c->trasform,
 			translate(ft_vec3(DEFAULT_WINX / 2, DEFAULT_WINY / 2, 0)));
 }
+
+void	default_camera(t_cam *c)
+{
+	c->proj_type = PROJ_TYPE_ORTHO;
+	c->pos_view = ft_vec3(0.0f, 0.0f, 0.0f);
+	c->rot_view = ft_vec3(0.0f, 0.0f, 0.0f);
+	c->pos_model = ft_vec3(0.0f, 0.0f, 0.0f);
+	c->rot_model = ft_vec3(0.0f, 0.0f, 0.0f);
+	c->proj_max = ft_vec3(1.0f, 1.0f, 1.0f);
+	c->proj_min = ft_vec3(-1.0f, -1.0f, -1.0f);
+}

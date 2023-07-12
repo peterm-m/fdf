@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/07/11 21:34:35 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:22:43 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void		set_transform_view(t_cam *c);
 
 t_render	*set_render(t_win *win, char *file);
 void		set_transform(t_cam *c);
+void		default_camera(t_cam *c);
 void		ft_put_pixel(t_img *img, int x, int y, int c);
 void		ft_plot_line(t_img *img, t_line l);
 

@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 19:06:17 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/12 22:01:07 by pedromar         ###   ########.fr       */
+/*   Created: 2023/07/12 21:26:58 by pedromar          #+#    #+#             */
+/*   Updated: 2023/07/12 21:28:51 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+int	mouse_motion_manager(int x, int y, t_render *render)
 {
-	t_win		win;
-	t_render	*render;
+	render = (void *) render;
+	printf("move x %d y %d \n", x, y);
+	return (0);
+}
 
-	if (argc != 2)
-		return (EXIT_FAILURE);
-	win = ft_program(DEFAULT_WINX, DEFAULT_WINY, "fdf");
-	render = set_render(&win, argv[1]);
-	set_control(render);
-	mlx_loop(win.mlx);
-	exit(EXIT_SUCCESS);
+int	mouse_button_manager(int buttom, int x, int y, t_render *render)
+{
+	render = (void *) render;
+	printf("press %d x %d y %d \n", buttom, x, y);
+	return (buttom);
 }
