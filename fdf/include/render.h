@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:49:59 by pedro             #+#    #+#             */
-/*   Updated: 2023/07/12 20:22:43 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/13 19:23:42 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_cam {
 	t_vec3		proj_max;
 	t_vec3		proj_min;
 	int			proj_type;
+	int			button_press;
 	t_matrix4	view;
 	t_matrix4	model;
 	t_matrix4	proj;

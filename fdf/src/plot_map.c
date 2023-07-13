@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:28:29 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/11 20:12:13 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/13 19:38:15 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_plot_map(t_render *r)
 	int		y;
 
 	y = -1;
+	printf("%d\n", r->cam->button_press);
 	while (++y < r->map->nrow -1)
 	{
 		x = -1;
@@ -63,5 +64,6 @@ int	ft_plot_map(t_render *r)
 			r->map->p[y * r->map->ncol + x + 1]);
 	mlx_put_image_to_window(r->img->win.mlx, r->img->win.win,
 		r->img->ptr, 0, 0);
+	printf("ok\n");
 	return (EXIT_SUCCESS);
 }

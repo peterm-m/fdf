@@ -45,6 +45,7 @@ SRCS = \
 	  color/color.c
 
 .SILENT:
+
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR   := .build

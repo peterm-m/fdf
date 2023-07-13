@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 11:51:46 by pedromar          #+#    #+#             */
-/*   Updated: 2023/06/12 20:09:17 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:45:02 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 int	set_rgba(t_vec4	c)
 {
-	return (((int)c.a << CL_POS_RED) + ((int)c.g << CL_POS_GREEN)
-		+ ((int)c.b << CL_POS_BLUE) + ((int)c.a << CL_POS_ALPHA));
+	return (((char)c.a << CL_POS_ALPHA) + ((char)c.r << CL_POS_RED)
+		+ ((char)c.g << CL_POS_GREEN) + ((char)c.b << CL_POS_BLUE));
 }
 
 int	get_r(float color)

@@ -6,7 +6,7 @@
 /*   By: pedromar <pedromar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:32:20 by pedromar          #+#    #+#             */
-/*   Updated: 2023/07/12 21:53:34 by pedromar         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:22:57 by pedromar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 void	set_control(t_render *r);
 int		key_manager(int key, t_render *render);
-int		mouse_motion_manager(int x, int y, t_render *render);
-int		mouse_button_manager(int buttom, int x, int y, t_render *render);
+int		mouse_motion_manager(int x, int y, t_render *r);
+int		mouse_button_manager(int buttom, int x, int y, t_render *r);
+int		mouse_button_release(int buttom, int x, int y, t_render *r);
 
 void	view_manager(int key, t_render *r);
 void	model_manger(int key, t_render *r);
